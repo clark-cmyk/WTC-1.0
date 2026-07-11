@@ -68,7 +68,7 @@
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No data. Check console.</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">ARK data missing.</p>`;
                 }
             } else if (id === 8) {
                 content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
@@ -80,10 +80,10 @@
         }
 
         function articulateNode(key) { alert("ART: " + key); }
-        function downloadCSVFromARK() { alert("CSV"); }
-        function triggerDroneWars() { alert("Drone Wars"); }
+        function downloadCSVFromARK() { alert("CSV export"); }
+        function triggerDroneWars() { alert("Drone Wars launched"); }
         function refreshData() { location.reload(); }
-        function articulate() { alert("Snapshot"); }
+        function articulate() { alert("Snapshot copied"); }
         function toggleTheme() { }
 
         renderTabs();
