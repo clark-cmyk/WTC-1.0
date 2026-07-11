@@ -8,7 +8,7 @@
     <style>
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
-        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
     </style>
 </head>
 <body>
@@ -41,92 +41,54 @@
         ];
 
         function renderTabs() {
-            const container = document.getElementById('tabs');
-            container.innerHTML = modules.map(m => `<div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>`).join('');
+            document.getElementById('tabs').innerHTML = modules.map(m => `<div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>`).join('');
         }
 
         async function switchModule(id) {
             currentTabId = id;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            const activeTab = document.querySelectorAll('.tab')[id-1];
-            if (activeTab) activeTab.classList.add('active');
+            document.querySelectorAll('.tab')[id-1].classList.add('active');
 
             const content = document.getElementById('mainContent');
 
             if (id === 6) {
-                content.innerHTML = `<h2>Risk Curve (RCV) — Loading from ARK...</h2>`;
-                if (window.ARK && typeof window.ARK.loadFromDataFiles === 'function') {
-                    await window.ARK.loadFromDataFiles();
-                }
+                content.innerHTML = `<h2>Risk Curve (RCV) — Loading...</h2>`;
+                if (window.ARK) await window.ARK.loadFromDataFiles();
                 const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
 
                 if (curveData && curveData.nodes) {
-                    let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ ARK Loaded • ${curveData.as_of || 'Now'}</p><div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px;">`;
+                    let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
                     Object.entries(curveData.nodes).forEach(([key, node]) => {
-                        const score = node.score !== null && node.score !== undefined ? node.score : '—';
-                        const color = "#0A4D2E";
-                        html += `<div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);" onmouseover="showHover(this)" onmouseout="hideHover(this)">
-                            <h3>${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
-                            <div style="font-size:42px;font-weight:700;color:${color};">${score}</div>
-                            <div style="color:${color};">${node.quartile || 'Q?'} • ${node.status || 'OK'}</div>
-                            <p style="margin-top:8px;font-size:13px;">${node.description || ''}</p>
-                            <button onclick="articulateNode('${key}')" style="margin-top:8px;">A</button>
+                        html += `<div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);">
+                            <h3>${key}</h3>
+                            <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
+                            <div>${node.status} ${node.quartile}</div>
+                            <p>${node.description}</p>
+                            <button onclick="articulateNode('${key}')">A</button>
                         </div>`;
                     });
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes found in ARK.</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes. Check data/risk_curve.json</p>`;
                 }
             } else if (id === 8) {
-                content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()" style="padding:12px 24px;">Export ARK to CSV</button><div id="dictContent" style="margin-top:20px;font-family:monospace;white-space:pre-wrap;background:#111;color:#0f0;padding:15px;"></div>`;
-                loadDictContent();
+                content.innerHTML = `<h2>Data Dictionary</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
             } else if (id === 9) {
-                content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch Arena</button>`;
+                content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch</button>`;
             } else {
-                const mod = modules.find(m => m.id === id);
-                content.innerHTML = `<h2>${mod.name} (${mod.code})</h2><p>Module ready.</p>`;
+                content.innerHTML = `<h2>Module ${id}</h2>`;
             }
         }
 
-        function showHover(el) { if (el) el.classList.add('hover-active'); }
-        function hideHover(el) { if (el) el.classList.remove('hover-active'); }
-        function articulate() { showToast("Snapshot copied"); }
-        function articulateNode(node) { showToast(`ART: ${node}`); }
         function showToast(msg) {
             const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
-            setTimeout(() => t.remove(), 2500);
+            setTimeout(() => t.remove(), 2000);
         }
-        function toggleTheme() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        }
-        function refreshData() {
-            showToast("Refreshing data...");
-            setTimeout(() => location.reload(), 500);
-        }
-        function loadDictContent() {
-            const container = document.getElementById('dictContent');
-            const data = window.ARK ? window.ARK.get('risk_curve') : null;
-            container.textContent = data ? JSON.stringify(data, null, 2) : "No data";
-        }
-        function downloadCSVFromARK() {
-            const data = window.ARK ? window.ARK.get('risk_curve') : null;
-            if (!data) return showToast("No ARK data");
-            let csv = "Node,Score,Quartile,Status,Description\n";
-            Object.entries(data.nodes || {}).forEach(([k, n]) => {
-                csv += `"${k}",${n.score || ''},"${n.quartile || ''}","${n.status || ''}","${(n.description || '').replace(/"/g, '""')}"\n`;
-            });
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'WTC_ARK_export.csv';
-            a.click();
-            showToast("CSV downloaded");
-        }
-        function triggerDroneWars() {
-            showToast("Drone Wars Arena Launched with ARK");
-        }
+        function refreshData() { showToast("Refresh"); setTimeout(() => location.reload(), 300); }
+        function articulateNode(key) { showToast("ART: " + key); }
+        function downloadCSVFromARK() { showToast("CSV export"); }
+        function triggerDroneWars() { showToast("Drone Wars started"); }
 
         renderTabs();
         switchModule(6);
