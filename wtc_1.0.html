@@ -8,7 +8,7 @@
     <style>
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
-        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
+        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
@@ -47,7 +47,8 @@
         async function switchModule(id) {
             currentTabId = id;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab')[id-1].classList.add('active');
+            const tabs = document.querySelectorAll('.tab');
+            if (tabs[id-1]) tabs[id-1].classList.add('active');
 
             const content = document.getElementById('mainContent');
 
@@ -70,10 +71,10 @@
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes. Check data/risk_curve.json</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes in data/risk_curve.json</p>`;
                 }
             } else if (id === 8) {
-                content.innerHTML = `<h2>Data Dictionary</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
+                content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
             } else if (id === 9) {
                 content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch</button>`;
             } else {
@@ -82,13 +83,22 @@
         }
 
         function showToast(msg) {
-            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
-            setTimeout(() => t.remove(), 2000);
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2500);
         }
-        function refreshData() { showToast("Refresh"); setTimeout(() => location.reload(), 300); }
+
+        function refreshData() { showToast("Refreshing..."); setTimeout(() => location.reload(), 400); }
+        function articulate() { showToast("Snapshot copied"); }
         function articulateNode(key) { showToast("ART: " + key); }
-        function downloadCSVFromARK() { showToast("CSV export"); }
-        function triggerDroneWars() { showToast("Drone Wars started"); }
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        }
+        function downloadCSVFromARK() { showToast("CSV export started"); }
+        function triggerDroneWars() { showToast("Drone Wars launched"); }
 
         renderTabs();
         switchModule(6);
