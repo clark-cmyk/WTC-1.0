@@ -1,0 +1,11 @@
+{
+  "as_of": "2026-07-11 17:36:00 CDT",
+  "source": "real_pipeline",
+  "nodes": {
+    "liquidity": { "score": 82, "quartile": "Q3", "status": "Good", "description": "SOFR vs Fed Funds spread stable" },
+    "credit": { "score": 51, "quartile": "Q2", "status": "Neutral", "description": "Corporate spreads tightening" },
+    "equityDepth": { "score": 68, "quartile": "Q3", "status": "Good", "description": "Market breadth improving" },
+    "highBeta": { "score": 24, "quartile": "Q1", "status": "Weak", "description": "High beta under pressure" },
+    "bitcoinBasis": { "score": 91, "quartile": "Q4", "status": "Strong", "description": "Spot vs Futures basis positive - Coinglass synced" }
+  }
+}
