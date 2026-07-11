@@ -1,0 +1,28 @@
+# Large binaries and archives
+*.dmg
+*.zip
+*.tar.gz
+*.7z
+archive/
+*.DS_Store
+Thumbs.db
+
+# Large data files (optional - comment out if you want to track parquet files)
+# *.parquet
+# *.feather
+# data/**/*.parquet
+
+# Python / temp
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Logs
+*.log
+logs/
+
+# Temporary folders
+tmp/
+temp/
+staged_raw/quarantine/
