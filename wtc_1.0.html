@@ -8,7 +8,7 @@
     <style>
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
-        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
     </style>
 </head>
 <body>
@@ -44,7 +44,7 @@
             document.getElementById('tabs').innerHTML = modules.map(m => `<div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>`).join('');
         }
 
-        async function switchModule(id) {
+        function switchModule(id) {
             currentTabId = id;
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             const tabs = document.querySelectorAll('.tab');
@@ -53,10 +53,7 @@
             const content = document.getElementById('mainContent');
 
             if (id === 6) {
-                content.innerHTML = `<h2>Risk Curve (RCV) — Loading...</h2>`;
-                if (window.ARK) await window.ARK.loadFromDataFiles();
                 const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
-
                 if (curveData && curveData.nodes) {
                     let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
                     Object.entries(curveData.nodes).forEach(([key, node]) => {
@@ -71,7 +68,7 @@
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes. Check data/risk_curve.json</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No data. Check console.</p>`;
                 }
             } else if (id === 8) {
                 content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
@@ -82,11 +79,11 @@
             }
         }
 
-        function articulateNode(key) { alert("ART prompt for " + key); }
-        function downloadCSVFromARK() { alert("CSV export"); }
-        function triggerDroneWars() { alert("Drone Wars launched"); }
+        function articulateNode(key) { alert("ART: " + key); }
+        function downloadCSVFromARK() { alert("CSV"); }
+        function triggerDroneWars() { alert("Drone Wars"); }
         function refreshData() { location.reload(); }
-        function articulate() { alert("Snapshot copied"); }
+        function articulate() { alert("Snapshot"); }
         function toggleTheme() { }
 
         renderTabs();
