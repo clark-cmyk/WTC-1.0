@@ -9,8 +9,9 @@
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
         .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
-        .panel { position: relative; }
-        .dig-layer { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 77, 46, 0.95); color: white; padding: 20px; border-radius: 8px; z-index: 10; }
+        .panel { position: relative; transition: all 0.2s; }
+        .panel:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(10, 77, 46, 0.5); }
+        .dig-layer { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 77, 46, 0.95); color: white; padding: 20px; border-radius: 8px; z-index: 10; overflow-y: auto; }
     </style>
 </head>
 <body>
@@ -55,27 +56,23 @@
             const content = document.getElementById('mainContent');
 
             if (id === 6) {
-                content.innerHTML = `<h2>Risk Curve (RCV) — Loading...</h2>`;
-                // Force ARK init if needed
-                if (window.ARK && window.ARK.init) window.ARK.init();
                 const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
-
                 if (curveData && curveData.nodes) {
                     let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
                     Object.entries(curveData.nodes).forEach(([key, node]) => {
                         html += `<div class="panel" style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);" onmouseover="showHover(this)" onmouseout="hideHover(this)">
-                            <h3>${key}</h3>
+                            <h3>${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
                             <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
                             <div>${node.status} ${node.quartile}</div>
                             <p>${node.description}</p>
-                            <button onclick="articulateNode('${key}', '${node.description || ''}')">A</button>
-                            <div class="dig-layer" id="dig-${key}">DIG Layer active for ${key}...</div>
+                            <button onclick="articulateNode('${key}', ${JSON.stringify(node)})">A</button>
+                            <div class="dig-layer" id="dig-${key}">DIG Layer for ${key}...</div>
                         </div>`;
                     });
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">ARK nodes missing. Check js/02_core.js</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes loaded.</p>`;
                 }
             } else if (id === 8) {
                 content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
@@ -89,12 +86,33 @@
         function showHover(el) { if (el) el.classList.add('hover-active'); }
         function hideHover(el) { if (el) el.classList.remove('hover-active'); }
 
-        function articulateNode(key, desc) {
-            const prompt = `Deep analysis of ${key} node: ${desc}. Provide Whinfell Transmission Control recommendations.`;
-            navigator.clipboard.writeText(prompt).then(() => showToast(`Prompt copied for ${key}`));
+        function articulateNode(key, node) {
+            const prompt = `You are Goldman Prop Desk Chief. Deeply analyze this Risk Curve panel:
+
+Node: ${key}
+Score: ${node.score}
+Quartile: ${node.quartile}
+Status: ${node.status}
+Description: ${node.description}
+
+Answer with live signal context:
+- How was this signal calculated?
+- What does the signal tell us about current regime?
+- Comparison: 1D | 30D | 60D | 90D | 1Y | 3Y ($, %, quartile)?
+- Socratic challenges: What are we missing? Think outside the box.
+- Market neutral trade suggestion?
+- Long trade if supported?
+- Short trade if supported?
+
+Provide actionable Whinfell Transmission Control recommendations.`;
+
+            navigator.clipboard.writeText(prompt).then(() => showToast(`Goldman Chief prompt copied for ${key}`));
+
             const dig = document.getElementById(`dig-${key}`);
-            if (dig) dig.style.display = 'block';
-            setTimeout(() => { if (dig) dig.style.display = 'none'; }, 4000);
+            if (dig) {
+                dig.style.display = 'block';
+                setTimeout(() => dig.style.display = 'none', 5000);
+            }
         }
 
         function showToast(msg) {
@@ -105,7 +123,7 @@
         function refreshData() { location.reload(); }
         function articulate() { showToast("Global snapshot"); }
         function toggleTheme() { }
-        function downloadCSVFromARK() { showToast("CSV"); }
+        function downloadCSVFromARK() { showToast("CSV export"); }
         function triggerDroneWars() { showToast("Drone Wars"); }
 
         renderTabs();
