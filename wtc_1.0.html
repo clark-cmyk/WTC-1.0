@@ -55,7 +55,6 @@
 
             if (id === 6) {
                 content.innerHTML = `<h2>Risk Curve (RCV) — Loading from ARK...</h2>`;
-                // Wait for ARK if needed
                 if (window.ARK && typeof window.ARK.loadFromDataFiles === 'function') {
                     await window.ARK.loadFromDataFiles();
                 }
@@ -77,16 +76,16 @@
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">Failed to load nodes. Check console.</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes found in ARK.</p>`;
                 }
             } else if (id === 8) {
-                content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export ARK CSV</button><div id="dictContent" style="margin-top:20px;font-family:monospace;"></div>`;
+                content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()" style="padding:12px 24px;">Export ARK to CSV</button><div id="dictContent" style="margin-top:20px;font-family:monospace;white-space:pre-wrap;background:#111;color:#0f0;padding:15px;"></div>`;
                 loadDictContent();
             } else if (id === 9) {
                 content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch Arena</button>`;
             } else {
                 const mod = modules.find(m => m.id === id);
-                content.innerHTML = `<h2>${mod.name}</h2><p>Ready.</p>`;
+                content.innerHTML = `<h2>${mod.name} (${mod.code})</h2><p>Module ready.</p>`;
             }
         }
 
@@ -95,14 +94,39 @@
         function articulate() { showToast("Snapshot copied"); }
         function articulateNode(node) { showToast(`ART: ${node}`); }
         function showToast(msg) {
-            const t = document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t);
+            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
             setTimeout(() => t.remove(), 2500);
         }
-        function toggleTheme() { /* ... */ }
-        function refreshData() { showToast("Refresh"); setTimeout(() => location.reload(), 400); }
-        function loadDictContent() { /* ... */ }
-        function downloadCSVFromARK() { /* ... */ }
-        function triggerDroneWars() { showToast("Drone Wars launched"); }
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        }
+        function refreshData() {
+            showToast("Refreshing data...");
+            setTimeout(() => location.reload(), 500);
+        }
+        function loadDictContent() {
+            const container = document.getElementById('dictContent');
+            const data = window.ARK ? window.ARK.get('risk_curve') : null;
+            container.textContent = data ? JSON.stringify(data, null, 2) : "No data";
+        }
+        function downloadCSVFromARK() {
+            const data = window.ARK ? window.ARK.get('risk_curve') : null;
+            if (!data) return showToast("No ARK data");
+            let csv = "Node,Score,Quartile,Status,Description\n";
+            Object.entries(data.nodes || {}).forEach(([k, n]) => {
+                csv += `"${k}",${n.score || ''},"${n.quartile || ''}","${n.status || ''}","${(n.description || '').replace(/"/g, '""')}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'WTC_ARK_export.csv';
+            a.click();
+            showToast("CSV downloaded");
+        }
+        function triggerDroneWars() {
+            showToast("Drone Wars Arena Launched with ARK");
+        }
 
         renderTabs();
         switchModule(6);
