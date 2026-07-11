@@ -71,7 +71,7 @@
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes in data/risk_curve.json</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes. Check data/risk_curve.json</p>`;
                 }
             } else if (id === 8) {
                 content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
@@ -82,23 +82,12 @@
             }
         }
 
-        function showToast(msg) {
-            const t = document.createElement('div');
-            t.className = 'toast';
-            t.textContent = msg;
-            document.body.appendChild(t);
-            setTimeout(() => t.remove(), 2500);
-        }
-
-        function refreshData() { showToast("Refreshing..."); setTimeout(() => location.reload(), 400); }
-        function articulate() { showToast("Snapshot copied"); }
-        function articulateNode(key) { showToast("ART: " + key); }
-        function toggleTheme() {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-        }
-        function downloadCSVFromARK() { showToast("CSV export started"); }
-        function triggerDroneWars() { showToast("Drone Wars launched"); }
+        function articulateNode(key) { alert("ART prompt for " + key); }
+        function downloadCSVFromARK() { alert("CSV export"); }
+        function triggerDroneWars() { alert("Drone Wars launched"); }
+        function refreshData() { location.reload(); }
+        function articulate() { alert("Snapshot copied"); }
+        function toggleTheme() { }
 
         renderTabs();
         switchModule(6);
