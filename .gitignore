@@ -1,0 +1,35 @@
+# Large files and binaries
+*.dmg
+*.zip
+*.tar.gz
+*.7z
+*.exe
+*.msi
+
+# Archives and temp folders
+archive/
+backup/
+BACKUP*/
+*.DS_Store
+Thumbs.db
+
+# Large data files (uncomment if needed)
+# *.parquet
+# *.csv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+.venv
+
+# Logs and temp
+*.log
+logs/
+tmp/
+temp/
+staged_raw/quarantine/
+
+# OS junk
+.DS_Store
