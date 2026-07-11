@@ -1,0 +1,21 @@
+{
+  "session_type": "desk_live",
+  "created_at": "2026-06-30T04:03:00.720031+00:00",
+  "flows_csv": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins/staged_raw/quarantine/20260629/WTM-Flows-Global.csv",
+  "sidecar_path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins/data/flows/v1/latest_flows.json",
+  "hydration_bundle": "/tmp/desk_live_test_bundle.json",
+  "flows_health": {
+    "status": "partial",
+    "node_id": "credit",
+    "missing_tickers": [
+      "CWB"
+    ],
+    "warnings": [
+      "partial_basket_coverage",
+      "missing_basket_etfs:CWB"
+    ]
+  },
+  "snapshot_id": "global-2026-06-29-raw2wtm-01",
+  "freshness_status": "aging",
+  "flows_sidecar_status": "partial"
+}

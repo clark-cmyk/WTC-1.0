@@ -1,0 +1,1839 @@
+{
+  "hydration_version": "1.2.0",
+  "node_cockpits": {
+    "liquidity": {
+      "node_id": "liquidity",
+      "display_name": "Liquidity & Rates",
+      "composite_score": 100,
+      "composite_score_source": "weighted_components",
+      "band": "Supportive",
+      "band_key": "supportive",
+      "freshness_status": "aging",
+      "as_of": "2026-06-29T15:11:45+00:00",
+      "horizon_marks": {
+        "d1": "flat",
+        "d5": "flat",
+        "d20": "down",
+        "d60": "flat"
+      },
+      "horizon_net": -1,
+      "is_weakest_link": false,
+      "key_observation": "Liquidity & Rates horizon_net -1 from suggested tracer marks.",
+      "confidence": "high",
+      "gate_interaction": {
+        "zone": "amber",
+        "blocks_directional": false,
+        "blocks_rv": false,
+        "note": "Health below 70 \u2014 size_hint capped at half."
+      },
+      "component_inputs": [
+        {
+          "asset_id": "us10y",
+          "label": "2s10s 5D+20D direction",
+          "value": "mixed",
+          "unit": "signal",
+          "weight": 0.3,
+          "contribution": 15.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "sofr",
+          "label": "SOFR / front-end funding impulse",
+          "value": "mixed",
+          "unit": "signal",
+          "weight": 0.25,
+          "contribution": 12.5,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "us10y",
+          "label": "10Y yield 3M change",
+          "value": "mixed",
+          "unit": "signal",
+          "weight": 0.2,
+          "contribution": 10.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "dxy_continuous",
+          "label": "DXY 5D+20D (liquidity conditions)",
+          "value": "mixed",
+          "unit": "signal",
+          "weight": 0.15,
+          "contribution": 7.5,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "us10y",
+          "label": "Real rates / duration pressure proxy",
+          "value": "mixed",
+          "unit": "signal",
+          "weight": 0.1,
+          "contribution": 5.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        }
+      ],
+      "directional": {
+        "posture": "neutral",
+        "conviction": "low",
+        "rationale": "Liquidity & Rates mixed marks \u2014 prefer RV or reduced size. IEF 5D inflows confirm constructive liquidity transmission. (Flows: supportive.)",
+        "horizon": "20d",
+        "invalidation": "",
+        "size_hint": "half",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "relative_value": {
+        "posture": "neutral",
+        "structure": "2s10s curve trade / SOFR spread",
+        "conviction": "low",
+        "rationale": "No extreme RV signal on 2s10s curve trade / SOFR spread. IEF 5D inflows confirm constructive liquidity transmission. (Flows: supportive.)",
+        "leg_long": "",
+        "leg_short": "",
+        "hedge_ratio": 1.0,
+        "target": "",
+        "stop": "",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "implementations": [
+        {
+          "id": "liq_ief_tlt",
+          "instrument_class": "etf",
+          "label": "IEF / TLT duration pair",
+          "legs": [
+            {
+              "side": "long",
+              "asset_id": "ief",
+              "vendor_ticker": "IEF",
+              "ratio": 1
+            },
+            {
+              "side": "short",
+              "asset_id": "tlt",
+              "vendor_ticker": "TLT",
+              "ratio": 1
+            }
+          ],
+          "liquidity_tier": "institutional",
+          "margin_profile": "ibkr_etf",
+          "rank": 1
+        }
+      ],
+      "selected_implementation_id": null,
+      "sizing": {
+        "enabled": false,
+        "portfolio_nav_usd": null,
+        "risk_budget_bps": 25,
+        "kelly_fraction": 0.25,
+        "max_notional_usd": null,
+        "recommended_notional_usd": null,
+        "contracts_or_shares": null,
+        "margin": null
+      },
+      "rv_basis": {
+        "active_horizon": "3m",
+        "active_series_id": "usgg2y10y",
+        "richness_label": "fair",
+        "quartile_context": "US 2s10s spread Q2 (44.4th pct) \u2014 higher_is_richer",
+        "series": {
+          "usgg2y10y": {
+            "quartile_direction": "higher_is_richer",
+            "label": "US 2s10s spread",
+            "horizons": {
+              "1m": {
+                "current_value": 1.225,
+                "unit": "pct",
+                "percentile": 54.5,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 1.225,
+                "unit": "pct",
+                "percentile": 44.4,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 1.225,
+                "unit": "pct",
+                "percentile": 44.4,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 1.225,
+                "unit": "pct",
+                "percentile": 41.7,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 1.225,
+                "unit": "pct",
+                "percentile": 41.7,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          },
+          "sofr_ois_spread": {
+            "quartile_direction": "higher_is_cheaper",
+            "label": "SOFR front-end stress",
+            "horizons": {
+              "1m": {
+                "current_value": 320.0,
+                "unit": "bps",
+                "percentile": 63.6,
+                "quartile": 3,
+                "richness_label": "fair",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 320.0,
+                "unit": "bps",
+                "percentile": 57.1,
+                "quartile": 3,
+                "richness_label": "fair",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 320.0,
+                "unit": "bps",
+                "percentile": 55.6,
+                "quartile": 3,
+                "richness_label": "fair",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 320.0,
+                "unit": "bps",
+                "percentile": 53.6,
+                "quartile": 3,
+                "richness_label": "fair",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 320.0,
+                "unit": "bps",
+                "percentile": 53.4,
+                "quartile": 3,
+                "richness_label": "fair",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          }
+        }
+      },
+      "china_parallel": {
+        "present": true,
+        "stage_id": "liquidity",
+        "stage_name": "Liquidity & Rates",
+        "horizon_marks": {
+          "d1": "flat",
+          "d5": "flat",
+          "d20": "down",
+          "d60": "flat"
+        },
+        "horizon_net": -1,
+        "composite_score": 40,
+        "note": "China liquidity & rates stage horizon_net -1 (informational)"
+      },
+      "funds_flows": {
+        "enabled": true,
+        "source": "derived",
+        "degrade_mode": "full",
+        "as_of": "2026-06-29",
+        "horizon_display": "5d",
+        "basket_id": "liquidity_duration",
+        "basket_label": "Duration & front-end sponsorship",
+        "node_id": "liquidity",
+        "flows_meta": {
+          "flows_status": "ok",
+          "flows_source": "wtm_flows_timeseries",
+          "flows_degraded": false,
+          "flows_confidence_penalty": 0,
+          "fallback_reason": "",
+          "degrade_mode": "full"
+        },
+        "aggregate": {
+          "flow_pct_aum_1d": 0.0745,
+          "flow_pct_aum_5d": 0.35,
+          "flow_usd_1d": 8.04,
+          "flow_usd_5d": 37.54,
+          "positive_count": 4,
+          "total_count": 4,
+          "populated_count": 4,
+          "primary_ticker": "IEF",
+          "primary_flow_pct_aum_5d": 0.35,
+          "concentration_flag": false,
+          "verdict": "supportive",
+          "confidence_delta": 1
+        },
+        "etfs": [
+          {
+            "ticker": "IEF",
+            "asset_id": "ief",
+            "node_affiliation": "liquidity",
+            "basket_role": "primary",
+            "basket_weight": 0.35,
+            "flow_pct_aum_1d": 0.07,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 7.35,
+            "flow_usd_5d": 36.75,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "SHY",
+            "asset_id": "shy",
+            "node_affiliation": "liquidity",
+            "basket_role": "supporting",
+            "basket_weight": 0.2,
+            "flow_pct_aum_1d": 0.06,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 6.0,
+            "flow_usd_5d": 35.0,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "TLT",
+            "asset_id": "tlt",
+            "node_affiliation": "liquidity",
+            "basket_role": "supporting",
+            "basket_weight": 0.25,
+            "flow_pct_aum_1d": 0.08,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 8.8,
+            "flow_usd_5d": 38.5,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "BIL",
+            "asset_id": "bil",
+            "node_affiliation": "liquidity",
+            "basket_role": "supporting",
+            "basket_weight": 0.2,
+            "flow_pct_aum_1d": 0.09,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 10.35,
+            "flow_usd_5d": 40.25,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          }
+        ],
+        "interpretation": {
+          "supports_node_thesis": true,
+          "divergence_flag": false,
+          "summary": "IEF 5D inflows confirm constructive liquidity transmission.",
+          "caution_line": "",
+          "change_mind_trigger": "IEF 5D % AUM turns negative while node posture stays constructive.",
+          "degrade_notice": ""
+        }
+      }
+    },
+    "credit": {
+      "node_id": "credit",
+      "display_name": "Credit Confirmation",
+      "composite_score": 38,
+      "composite_score_source": "horizon_net_fallback",
+      "band": "Blocked",
+      "band_key": "blocked",
+      "freshness_status": "aging",
+      "as_of": "2026-06-29T15:11:45+00:00",
+      "horizon_marks": {
+        "d1": "flat",
+        "d5": "down",
+        "d20": "flat",
+        "d60": "flat"
+      },
+      "horizon_net": -1,
+      "is_weakest_link": true,
+      "key_observation": "Credit Confirmation horizon_net -1 from suggested tracer marks.",
+      "confidence": "medium",
+      "gate_interaction": {
+        "zone": "amber",
+        "blocks_directional": false,
+        "blocks_rv": false,
+        "note": "Health below 70 \u2014 size_hint capped at half."
+      },
+      "component_inputs": [],
+      "directional": {
+        "posture": "neutral",
+        "conviction": "low",
+        "rationale": "Credit Confirmation mixed marks \u2014 prefer RV or reduced size. HYG 5D inflows confirm constructive credit confirmation transmission. (Flows: supportive.)",
+        "horizon": "20d",
+        "invalidation": "",
+        "size_hint": "half",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "relative_value": {
+        "posture": "long_spread",
+        "structure": "HYG vs LQD (or HY\u2212IG OAS proxy)",
+        "conviction": "medium",
+        "rationale": "Cheap vs history on HY OAS proxy. HYG 5D inflows confirm constructive credit confirmation transmission. (Flows: supportive.)",
+        "leg_long": "",
+        "leg_short": "",
+        "hedge_ratio": 1.0,
+        "target": "",
+        "stop": "",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "implementations": [
+        {
+          "id": "credit_hyg_lqd",
+          "instrument_class": "etf",
+          "label": "HYG / LQD credit pair",
+          "legs": [
+            {
+              "side": "long",
+              "asset_id": "hyg",
+              "vendor_ticker": "HYG",
+              "ratio": 1
+            },
+            {
+              "side": "short",
+              "asset_id": "jaaa",
+              "vendor_ticker": "LQD",
+              "ratio": 1
+            }
+          ],
+          "liquidity_tier": "institutional",
+          "margin_profile": "ibkr_etf",
+          "rank": 1
+        }
+      ],
+      "selected_implementation_id": null,
+      "sizing": {
+        "enabled": false,
+        "portfolio_nav_usd": null,
+        "risk_budget_bps": 25,
+        "kelly_fraction": 0.25,
+        "max_notional_usd": null,
+        "recommended_notional_usd": null,
+        "contracts_or_shares": null,
+        "margin": null
+      },
+      "rv_basis": {
+        "active_horizon": "3m",
+        "active_series_id": "hy_oas_proxy",
+        "richness_label": "cheap",
+        "quartile_context": "HY OAS proxy Q4 (90.5th pct) \u2014 higher_is_cheaper",
+        "series": {
+          "hy_oas_proxy": {
+            "quartile_direction": "higher_is_cheaper",
+            "label": "HY OAS proxy",
+            "horizons": {
+              "1m": {
+                "current_value": 339.2,
+                "unit": "bps",
+                "percentile": 90.9,
+                "quartile": 4,
+                "richness_label": "cheap",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 339.2,
+                "unit": "bps",
+                "percentile": 90.5,
+                "quartile": 4,
+                "richness_label": "cheap",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 339.2,
+                "unit": "bps",
+                "percentile": 88.9,
+                "quartile": 4,
+                "richness_label": "cheap",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 339.2,
+                "unit": "bps",
+                "percentile": 88.9,
+                "quartile": 4,
+                "richness_label": "cheap",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 339.2,
+                "unit": "bps",
+                "percentile": 88.4,
+                "quartile": 4,
+                "richness_label": "cheap",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          },
+          "hyg_lqd_ratio": {
+            "quartile_direction": "higher_is_richer",
+            "label": "HYG / LQD ratio",
+            "horizons": {
+              "1m": {
+                "current_value": 0.98,
+                "unit": "ratio",
+                "percentile": 63.6,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 0.98,
+                "unit": "ratio",
+                "percentile": 57.1,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 0.98,
+                "unit": "ratio",
+                "percentile": 55.6,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 0.98,
+                "unit": "ratio",
+                "percentile": 53.6,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 0.98,
+                "unit": "ratio",
+                "percentile": 53.4,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          }
+        }
+      },
+      "china_parallel": {
+        "present": true,
+        "stage_id": "credit",
+        "stage_name": "Credit Confirmation",
+        "horizon_marks": {
+          "d1": "flat",
+          "d5": "flat",
+          "d20": "flat",
+          "d60": "down"
+        },
+        "horizon_net": -1,
+        "composite_score": 45,
+        "note": "China credit confirmation stage horizon_net -1 (informational)"
+      },
+      "weakest_context": {
+        "global_health_score": 50,
+        "transmission_state": "stressed",
+        "key_observation": "Desk auto-transform from Koyfin wide export (2.2e)."
+      },
+      "funds_flows": {
+        "enabled": true,
+        "source": "derived",
+        "degrade_mode": "full",
+        "as_of": "2026-06-29",
+        "horizon_display": "5d",
+        "basket_id": "credit_hy_ig",
+        "basket_label": "Credit ETF sponsorship",
+        "node_id": "credit",
+        "flows_meta": {
+          "flows_status": "ok",
+          "flows_source": "wtm_flows_timeseries",
+          "flows_degraded": false,
+          "flows_confidence_penalty": 0,
+          "fallback_reason": "",
+          "degrade_mode": "full"
+        },
+        "aggregate": {
+          "flow_pct_aum_1d": 0.0615,
+          "flow_pct_aum_5d": 0.35,
+          "flow_usd_1d": 7.79,
+          "flow_usd_5d": 44.01,
+          "positive_count": 4,
+          "total_count": 4,
+          "populated_count": 4,
+          "primary_ticker": "HYG",
+          "primary_flow_pct_aum_5d": 0.35,
+          "concentration_flag": false,
+          "verdict": "supportive",
+          "confidence_delta": 1
+        },
+        "etfs": [
+          {
+            "ticker": "HYG",
+            "asset_id": "hyg",
+            "node_affiliation": "credit",
+            "basket_role": "primary",
+            "basket_weight": 0.35,
+            "flow_pct_aum_1d": 0.05,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 6.0,
+            "flow_usd_5d": 42.0,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "LQD",
+            "asset_id": "jaaa",
+            "node_affiliation": "credit",
+            "basket_role": "supporting",
+            "basket_weight": 0.3,
+            "flow_pct_aum_1d": 0.06,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 7.5,
+            "flow_usd_5d": 43.75,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "BKLN",
+            "asset_id": "bkln",
+            "node_affiliation": "credit",
+            "basket_role": "supporting",
+            "basket_weight": 0.2,
+            "flow_pct_aum_1d": 0.07,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 9.1,
+            "flow_usd_5d": 45.5,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "CWB",
+            "asset_id": "cwb",
+            "node_affiliation": "credit",
+            "basket_role": "supporting",
+            "basket_weight": 0.15,
+            "flow_pct_aum_1d": 0.08,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 10.8,
+            "flow_usd_5d": 47.25,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          }
+        ],
+        "interpretation": {
+          "supports_node_thesis": true,
+          "divergence_flag": false,
+          "summary": "HYG 5D inflows confirm constructive credit confirmation transmission.",
+          "caution_line": "",
+          "change_mind_trigger": "HYG 5D % AUM turns negative while node posture stays constructive.",
+          "degrade_notice": ""
+        }
+      }
+    },
+    "breadth": {
+      "node_id": "breadth",
+      "display_name": "Equity Breadth",
+      "composite_score": 50,
+      "composite_score_source": "horizon_net_fallback",
+      "band": "Fragile",
+      "band_key": "fragile",
+      "freshness_status": "aging",
+      "as_of": "2026-06-29T15:11:45+00:00",
+      "horizon_marks": {
+        "d1": "flat",
+        "d5": "flat",
+        "d20": "flat",
+        "d60": "flat"
+      },
+      "horizon_net": 0,
+      "is_weakest_link": false,
+      "key_observation": "Equity Breadth horizon_net +0 from suggested tracer marks.",
+      "confidence": "high",
+      "gate_interaction": {
+        "zone": "amber",
+        "blocks_directional": false,
+        "blocks_rv": false,
+        "note": "Health below 70 \u2014 size_hint capped at half."
+      },
+      "component_inputs": [
+        {
+          "asset_id": "spy",
+          "label": "IWM/SPY ratio 5D+20D",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.3,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "spy",
+          "label": "Equal-weight vs cap-weight participation",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.25,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "xlre",
+          "label": "Financials vs defensives 5D+20D",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.2,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "spy",
+          "label": "Cyclicals keeping pace with index",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.15,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "spy",
+          "label": "Multi-sector participation breadth",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.1,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        }
+      ],
+      "directional": {
+        "posture": "neutral",
+        "conviction": "low",
+        "rationale": "Equity Breadth mixed marks \u2014 prefer RV or reduced size. IWM 5D inflows confirm constructive equity breadth transmission. (Flows: supportive.)",
+        "horizon": "20d",
+        "invalidation": "",
+        "size_hint": "half",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "relative_value": {
+        "posture": "neutral",
+        "structure": "IWM/SPY participation pair",
+        "conviction": "low",
+        "rationale": "No extreme RV signal on IWM/SPY participation pair. IWM 5D inflows confirm constructive equity breadth transmission. (Flows: supportive.)",
+        "leg_long": "",
+        "leg_short": "",
+        "hedge_ratio": 1.0,
+        "target": "",
+        "stop": "",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "implementations": [
+        {
+          "id": "breadth_iwm_spy",
+          "instrument_class": "etf",
+          "label": "IWM / SPY participation pair",
+          "legs": [
+            {
+              "side": "long",
+              "asset_id": "spy",
+              "vendor_ticker": "IWM",
+              "ratio": 1
+            },
+            {
+              "side": "short",
+              "asset_id": "spy",
+              "vendor_ticker": "SPY",
+              "ratio": 1
+            }
+          ],
+          "liquidity_tier": "institutional",
+          "margin_profile": "ibkr_etf",
+          "rank": 1
+        }
+      ],
+      "selected_implementation_id": null,
+      "sizing": {
+        "enabled": false,
+        "portfolio_nav_usd": null,
+        "risk_budget_bps": 25,
+        "kelly_fraction": 0.25,
+        "max_notional_usd": null,
+        "recommended_notional_usd": null,
+        "contracts_or_shares": null,
+        "margin": null
+      },
+      "rv_basis": {
+        "active_horizon": "3m",
+        "active_series_id": "iwm_spy_ratio",
+        "richness_label": "fair",
+        "quartile_context": "IWM / SPY participation Q2 (44.4th pct) \u2014 higher_is_richer",
+        "series": {
+          "iwm_spy_ratio": {
+            "quartile_direction": "higher_is_richer",
+            "label": "IWM / SPY participation",
+            "horizons": {
+              "1m": {
+                "current_value": 0.9604,
+                "unit": "ratio",
+                "percentile": 54.5,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 0.9604,
+                "unit": "ratio",
+                "percentile": 44.4,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 0.9604,
+                "unit": "ratio",
+                "percentile": 44.4,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 0.9604,
+                "unit": "ratio",
+                "percentile": 41.7,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 0.9604,
+                "unit": "ratio",
+                "percentile": 41.7,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          },
+          "xlf_xlu_relative": {
+            "quartile_direction": "higher_is_richer",
+            "label": "XLF vs XLU relative",
+            "horizons": {
+              "1m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 9.1,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.3,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.3,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.0,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.0,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          }
+        }
+      },
+      "china_parallel": {
+        "present": true,
+        "stage_id": "breadth",
+        "stage_name": "Equity Breadth",
+        "horizon_marks": {
+          "d1": "up",
+          "d5": "flat",
+          "d20": "flat",
+          "d60": "flat"
+        },
+        "horizon_net": 1,
+        "composite_score": 56,
+        "note": "China equity breadth stage horizon_net +1 (informational)"
+      },
+      "funds_flows": {
+        "enabled": true,
+        "source": "derived",
+        "degrade_mode": "full",
+        "as_of": "2026-06-29",
+        "horizon_display": "5d",
+        "basket_id": "breadth_participation",
+        "basket_label": "Equity participation sponsorship",
+        "node_id": "breadth",
+        "flows_meta": {
+          "flows_status": "ok",
+          "flows_source": "wtm_flows_timeseries",
+          "flows_degraded": false,
+          "flows_confidence_penalty": 0,
+          "fallback_reason": "",
+          "degrade_mode": "full"
+        },
+        "aggregate": {
+          "flow_pct_aum_1d": 0.07,
+          "flow_pct_aum_5d": 0.35,
+          "flow_usd_1d": 10.19,
+          "flow_usd_5d": 51.19,
+          "positive_count": 4,
+          "total_count": 4,
+          "populated_count": 4,
+          "primary_ticker": "IWM",
+          "primary_flow_pct_aum_5d": 0.35,
+          "concentration_flag": false,
+          "verdict": "supportive",
+          "confidence_delta": 1
+        },
+        "etfs": [
+          {
+            "ticker": "IWM",
+            "asset_id": "iwm",
+            "node_affiliation": "breadth",
+            "basket_role": "primary",
+            "basket_weight": 0.35,
+            "flow_pct_aum_1d": 0.09,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 12.6,
+            "flow_usd_5d": 49.0,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "SPY",
+            "asset_id": "spy",
+            "node_affiliation": "breadth",
+            "basket_role": "supporting",
+            "basket_weight": 0.25,
+            "flow_pct_aum_1d": 0.05,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 7.25,
+            "flow_usd_5d": 50.75,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "QQQ",
+            "asset_id": "qqq",
+            "node_affiliation": "breadth",
+            "basket_role": "supporting",
+            "basket_weight": 0.2,
+            "flow_pct_aum_1d": 0.06,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 9.0,
+            "flow_usd_5d": 52.5,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "RSP",
+            "asset_id": "rsp",
+            "node_affiliation": "breadth",
+            "basket_role": "supporting",
+            "basket_weight": 0.2,
+            "flow_pct_aum_1d": 0.07,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 10.85,
+            "flow_usd_5d": 54.25,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          }
+        ],
+        "interpretation": {
+          "supports_node_thesis": true,
+          "divergence_flag": false,
+          "summary": "IWM 5D inflows confirm constructive equity breadth transmission.",
+          "caution_line": "",
+          "change_mind_trigger": "IWM 5D % AUM turns negative while node posture stays constructive.",
+          "degrade_notice": ""
+        }
+      }
+    },
+    "highbeta": {
+      "node_id": "highbeta",
+      "display_name": "High-Beta / BTC",
+      "composite_score": 50,
+      "composite_score_source": "horizon_net_fallback",
+      "band": "Fragile",
+      "band_key": "fragile",
+      "freshness_status": "aging",
+      "as_of": "2026-06-29T15:11:45+00:00",
+      "horizon_marks": {
+        "d1": "flat",
+        "d5": "flat",
+        "d20": "flat",
+        "d60": "flat"
+      },
+      "horizon_net": 0,
+      "is_weakest_link": false,
+      "key_observation": "BTC bias Neutral; horizon_net +0.",
+      "confidence": "high",
+      "gate_interaction": {
+        "zone": "amber",
+        "blocks_directional": false,
+        "blocks_rv": false,
+        "note": "Health below 70 \u2014 size_hint capped at half."
+      },
+      "component_inputs": [
+        {
+          "asset_id": "btc_vehicle_ibit",
+          "label": "IBIT vs QQQ 5D+20D",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.3,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_vehicle_ibit",
+          "label": "IBIT beta transmission vs SPY",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.25,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_spot_usd",
+          "label": "BTC spot 5D+20D momentum",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.2,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_spot_usd",
+          "label": "BTC/SPY correlation trend",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.15,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "eth_spot_usd",
+          "label": "ETH/BTC high-beta confirmation",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.1,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        }
+      ],
+      "directional": {
+        "posture": "neutral",
+        "conviction": "low",
+        "rationale": "High-Beta / BTC mixed marks \u2014 prefer RV or reduced size. IBIT 5D inflows confirm constructive high-beta / btc transmission. (Flows: supportive.)",
+        "horizon": "20d",
+        "invalidation": "",
+        "size_hint": "half",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "relative_value": {
+        "posture": "neutral",
+        "structure": "IBIT vs QQQ beta spread",
+        "conviction": "low",
+        "rationale": "No extreme RV signal on IBIT vs QQQ beta spread. IBIT 5D inflows confirm constructive high-beta / btc transmission. (Flows: supportive.)",
+        "leg_long": "",
+        "leg_short": "",
+        "hedge_ratio": 1.0,
+        "target": "",
+        "stop": "",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "implementations": [
+        {
+          "id": "highbeta_ibit_qqq",
+          "instrument_class": "etf",
+          "label": "IBIT vs QQQ beta spread",
+          "legs": [
+            {
+              "side": "long",
+              "asset_id": "btc_vehicle_ibit",
+              "vendor_ticker": "IBIT",
+              "ratio": 1
+            },
+            {
+              "side": "short",
+              "asset_id": "qqq",
+              "vendor_ticker": "QQQ",
+              "ratio": 1
+            }
+          ],
+          "liquidity_tier": "institutional",
+          "margin_profile": "ibkr_etf",
+          "rank": 1
+        }
+      ],
+      "selected_implementation_id": null,
+      "sizing": {
+        "enabled": false,
+        "portfolio_nav_usd": null,
+        "risk_budget_bps": 25,
+        "kelly_fraction": 0.25,
+        "max_notional_usd": null,
+        "recommended_notional_usd": null,
+        "contracts_or_shares": null,
+        "margin": null
+      },
+      "rv_basis": {
+        "active_horizon": "3m",
+        "active_series_id": "ibit_qqq_beta_spread",
+        "richness_label": "fair",
+        "quartile_context": "IBIT vs QQQ beta spread Q2 (38.1th pct) \u2014 higher_is_richer",
+        "series": {
+          "ibit_qqq_beta_spread": {
+            "quartile_direction": "higher_is_richer",
+            "label": "IBIT vs QQQ beta spread",
+            "horizons": {
+              "1m": {
+                "current_value": 0.9506,
+                "unit": "ratio",
+                "percentile": 50.0,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 0.9506,
+                "unit": "ratio",
+                "percentile": 38.1,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 0.9506,
+                "unit": "ratio",
+                "percentile": 38.1,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 0.9506,
+                "unit": "ratio",
+                "percentile": 35.7,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 0.9506,
+                "unit": "ratio",
+                "percentile": 35.7,
+                "quartile": 2,
+                "richness_label": "fair",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          },
+          "btc_spy_corr": {
+            "quartile_direction": "higher_is_richer",
+            "label": "BTC / SPY correlation",
+            "horizons": {
+              "1m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 9.1,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.3,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.3,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.0,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 0.9016,
+                "unit": "ratio",
+                "percentile": 6.0,
+                "quartile": 1,
+                "richness_label": "cheap",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          }
+        }
+      },
+      "china_parallel": {
+        "present": true,
+        "stage_id": "highbeta",
+        "stage_name": "High-Beta / China Cyclical Transmission",
+        "horizon_marks": {
+          "d1": "flat",
+          "d5": "down",
+          "d20": "flat",
+          "d60": "flat"
+        },
+        "horizon_net": -1,
+        "composite_score": 44,
+        "note": "China high-beta / china cyclical transmission stage horizon_net -1 (informational)"
+      },
+      "funds_flows": {
+        "enabled": true,
+        "source": "derived",
+        "degrade_mode": "full",
+        "as_of": "2026-06-29",
+        "horizon_display": "5d",
+        "basket_id": "highbeta_crypto_beta",
+        "basket_label": "High-beta & crypto vehicle sponsorship",
+        "node_id": "highbeta",
+        "flows_meta": {
+          "flows_status": "ok",
+          "flows_source": "wtm_flows_timeseries",
+          "flows_degraded": false,
+          "flows_confidence_penalty": 0,
+          "fallback_reason": "",
+          "degrade_mode": "full"
+        },
+        "aggregate": {
+          "flow_pct_aum_1d": 0.069,
+          "flow_pct_aum_5d": 0.35,
+          "flow_usd_1d": 10.76,
+          "flow_usd_5d": 54.07,
+          "positive_count": 4,
+          "total_count": 4,
+          "populated_count": 4,
+          "primary_ticker": "IBIT",
+          "primary_flow_pct_aum_5d": 0.35,
+          "concentration_flag": false,
+          "verdict": "supportive",
+          "confidence_delta": 1
+        },
+        "etfs": [
+          {
+            "ticker": "IBIT",
+            "asset_id": "btc_vehicle_ibit",
+            "node_affiliation": "highbeta",
+            "basket_role": "primary",
+            "basket_weight": 0.4,
+            "flow_pct_aum_1d": 0.08,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 12.8,
+            "flow_usd_5d": 56.0,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "QQQ",
+            "asset_id": "qqq",
+            "node_affiliation": "highbeta",
+            "basket_role": "supporting",
+            "basket_weight": 0.3,
+            "flow_pct_aum_1d": 0.06,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 9.0,
+            "flow_usd_5d": 52.5,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "SPY",
+            "asset_id": "spy",
+            "node_affiliation": "highbeta",
+            "basket_role": "supporting",
+            "basket_weight": 0.2,
+            "flow_pct_aum_1d": 0.05,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 7.25,
+            "flow_usd_5d": 50.75,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "BITO",
+            "asset_id": "bito",
+            "node_affiliation": "highbeta",
+            "basket_role": "supporting",
+            "basket_weight": 0.1,
+            "flow_pct_aum_1d": 0.09,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 14.85,
+            "flow_usd_5d": 57.75,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          }
+        ],
+        "interpretation": {
+          "supports_node_thesis": true,
+          "divergence_flag": false,
+          "summary": "IBIT 5D inflows confirm constructive high-beta / btc transmission.",
+          "caution_line": "",
+          "change_mind_trigger": "IBIT 5D % AUM turns negative while node posture stays constructive.",
+          "degrade_notice": ""
+        }
+      }
+    },
+    "basis": {
+      "node_id": "basis",
+      "display_name": "Basis & Term Structure",
+      "composite_score": 50,
+      "composite_score_source": "horizon_net_fallback",
+      "band": "Fragile",
+      "band_key": "fragile",
+      "freshness_status": "aging",
+      "as_of": "2026-06-29T15:11:45+00:00",
+      "horizon_marks": {
+        "d1": "flat",
+        "d5": "flat",
+        "d20": "flat",
+        "d60": "flat"
+      },
+      "horizon_net": 0,
+      "is_weakest_link": false,
+      "key_observation": "Calendar at 1.25% (Jul/Sep); horizon_net +0.",
+      "confidence": "medium",
+      "gate_interaction": {
+        "zone": "amber",
+        "blocks_directional": false,
+        "blocks_rv": false,
+        "note": "Health below 70 \u2014 size_hint capped at half."
+      },
+      "component_inputs": [
+        {
+          "asset_id": "btc_near_contract",
+          "label": "Near-deferred calendar level vs refs",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.3,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_near_contract",
+          "label": "Calendar spread 5D+20D direction",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.25,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_near_contract",
+          "label": "Roll / contango stability",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.2,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_near_contract",
+          "label": "Spread vs ref_low/mid/high",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.15,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        },
+        {
+          "asset_id": "btc_vehicle_ibit",
+          "label": "ETF vs futures basis consistency",
+          "value": "unavailable",
+          "unit": "signal",
+          "weight": 0.1,
+          "contribution": 0.0,
+          "direction": "flat",
+          "as_of": "2026-06-29T15:11:45+00:00"
+        }
+      ],
+      "directional": {
+        "posture": "neutral",
+        "conviction": "low",
+        "rationale": "Basis & Term Structure mixed marks \u2014 prefer RV or reduced size.",
+        "horizon": "20d",
+        "invalidation": "",
+        "size_hint": "half",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "relative_value": {
+        "posture": "short_spread",
+        "structure": "BT near vs deferred calendar",
+        "conviction": "medium",
+        "rationale": "Rich vs history on BT near-deferred calendar.",
+        "leg_long": "",
+        "leg_short": "",
+        "hedge_ratio": 1.0,
+        "target": "",
+        "stop": "",
+        "blocked": false,
+        "block_reason": ""
+      },
+      "implementations": [
+        {
+          "id": "basis_btc_calendar",
+          "instrument_class": "futures",
+          "label": "BT calendar spread",
+          "legs": [
+            {
+              "side": "long",
+              "asset_id": "btc_deferred_contract",
+              "vendor_ticker": "BTQ26",
+              "ratio": 1
+            },
+            {
+              "side": "short",
+              "asset_id": "btc_near_contract",
+              "vendor_ticker": "BTM26",
+              "ratio": 1
+            }
+          ],
+          "liquidity_tier": "institutional",
+          "margin_profile": "cme_btc",
+          "rank": 1
+        },
+        {
+          "id": "basis_ibit_proxy",
+          "instrument_class": "etf",
+          "label": "IBIT warehouse proxy",
+          "legs": [
+            {
+              "side": "long",
+              "asset_id": "btc_vehicle_ibit",
+              "vendor_ticker": "IBIT",
+              "ratio": 1
+            }
+          ],
+          "liquidity_tier": "institutional",
+          "margin_profile": "ibkr_etf",
+          "rank": 2
+        }
+      ],
+      "selected_implementation_id": null,
+      "sizing": {
+        "enabled": false,
+        "portfolio_nav_usd": null,
+        "risk_budget_bps": 25,
+        "kelly_fraction": 0.25,
+        "max_notional_usd": null,
+        "recommended_notional_usd": null,
+        "contracts_or_shares": null,
+        "margin": null
+      },
+      "rv_basis": {
+        "active_horizon": "3m",
+        "active_series_id": "btc_calendar_bt_near_deferred",
+        "richness_label": "rich",
+        "quartile_context": "BT near-deferred calendar Q3 (57.1th pct) \u2014 higher_is_richer",
+        "series": {
+          "btc_calendar_bt_near_deferred": {
+            "quartile_direction": "higher_is_richer",
+            "label": "BT near-deferred calendar",
+            "horizons": {
+              "1m": {
+                "current_value": 1.25,
+                "unit": "pct",
+                "percentile": 63.6,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 1.25,
+                "unit": "pct",
+                "percentile": 57.1,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 1.25,
+                "unit": "pct",
+                "percentile": 55.6,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 1.25,
+                "unit": "pct",
+                "percentile": 53.6,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 1.25,
+                "unit": "pct",
+                "percentile": 53.4,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          },
+          "btc_basis_vs_refs": {
+            "quartile_direction": "higher_is_richer",
+            "label": "Basis vs ref band",
+            "horizons": {
+              "1m": {
+                "current_value": 1.275,
+                "unit": "pct",
+                "percentile": 72.7,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-06-08",
+                "lookback_end": "2026-06-29",
+                "n_observations": 22
+              },
+              "3m": {
+                "current_value": 1.275,
+                "unit": "pct",
+                "percentile": 69.8,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-04-28",
+                "lookback_end": "2026-06-29",
+                "n_observations": 63
+              },
+              "6m": {
+                "current_value": 1.275,
+                "unit": "pct",
+                "percentile": 66.7,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2026-02-24",
+                "lookback_end": "2026-06-29",
+                "n_observations": 126
+              },
+              "12m": {
+                "current_value": 1.275,
+                "unit": "pct",
+                "percentile": 65.5,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2025-10-21",
+                "lookback_end": "2026-06-29",
+                "n_observations": 252
+              },
+              "3y": {
+                "current_value": 1.275,
+                "unit": "pct",
+                "percentile": 65.1,
+                "quartile": 3,
+                "richness_label": "rich",
+                "lookback_start": "2024-06-04",
+                "lookback_end": "2026-06-29",
+                "n_observations": 756
+              }
+            }
+          }
+        }
+      },
+      "china_parallel": {
+        "present": true,
+        "stage_id": "basis",
+        "stage_name": "Basis & Term Structure",
+        "horizon_marks": {
+          "d1": "flat",
+          "d5": "flat",
+          "d20": "down",
+          "d60": "flat"
+        },
+        "horizon_net": -1,
+        "composite_score": 41,
+        "note": "China basis & term structure stage horizon_net -1 (informational)"
+      },
+      "funds_flows": {
+        "enabled": true,
+        "source": "derived",
+        "degrade_mode": "full",
+        "as_of": "2026-06-29",
+        "horizon_display": "5d",
+        "basket_id": "basis_warehouse_proxy",
+        "basket_label": "Warehouse / ETF basis proxy sponsorship",
+        "node_id": "basis",
+        "flows_meta": {
+          "flows_status": "ok",
+          "flows_source": "wtm_flows_timeseries",
+          "flows_degraded": false,
+          "flows_confidence_penalty": 0,
+          "fallback_reason": "",
+          "degrade_mode": "full"
+        },
+        "aggregate": {
+          "flow_pct_aum_1d": 0.078,
+          "flow_pct_aum_5d": 0.35,
+          "flow_usd_1d": 12.24,
+          "flow_usd_5d": 57.31,
+          "positive_count": 3,
+          "total_count": 3,
+          "populated_count": 3,
+          "primary_ticker": "IBIT",
+          "primary_flow_pct_aum_5d": 0.35,
+          "concentration_flag": false,
+          "verdict": "mixed",
+          "confidence_delta": 0
+        },
+        "etfs": [
+          {
+            "ticker": "IBIT",
+            "asset_id": "btc_vehicle_ibit",
+            "node_affiliation": "basis",
+            "basket_role": "primary",
+            "basket_weight": 0.5,
+            "flow_pct_aum_1d": 0.08,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 12.8,
+            "flow_usd_5d": 56.0,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "BITO",
+            "asset_id": "bito",
+            "node_affiliation": "basis",
+            "basket_role": "supporting",
+            "basket_weight": 0.25,
+            "flow_pct_aum_1d": 0.09,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 14.85,
+            "flow_usd_5d": 57.75,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          },
+          {
+            "ticker": "GBTC",
+            "asset_id": "gbtc",
+            "node_affiliation": "basis",
+            "basket_role": "proxy",
+            "basket_weight": 0.25,
+            "flow_pct_aum_1d": 0.05,
+            "flow_pct_aum_5d": 0.35,
+            "flow_usd_1d": 8.5,
+            "flow_usd_5d": 59.5,
+            "persistence_score": 1.0,
+            "data_status": "ok"
+          }
+        ],
+        "interpretation": {
+          "supports_node_thesis": false,
+          "divergence_flag": false,
+          "summary": "Mixed allocator sponsorship across IBIT basket.",
+          "caution_line": "",
+          "change_mind_trigger": "IBIT 5D % AUM turns negative while node posture stays constructive.",
+          "degrade_notice": ""
+        }
+      }
+    }
+  },
+  "cockpit_context": {
+    "transmission_health_score": 50,
+    "transmission_state": "stressed",
+    "weakest_node_id": "credit",
+    "gate_zone": "amber",
+    "whinfell_score": 50
+  },
+  "suggested_tracer": {
+    "liquidity": {
+      "d1": "flat",
+      "d5": "flat",
+      "d20": "down",
+      "d60": "flat"
+    },
+    "credit": {
+      "d1": "flat",
+      "d5": "down",
+      "d20": "flat",
+      "d60": "flat"
+    },
+    "breadth": {
+      "d1": "flat",
+      "d5": "flat",
+      "d20": "flat",
+      "d60": "flat"
+    },
+    "highbeta": {
+      "d1": "flat",
+      "d5": "flat",
+      "d20": "flat",
+      "d60": "flat"
+    },
+    "basis": {
+      "d1": "flat",
+      "d5": "flat",
+      "d20": "flat",
+      "d60": "flat"
+    }
+  },
+  "global": {
+    "observation_id": "global-2026-06-29-raw2wtm-01",
+    "whinfell_score": 50,
+    "transmission_state": "stressed",
+    "regime_tag": "Fragile Risk-On",
+    "key_observation": "Desk auto-transform from Koyfin wide export (2.2e).",
+    "gate_status": "",
+    "sq3_score": 54,
+    "sq3_band": "Mixed / Fragile",
+    "near_month": "Jul",
+    "far_month": "Sep",
+    "basis_spread": "1.25",
+    "ref_low": "0.8",
+    "ref_mid": "1.1",
+    "ref_high": "1.4",
+    "btc_bias": "Neutral"
+  },
+  "freshness_status": "aging"
+}

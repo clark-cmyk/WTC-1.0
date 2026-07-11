@@ -1,0 +1,363 @@
+# Whinfell desk saved-view URLs — wired for Comet / Perplexity / batch_collect.py
+# Clark: paste Koyfin share links over REPLACE_ME entries (browser → Share → Copy link).
+# After edits, regenerate chart buttons:
+#   python3 -m whinfell_pipeline.desk_chart_links
+#   python3 -m whinfell_pipeline.desk_china_chart_links
+#   python3 -m whinfell_pipeline.desk_china_ladder_models
+version: "1.0.0"
+updated: "2026-07-04"
+# Clark watchlist URLs (Jun 30 PM refresh)
+desk: Clark
+drop_dir: "~/Downloads/whinfell_drop"
+
+# Env vars still override any url field: KOYFIN_VIEW_RATES_URL, etc.
+
+koyfin:
+  home: "https://app.koyfin.com/"
+  # Saved dashboards — replace REPLACE_ME with Share link from Koyfin when available
+  WTM-Rates-Credit:
+    url: "${KOYFIN_VIEW_RATES_URL}"
+    wired_url: "https://app.koyfin.com/myw/575998c3-3ba1-4572-b46b-9477f374c6f1"
+    replace_me: false
+    navigate: "My Dashboards → WTM-Rates-Credit (HY OAS, IG OAS, T10Y2Y, DGS10)"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: ["HY OAS", "IG OAS", "T10Y2Y", "DGS10", "US10Y"]
+    assist_urls:
+      - "https://app.koyfin.com/macro/USGG2Y10Y"
+      - "https://app.koyfin.com/macro/DGS10"
+  WTM-Equities-Breadth:
+    url: "${KOYFIN_VIEW_EQUITIES_URL}"
+    wired_url: "https://app.koyfin.com/myw/495e878c-8a1f-4371-9c9d-ed256743b1a4"
+    replace_me: false
+    navigate: "My Dashboards → WTM-Equities-Breadth (canonical saved view)"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: ["IWM", "SPY", "XLI", "XLF", "XLU"]
+    assist_urls:
+      - "https://app.koyfin.com/etf/IWM.US"
+      - "https://app.koyfin.com/etf/SPY.US"
+    dictionary_dataset: equities
+  WTM-Import-Core:
+    url: "${KOYFIN_VIEW_IMPORT_CORE_URL}"
+    wired_url: "https://app.koyfin.com/myw/70789aa7-8084-4e4c-85d3-09f9b78dcd3a"
+    replace_me: false
+    navigate: "My Watchlists → WTM-Import-Core (16-ticker canonical snapshot universe)"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: [BTCUSD, ETHUSD, XRPUSD, SOLUSD, HYG, JAAA, BKLN, CWB, CBON, KHYB, SPY, QQQ, XLRE, SOFR, GC1, HG1]
+    dictionary_dataset: credit
+    canonical_name: "credit_{YYYYMMDD}_{HHMM}.csv"
+    raw_export_name: "koyfin_wtm-import-core_*.csv"
+    notes: "ARCH-3 primary credit + crypto sleeve snapshot. Env KOYFIN_VIEW_IMPORT_CORE_URL overrides wired_url."
+    assist_urls:
+      - "https://app.koyfin.com/crypto/BTCUSD"
+      - "https://app.koyfin.com/etf/HYG.US"
+  WTM-Flows-Global:
+    url: "${KOYFIN_VIEW_FLOWS_GLOBAL_URL}"
+    wired_url: "https://app.koyfin.com/myw/afb1f314-4de4-47b6-b02f-0de2601b62b9"
+    replace_me: false
+    navigate: "My Watchlists → WTM-Flows-Global (primary funds-flow time series)"
+    export_menu: "⋮ menu → Export → CSV"
+    dictionary_dataset: flows
+    canonical_name: "flows_{YYYYMMDD}_{HHMM}.csv"
+    raw_export_name: "WTM-Flows-Global.csv"
+    notes: "Wide dated flows export (Flow (D), AUM). Normalize: WTM-Flows*.csv → flows_*."
+  WTM-GOV-USPRC:
+    url: "${KOYFIN_VIEW_FLOWS_GOV_URL}"
+    wired_url: "https://app.koyfin.com/myw/e94a97b3-600d-47d4-91d3-a01f8749146d"
+    replace_me: false
+    navigate: "My Watchlists → WTM-GOV-USPRC (US–PRC government tickers · flows)"
+    export_menu: "⋮ menu → Export → CSV"
+    dictionary_dataset: flows
+    canonical_name: "flows_{YYYYMMDD}_{HHMM}.csv"
+    raw_export_name: "WTM-Flows-GOV-USPRC.csv"
+    notes: "Optional enrichment — save as WTM-Flows-GOV-USPRC.csv (or WTM-Flows*.csv) for normalize."
+  WTM-Credit-Confirmation:
+    url: "${KOYFIN_VIEW_CREDIT_URL}"
+    replace_me: true
+    navigate: "My Dashboards → WTM-Credit-Confirmation (canonical saved view)"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: ["HYG", "LQD", "HYG/LQD ratio"]
+    assist_urls:
+      - "https://app.koyfin.com/etf/HYG.US"
+      - "https://app.koyfin.com/etf/LQD.US"
+    dictionary_dataset: credit
+  WTM-China-Policy:
+    url: "${KOYFIN_VIEW_CHINA_URL}"
+    wired_url: "https://app.koyfin.com/myw/52364942-af46-4fc0-98b3-ff7d340e7284"
+    replace_me: false
+    status: locked
+    navigate: "My Dashboards → WTM-China-Policy"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: [KWEB, SHSZ300, "551550", ASHR, KHYB, CBON]
+    tickers: [KWEB, "000300.SS", HSTECH, ASHR, KHYB, CBON]
+    koyfin_tickers: [KWEB, SHSZ300, "551550", ASHR, KHYB, CBON]
+    koyfin_ticker_map:
+      "000300.SS": SHSZ300
+      HSTECH: "551550"
+    dictionary_dataset: china_policy
+    canonical_name: "china_policy_{YYYYMMDD}_{HHMM}.csv"
+    notes: >
+      FINAL LOCK — canonical tickers (KWEB, 000300.SS, HSTECH, ASHR, KHYB, CBON).
+      Koyfin watchlist symbols: SHSZ300 = CSI300, 551550 = HSTECH.
+      Primary industrial proxy HG1 via Barchart WTM-China-Cyclical.
+    assist_urls:
+      - "https://app.koyfin.com/etf/KWEB.US"
+      - "https://app.koyfin.com/index/SHSZ300"
+      - "https://app.koyfin.com/etf/551550"
+      - "https://app.koyfin.com/etf/ASHR.US"
+      - "https://app.koyfin.com/etf/KHYB.US"
+      - "https://app.koyfin.com/etf/CBON.US"
+  WTM-China-Liquidity: 
+    url: "${KOYFIN_VIEW_CHINA_RATES_URL}"
+    wired_url: "https://app.koyfin.com/macro/GCN10YR"
+    replace_me: true
+    navigate: "China ladder Stage 1 — GCN10YR + USDCNH"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: ["GCN10YR", "USDCNH"]
+    notes: "wired_url uses GCN10YR assist until WTM-China-Liquidity share link is pasted."
+    assist_urls:
+      - "https://app.koyfin.com/macro/GCN10YR"
+      - "https://app.koyfin.com/forex/USDCNH"
+  WTM-China-Credit:
+    url: "${KOYFIN_VIEW_CHINA_CREDIT_URL}"
+    wired_url: "https://app.koyfin.com/etf/KHYB.US"
+    replace_me: true
+    navigate: "China ladder Stage 2 — KHYB vs 2829.HK (provisional)"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: ["KHYB", "2829.HK"]
+    notes: "wired_url uses KHYB assist until WTM-China-Credit share link is pasted."
+    assist_urls:
+      - "https://app.koyfin.com/etf/KHYB.US"
+      - "https://app.koyfin.com/etf/2829.HK"
+  WTM-China-Breadth:
+    url: "${KOYFIN_VIEW_CHINA_BREADTH_URL}"
+    wired_url: "https://app.koyfin.com/index/000300.SS"
+    replace_me: true
+    navigate: "China ladder Stage 3 — CSI300 vs HSTECH"
+    export_menu: "⋮ menu → Export → CSV"
+    panels: [SHSZ300, "551550"]
+    notes: "Primary breadth pair: SHSZ300 (CSI300) vs 551550 (HSTECH). Canonical 000300.SS / HSTECH."
+    assist_urls:
+      - "https://app.koyfin.com/index/SHSZ300"
+      - "https://app.koyfin.com/etf/551550"
+      - "https://app.koyfin.com/etf/KWEB.US"
+  WTM-China-Cyclical:
+    url: "${KOYFIN_VIEW_CHINA_CYCLICAL_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/HG1"
+    replace_me: false
+    status: locked
+    navigate: "China ladder Stage 4 — HG1 copper futures (primary industrial proxy)"
+    export_menu: "Download CSV"
+    primary_symbol: HG1
+    symbols: [HG1]
+    notes: "FINAL LOCK — Barchart HG1 only. SCO1 removed; no further cyclical ticker changes."
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/HG1"
+      - "https://www.barchart.com/futures/quotes/HG1/historical-download"
+      - "https://www.barchart.com/futures/quotes/HG1/spreads"
+  Whinfell-Daily-TimeSeries:
+    url: "${KOYFIN_DAILY_EXPORT_URL}"
+    replace_me: true
+    navigate: "Macro watchlist with Date column + Close fields (BTCUSD, ETHUSD, SPY, US10Y, IBIT)"
+    export_menu: "Show table → Download Available Data"
+    notes: "Must have Date column. NOT cross-section snapshots. Backup crypto price history only — prefer WTM-Crypto-Price chart."
+    raw_export_name: "koyfin_YYYY-MM-DD.csv"
+    assist_urls:
+      - "https://app.koyfin.com/crypto/BTCUSD"
+      - "https://app.koyfin.com/etf/IBIT.US"
+  WTM-Crypto-Price:
+    url: "${KOYFIN_CRYPTO_PRICE_CHART_URL}"
+    wired_url: "https://app.koyfin.com/crypto/BTCUSD"
+    replace_me: true
+    navigate: "Koyfin chart → WTM-Crypto-Price (BTC spot price history)"
+    export_menu: "Show table → Download Available Data"
+    canonical_dataset: "btc_price_chart"
+    canonical_name: "btc_price_chart_{YYYYMMDD}_{HHMM}.csv"
+    notes: "Primary BTC price chart history. Maps to btc_price_chart."
+    assist_urls:
+      - "https://app.koyfin.com/crypto/BTCUSD"
+  WTM-Crypto-Correl:
+    url: "${KOYFIN_CRYPTO_CORREL_CHART_URL}"
+    wired_url: "https://app.koyfin.com/crypto/BTCUSD"
+    replace_me: true
+    navigate: "Koyfin chart → WTM-Crypto-Correl (BTC / SPY correlation history)"
+    export_menu: "Show table → Download Available Data"
+    canonical_dataset: "btc_correl_chart"
+    canonical_name: "btc_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+    notes: "BTC correlation chart. ETH/XRP/SOL correl charts use eth_correl_chart, xrp_correl_chart, sol_correl_chart datasets."
+    assist_urls:
+      - "https://app.koyfin.com/crypto/BTCUSD"
+      - "https://app.koyfin.com/crypto/ETHUSD"
+      - "https://app.koyfin.com/crypto/XRPUSD"
+      - "https://app.koyfin.com/crypto/SOLUSD"
+  WTM-Crypto-Correl-ETH:
+    url: "${KOYFIN_CRYPTO_CORREL_ETH_CHART_URL}"
+    wired_url: "https://app.koyfin.com/crypto/ETHUSD"
+    replace_me: true
+    navigate: "Koyfin chart → ETH / SPY correlation history"
+    export_menu: "Show table → Download Available Data"
+    canonical_dataset: "eth_correl_chart"
+    canonical_name: "eth_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+  WTM-Crypto-Correl-XRP:
+    url: "${KOYFIN_CRYPTO_CORREL_XRP_CHART_URL}"
+    wired_url: "https://app.koyfin.com/crypto/XRPUSD"
+    replace_me: true
+    navigate: "Koyfin chart → XRP / SPY correlation history"
+    export_menu: "Show table → Download Available Data"
+    canonical_dataset: "xrp_correl_chart"
+    canonical_name: "xrp_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+  WTM-Crypto-Correl-SOL:
+    url: "${KOYFIN_CRYPTO_CORREL_SOL_CHART_URL}"
+    wired_url: "https://app.koyfin.com/crypto/SOLUSD"
+    replace_me: true
+    navigate: "Koyfin chart → SOL / SPY correlation history"
+    export_menu: "Show table → Download Available Data"
+    canonical_dataset: "sol_correl_chart"
+    canonical_name: "sol_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+  WTM-Crypto-Snapshot:
+    url: "${KOYFIN_CRYPTO_SNAPSHOT_URL}"
+    wired_url: "https://app.koyfin.com/"
+    replace_me: true
+    navigate: "Optional — crypto spot cross-section (auto from WTM-Credit-Confirmation daily export)"
+    export_menu: "⋮ menu → Export → CSV"
+    canonical_dataset: "crypto_snapshot"
+    canonical_name: "crypto_snapshot_{YYYYMMDD}_{HHMM}.csv"
+    notes: "Auto-ingested when credit_*.csv is staged. Separate export optional only."
+    dictionary_dataset: credit
+
+barchart:
+  # Easiest per-ticker CSV path: Main Watchlist → find ticker → choose CSV (no alternate flows)
+  ticker_csv_navigation:
+    path: "Main Watchlist → find ticker → choose CSV type"
+    futures:
+      - "Historical Data (system default date range)"
+      - "Futures Spreads"
+    options:
+      - "Volatility & Greeks"
+      - "Options Prices"
+  home: "https://www.barchart.com/futures/major-commodities"
+  my_lists: "https://www.barchart.com/my/watchlist?viewName=197689"
+  WTM-Futures-Intraday:
+    url: "${BARCHART_SCREEN_INTRADAY_URL}"
+    wired_url: "https://www.barchart.com/my/watchlist?viewName=197689"
+    watchlist_view_name: "197689"
+    replace_me: false
+    navigate: "My Watchlist (viewName=197689) — desk intraday futures screen"
+    export_menu: "Download CSV (top-right)"
+    symbols: ["BTC1!", "ES1!", "CL1!", "GC1!", "ZN1!"]
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/BTM26"
+      - "https://www.barchart.com/futures/quotes/ESM26"
+      - "https://www.barchart.com/futures/crypto"
+    raw_export_patterns:
+      - "*-prices-intraday-*.csv"
+      - "watchlist-*-intraday-*.csv"
+      - "watchlist-dailymonitor0610-intraday-*.csv"
+    notes: "Env BARCHART_SCREEN_INTRADAY_URL overrides wired_url."
+  WTM-Futures-Daily:
+    url: "${BARCHART_SCREEN_DAILY_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/BTM26/historical-download"
+    navigate: "Main Watchlist → find ticker → Historical Data (system default date range) → Download CSV"
+    export_menu: "Download CSV on historical table"
+    symbols: ["BTM26", "ESM26", "CLN26", "GCM26", "ZNM26"]
+  WTM-Barchart-Core:
+    url: "${BARCHART_CORE_BATCH_URL}"
+    wired_url: "https://www.barchart.com/futures/major-commodities"
+    navigate: "ARCH-4 core batch — per-symbol Historical Data download (16 symbols)"
+    export_menu: "Download CSV on historical table for each symbol"
+    symbols_ref: barchart_core
+    symbols:
+      - "^BTCUSD"
+      - "^ETHUSD"
+      - "^XRPUSD"
+      - "^SOLUSD"
+      - IBIT
+      - GBTC
+      - SOFR
+      - "$HSI"
+      - "$VHSI"
+      - "$VXHY"
+      - CBON
+      - KHYB
+      - ASHR
+      - DXY00
+      - GCY00
+      - HGY00
+    raw_export_patterns:
+      - "*_daily_historical-data-*"
+      - "*_daily-nearby_historical-data-*"
+    notes: "ARCH-4 — optional daily core historical batch; API fast-path via BARCHART_API_KEY."
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/BTM26/historical-download"
+      - "https://www.barchart.com/futures/quotes/ESM26/historical-download"
+      - "https://www.barchart.com/futures/quotes/CLN26/historical-download"
+    raw_export_patterns:
+      - "*_daily-nearby_historical-data-*.csv"
+  WTM-China-Cyclical:
+    url: "${BARCHART_SCREEN_CHINA_CYCLICAL_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/HG1"
+    status: locked
+    navigate: "HG1 copper futures — primary China industrial proxy (Stage 4)"
+    export_menu: "Download CSV (top-right)"
+    primary_symbol: HG1
+    symbols: ["HG1!"]
+    notes: "FINAL LOCK — HG1 copper only. SCO1 removed."
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/HG1"
+      - "https://www.barchart.com/futures/quotes/HG1/historical-download"
+  WTM-China-Basis:
+    url: "${BARCHART_SCREEN_CHINA_BASIS_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/HG1/spreads"
+    status: locked
+    navigate: "HG1 copper quote → Spreads tab (China ladder Stage 5)"
+    export_menu: "Download CSV"
+    primary_symbol: HG1
+    notes: "FINAL LOCK — HG1 copper spreads only. SCO1 removed."
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/HG1/spreads"
+  WTM-China-Futures-Daily:
+    url: "${BARCHART_SCREEN_CHINA_DAILY_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/HG1/historical-download"
+    status: locked
+    navigate: "HG1 copper historical — roll / curve context"
+    export_menu: "Download CSV on historical table"
+    primary_symbol: HG1
+    notes: "FINAL LOCK — HG1 copper only. SCO1 removed."
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/HG1/historical-download"
+  WTM-BTC-Basis:
+    url: "${BARCHART_SCREEN_BASIS_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/BTM26/spreads"
+    replace_me: false
+    source: barchart
+    navigate: "Main Watchlist → find BTM26 (BT1 front) → Spreads tab → Futures Spreads → Download CSV"
+    export_menu: "Download CSV"
+    front_contract: BTM26
+    shortcut: BT1
+    contract_nearby: BTM26
+    csv_type: Futures Spreads
+    metrics:
+      - basis_level
+      - calendar_spreads
+    dictionary_dataset: btc_basis
+    canonical_name: "btc_basis_{YYYYMMDD}.csv"
+    raw_export_patterns:
+      - "futures-spreads-btm*"
+      - "futures-spreads-btn*"
+    notes: >
+      Barchart futures-spreads only — do not route via koyfin_saved_views.
+      Front month BTM26; spread CSV columns Leg1/Leg2/Type/Latest/Change feed
+      basis_level and calendar_spreads for basis node + execution ref bands.
+    assist_urls:
+      - "https://www.barchart.com/futures/quotes/BTM26"
+      - "https://www.barchart.com/futures/quotes/BTM26/historical-download"
+  WTM-Options-Greeks:
+    url: "${BARCHART_SCREEN_OPTIONS_URL}"
+    wired_url: "https://www.barchart.com/futures/quotes/BTN26/options"
+    navigate: "Main Watchlist → find ticker → Volatility & Greeks or Options Prices → Download CSV"
+    export_menu: "Download CSV"
+    optional: true
+    raw_export_patterns:
+      - "*-options-*side-by-side-intraday*"
+      - "*-volatility-greeks-*"
+
+transmission_control: "file://{{REPO}}/08_Deliverables/Whinfell_Transmission_Control.html"

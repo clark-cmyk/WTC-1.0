@@ -1,0 +1,97 @@
+{
+  "hydration_version": "1.0.0",
+  "pipeline_version": "1.0.0",
+  "bundle_version": "1.0.0",
+  "snapshot_id": "global-2026-06-27-koyfin-01",
+  "lineage_hash": "sha256:54fbb9288293f6fcaaa465f94dd7826c019c08f5f438cab6f8203190a684fa12",
+  "validation_status": "parsed",
+  "as_of": "2026-06-27T14:00:00+00:00",
+  "source": "parquet_hydration",
+  "freshness_status": "aging",
+  "global": {
+    "observation_id": "global-2026-06-27-koyfin-01",
+    "whinfell_score": 58,
+    "transmission_state": "stressed",
+    "regime_tag": "Fragile Risk-On",
+    "key_observation": "Credit mixed; breadth narrowing; BTC lagging SPY.",
+    "gate_status": "",
+    "sq3_score": 54,
+    "sq3_band": "Mixed / Fragile",
+    "near_month": "Jul",
+    "far_month": "Dec",
+    "basis_spread": "1.25",
+    "ref_low": "0.50",
+    "ref_mid": "1.00",
+    "ref_high": "1.75",
+    "btc_bias": "Dragging"
+  },
+  "china": {
+    "policy_strength": 68,
+    "state_impulse_score": 22,
+    "growth_impulse_score": 55,
+    "sq3_score": 54,
+    "sq3_band": "Mixed / Fragile",
+    "regime_tag": "industrial policy acceleration",
+    "observation_id": "china-2026-06-27-koyfin-02",
+    "as_of": "2026-06-27T14:30:00+00:00",
+    "source": "koyfin"
+  },
+  "execution": {
+    "btc_bias": "Dragging",
+    "near_month": "Jul",
+    "far_month": "Dec",
+    "basis_spread": "1.25",
+    "ref_low": "0.50",
+    "ref_mid": "1.00",
+    "ref_high": "1.75",
+    "policy_strength": 68,
+    "state_impulse_score": 22,
+    "growth_impulse_score": 55,
+    "source": "koyfin"
+  },
+  "china_ladder": {
+    "sq3_score": 54,
+    "horizons": {
+      "liquidity": { "d1": "flat", "d5": "flat", "d20": "down", "d60": "flat" },
+      "credit": { "d1": "flat", "d5": "flat", "d20": "flat", "d60": "down" },
+      "breadth": { "d1": "up", "d5": "flat", "d20": "flat", "d60": "flat" },
+      "highbeta": { "d1": "flat", "d5": "down", "d20": "flat", "d60": "flat" },
+      "basis": { "d1": "flat", "d5": "flat", "d20": "down", "d60": "flat" }
+    }
+  },
+  "suggested_tracer": {
+    "liquidity": {
+      "d1": "flat",
+      "d5": "flat",
+      "d20": "down",
+      "d60": "flat"
+    },
+    "credit": {
+      "d1": "down",
+      "d5": "down",
+      "d20": "flat",
+      "d60": "flat"
+    },
+    "breadth": {
+      "d1": "flat",
+      "d5": "down",
+      "d20": "down",
+      "d60": "flat"
+    },
+    "highbeta": {
+      "d1": "down",
+      "d5": "down",
+      "d20": "flat",
+      "d60": "flat"
+    },
+    "basis": {
+      "d1": "flat",
+      "d5": "flat",
+      "d20": "flat",
+      "d60": "flat"
+    }
+  },
+  "tracer_apply_mode": "confirm_required",
+  "wtm_export_v21": "--- WTM EXPORT v2.1 ---\nWhinfell Score: 58\nTransmission State: Stressed\nRegime Tag: Fragile Risk-On\nKey Observation: Credit mixed; breadth narrowing; BTC lagging SPY.\nGross Risk Recommendation: \u2014\nBTC Bias: Dragging\nTimestamp: 2026-06-27T14:00:00\nSQ3 Score: 54\nSQ3 Band: Mixed / Fragile\nPolicy Strength: 68\nState Impulse Score: 22\nGrowth Impulse Score: 55\nChina Regime Tag: industrial policy acceleration\nSnapshot ID: global-2026-06-27-koyfin-01\nLineage Hash: sha256:54fbb9288293f6fcaaa465f94dd7826c019c08f5f438cab6f8203190a684fa12\nValidation Status: parsed\nData As Of: 2026-06-27T14:00:00Z\nSource Channel: koyfin\nFreshness Status: aging",
+  "warnings": []
+}

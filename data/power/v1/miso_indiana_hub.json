@@ -1,0 +1,29 @@
+{
+  "source": "gridstatus_stub_v1",
+  "as_of": "2026-07-03T05:16:02Z",
+  "hub": "MISO.INDIANA.HUB",
+  "lmp_usd_per_mwh": {
+    "rt": 38.6,
+    "da": 35.2
+  },
+  "recent_rt": [
+    {
+      "hour": "H-4",
+      "lmp": 41.2
+    },
+    {
+      "hour": "H-3",
+      "lmp": 39.8
+    },
+    {
+      "hour": "H-2",
+      "lmp": 37.1
+    },
+    {
+      "hour": "H-1",
+      "lmp": 38.6
+    }
+  ],
+  "gpu_power_sensitivity": "med",
+  "status": "stub"
+}

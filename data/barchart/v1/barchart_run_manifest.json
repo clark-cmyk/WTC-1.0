@@ -1,0 +1,1754 @@
+{
+  "barchart_hydration_version": "1.0.0",
+  "as_of": "2026-07-11T17:49:52.229267+00:00",
+  "source": "barchart_only",
+  "fetch_policy": "file_only",
+  "api_key_present": false,
+  "supplement_dirs": [
+    "/Users/clarksonwthornburgh/Downloads/whinfell_drop",
+    "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine",
+    "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/source=barchart",
+    "/Users/clarksonwthornburgh/Downloads/Archive",
+    "/Users/clarksonwthornburgh/Documents/ExcelCSVs/Barchart"
+  ],
+  "local_supplements": {
+    "CLX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "HGN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "QRU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAH27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "HGQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "VIN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLG27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCF27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCV26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OYU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLF27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OGZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTN26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260628/162529__btm26_daily-nearby_historical-data-06-28-2026.csv",
+      "fetch_mode": "local_csv_supplement",
+      "priority": 84
+    },
+    "BTV26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLV26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZLN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTH27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "NGQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OGU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZMN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OYH27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "S!N26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZNU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OYZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZBU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OGH27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAV26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "SQJ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTM26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260628/162529__btm26_daily-nearby_historical-data-06-28-2026.csv",
+      "fetch_mode": "local_csv_supplement",
+      "priority": 98
+    },
+    "A6M26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "YQN26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "$VHSI": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "LVN26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "_S_RT_ZBU6_ZBZ6": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "$VXHY": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "HGY00": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCY00": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "^ETHUSD": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "_S_RT_ZBZ6_ZBH7": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZFM26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "DXY00": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "E6M26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "FLM26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "_S_BF_ZBU6_ZBZ6_ZBH7": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "KHYB": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "SOFR": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "_S_RT_ZBU6_ZBH7": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "IBIT": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "DXM26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CBON": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "_S_IV_ZBU6_UDU6": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "^XRPUSD": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "U7M26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GBTC": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "^SOLUSD": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZQM26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "YCN26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "J6M26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "$HSI": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "LUN26": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "^BTCUSD": {
+      "path": "/Users/clarksonwthornburgh/Downloads/Archive/^BTCUSD_Barchart_Interactive_Chart_Daily_03_02_2026.csv",
+      "fetch_mode": "local_csv_supplement",
+      "priority": 2655
+    },
+    "ASHR": {
+      "path": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    }
+  },
+  "symbol_count_approved": 79,
+  "symbol_count_ok": 79,
+  "symbol_count_failed": 0,
+  "symbol_count_empty": 0,
+  "outcomes": [
+    {
+      "raw_symbol": "^BTCUSD",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "btc_spot_usd",
+      "row_count": 2560,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "local_csv_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/Archive/^BTCUSD_Barchart_Interactive_Chart_Daily_03_02_2026.csv",
+      "vendor_format": "barchart_interactive_chart"
+    },
+    {
+      "raw_symbol": "^ETHUSD",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "eth_spot_usd",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "^XRPUSD",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "xrp_spot_usd",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "^SOLUSD",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "sol_spot_usd",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "IBIT",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "btc_vehicle_ibit",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GBTC",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "btc_vehicle_gbtc",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "SOFR",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "sofr_index",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "$HSI",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "hsi_index",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "$VHSI",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "hsi_vol_index",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "$VXHY",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "hy_credit_vol_index",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CBON",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "china_bond_etf",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "KHYB",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "asia_hy_bond_etf",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ASHR",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "china_ashares_etf",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "DXY00",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "dxy_index",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCY00",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "gold_continuous",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "HGY00",
+      "bucket": "core",
+      "status": "ok",
+      "canonical_id": "copper_continuous",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "DXM26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_dxm26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "DX",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "E6M26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_e6m26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "E6",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "J6M26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_j6m26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "J6",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "A6M26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_a6m26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "A6",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcn26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCQ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcq26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "Q",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCV26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcv26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "V",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCX26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcx26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "X",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCZ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcz26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "Z",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "GCF27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_gcf27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "GC",
+        "month_code": "F",
+        "year": "2027",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "HGN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_hgn26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "HG",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "HGQ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_hgq26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "HG",
+        "month_code": "Q",
+        "year": "2026",
+        "contract_type_bucket": "metals-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLQ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clq26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "Q",
+        "year": "2026",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLG27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clg27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "G",
+        "year": "2027",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLV26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clv26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "V",
+        "year": "2026",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLZ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clz26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "Z",
+        "year": "2026",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLX26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clx26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "X",
+        "year": "2026",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "CLF27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_clf27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "CL",
+        "month_code": "F",
+        "year": "2027",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "NGQ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_ngq26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "NG",
+        "month_code": "Q",
+        "year": "2026",
+        "contract_type_bucket": "energy-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "BTM26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btm26",
+      "row_count": 18,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "local_csv_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260628/162529__btm26_daily-nearby_historical-data-06-28-2026.csv",
+      "vendor_format": "barchart_historical"
+    },
+    {
+      "raw_symbol": "BTN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btn26",
+      "row_count": 4,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "local_csv_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260628/162529__btm26_daily-nearby_historical-data-06-28-2026.csv",
+      "vendor_format": "barchart_historical"
+    },
+    {
+      "raw_symbol": "BTQ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btq26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "Q",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "BTU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "BTV26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btv26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "V",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "BTX26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btx26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "X",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "BTZ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_btz26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "Z",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "BTH27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_bth27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "H",
+        "year": "2027",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_tan26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAQ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_taq26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "Q",
+        "year": "2026",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_tau26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAV26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_tav26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "V",
+        "year": "2026",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAX26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_tax26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "X",
+        "year": "2026",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAZ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_taz26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "Z",
+        "year": "2026",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "TAH27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_tah27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "TA",
+        "month_code": "H",
+        "year": "2027",
+        "contract_type_bucket": "sofr-curves"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ZMN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_zmn26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "ZM",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "rates-strips"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ZLN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_zln26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "ZL",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "rates-strips"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ZBU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_zbu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "ZB",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "rates-strips"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ZFM26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_zfm26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "ZF",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "rates-strips"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ZNU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_znu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "ZN",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "rates-strips"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "ZQM26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_zqm26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "ZQ",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "rates-strips"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "OYU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_oyu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "OY",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "hy-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "OYZ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_oyz26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "OY",
+        "month_code": "Z",
+        "year": "2026",
+        "contract_type_bucket": "hy-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "OYH27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_oyh27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "OY",
+        "month_code": "H",
+        "year": "2027",
+        "contract_type_bucket": "hy-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "OGU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_ogu26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "OG",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "hy-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "OGZ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_ogz26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "OG",
+        "month_code": "Z",
+        "year": "2026",
+        "contract_type_bucket": "hy-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "OGH27",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_ogh27",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "OG",
+        "month_code": "H",
+        "year": "2027",
+        "contract_type_bucket": "hy-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "LUN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_lun26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "LU",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "FLM26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_flm26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "FL",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "LVN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_lvn26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "LV",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "QRU26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_qru26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "QR",
+        "month_code": "U",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "S!N26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_s!n26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "S!",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "SQJ26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_sqj26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "SQ",
+        "month_code": "J",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "U7M26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_u7m26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "U7",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "VIN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_vin26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "VI",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "YCN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_ycn26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "YC",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "YQN26",
+      "bucket": "curve",
+      "status": "ok",
+      "canonical_id": "barchart_contract_yqn26",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {
+        "contract_root": "YQ",
+        "month_code": "N",
+        "year": "2026",
+        "contract_type_bucket": "misc-contracts"
+      },
+      "spread_meta": {},
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "_S_IV_ZBU6_UDU6",
+      "bucket": "spread",
+      "status": "ok",
+      "canonical_id": "barchart_spread_s_iv_zbu6_udu6",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "IV",
+        "spread_legs": "ZBU6_UDU6",
+        "source_system": "barchart"
+      },
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "_S_RT_ZBU6_ZBZ6",
+      "bucket": "spread",
+      "status": "ok",
+      "canonical_id": "barchart_spread_s_rt_zbu6_zbz6",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "RT",
+        "spread_legs": "ZBU6_ZBZ6",
+        "source_system": "barchart"
+      },
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "_S_BF_ZBU6_ZBZ6_ZBH7",
+      "bucket": "spread",
+      "status": "ok",
+      "canonical_id": "barchart_spread_s_bf_zbu6_zbz6_zbh7",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "BF",
+        "spread_legs": "ZBU6_ZBZ6_ZBH7",
+        "source_system": "barchart"
+      },
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "_S_RT_ZBU6_ZBH7",
+      "bucket": "spread",
+      "status": "ok",
+      "canonical_id": "barchart_spread_s_rt_zbu6_zbh7",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "RT",
+        "spread_legs": "ZBU6_ZBH7",
+        "source_system": "barchart"
+      },
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    },
+    {
+      "raw_symbol": "_S_RT_ZBZ6_ZBH7",
+      "bucket": "spread",
+      "status": "ok",
+      "canonical_id": "barchart_spread_s_rt_zbz6_zbh7",
+      "row_count": 1,
+      "reason": "",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "RT",
+        "spread_legs": "ZBZ6_ZBH7",
+        "source_system": "barchart"
+      },
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv",
+      "vendor_format": "barchart_watchlist"
+    }
+  ]
+}

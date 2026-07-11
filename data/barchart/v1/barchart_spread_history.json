@@ -1,0 +1,203 @@
+{
+  "version": "1.0.0",
+  "bucket": "spread",
+  "as_of": "2026-07-11T17:49:52.229267+00:00",
+  "symbol_count": 5,
+  "records": [
+    {
+      "raw_symbol": "_S_IV_ZBU6_UDU6",
+      "canonical_id": "barchart_spread_s_iv_zbu6_udu6",
+      "bucket": "spread",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "spread",
+      "pricing_mode": "derived_or_structured",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "IV",
+        "spread_legs": "ZBU6_UDU6",
+        "source_system": "barchart"
+      },
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": -0.0625,
+          "change": -0.0625,
+          "pct_change": -6.25,
+          "high": 0.0,
+          "low": -0.09375,
+          "volume": 46.0,
+          "date": "2026-06-29"
+        }
+      ],
+      "latest": {
+        "close": -0.0625,
+        "change": -0.0625,
+        "pct_change": -6.25,
+        "high": 0.0,
+        "low": -0.09375,
+        "volume": 46.0,
+        "date": "2026-06-29"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+    },
+    {
+      "raw_symbol": "_S_RT_ZBU6_ZBZ6",
+      "canonical_id": "barchart_spread_s_rt_zbu6_zbz6",
+      "bucket": "spread",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "spread",
+      "pricing_mode": "derived_or_structured",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "RT",
+        "spread_legs": "ZBU6_ZBZ6",
+        "source_system": "barchart"
+      },
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 0.375,
+          "change": 0.03125,
+          "pct_change": 9.09,
+          "high": 0.375,
+          "low": 0.375,
+          "volume": 1.0,
+          "date": "2026-06-29"
+        }
+      ],
+      "latest": {
+        "close": 0.375,
+        "change": 0.03125,
+        "pct_change": 9.09,
+        "high": 0.375,
+        "low": 0.375,
+        "volume": 1.0,
+        "date": "2026-06-29"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+    },
+    {
+      "raw_symbol": "_S_BF_ZBU6_ZBZ6_ZBH7",
+      "canonical_id": "barchart_spread_s_bf_zbu6_zbz6_zbh7",
+      "bucket": "spread",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "spread",
+      "pricing_mode": "derived_or_structured",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "BF",
+        "spread_legs": "ZBU6_ZBZ6_ZBH7",
+        "source_system": "barchart"
+      },
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": -0.0625,
+          "change": -0.03125,
+          "pct_change": -100.0,
+          "high": -0.0625,
+          "low": -0.0625,
+          "volume": "N/A",
+          "date": "2026-06-29"
+        }
+      ],
+      "latest": {
+        "close": -0.0625,
+        "change": -0.03125,
+        "pct_change": -100.0,
+        "high": -0.0625,
+        "low": -0.0625,
+        "volume": "N/A",
+        "date": "2026-06-29"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+    },
+    {
+      "raw_symbol": "_S_RT_ZBU6_ZBH7",
+      "canonical_id": "barchart_spread_s_rt_zbu6_zbh7",
+      "bucket": "spread",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "spread",
+      "pricing_mode": "derived_or_structured",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "RT",
+        "spread_legs": "ZBU6_ZBH7",
+        "source_system": "barchart"
+      },
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 0.75,
+          "change": -0.03125,
+          "pct_change": -4.0,
+          "high": 0.75,
+          "low": 0.75,
+          "volume": "N/A",
+          "date": "2026-06-29"
+        }
+      ],
+      "latest": {
+        "close": 0.75,
+        "change": -0.03125,
+        "pct_change": -4.0,
+        "high": 0.75,
+        "low": 0.75,
+        "volume": "N/A",
+        "date": "2026-06-29"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+    },
+    {
+      "raw_symbol": "_S_RT_ZBZ6_ZBH7",
+      "canonical_id": "barchart_spread_s_rt_zbz6_zbh7",
+      "bucket": "spread",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "spread",
+      "pricing_mode": "derived_or_structured",
+      "contract_meta": {},
+      "spread_meta": {
+        "spread_kind": "RT",
+        "spread_legs": "ZBZ6_ZBH7",
+        "source_system": "barchart"
+      },
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 0.40625,
+          "change": 0.0,
+          "pct_change": 0.0,
+          "high": 0.40625,
+          "low": 0.40625,
+          "volume": "N/A",
+          "date": "2026-06-29"
+        }
+      ],
+      "latest": {
+        "close": 0.40625,
+        "change": 0.0,
+        "pct_change": 0.0,
+        "high": 0.40625,
+        "low": 0.40625,
+        "volume": "N/A",
+        "date": "2026-06-29"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+    }
+  ]
+}

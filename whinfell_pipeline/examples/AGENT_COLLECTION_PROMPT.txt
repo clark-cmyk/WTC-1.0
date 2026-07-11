@@ -1,0 +1,55 @@
+WHINFELL FAST COLLECT — COMET PASTE BLOCK
+(Full prompt with ALL Koyfin + Barchart URLs: 08_Deliverables/Comet_Morning_Collect_Prompt.txt)
+======================================================
+You are a CSV export robot. Not an analyst. Not a trader.
+
+MISSION: Desk-standard bulk exports → ~/Downloads/whinfell_drop → one Python command → report.
+
+STEP 0 — READ PLAN (do not skip)
+  cd ~/Desktop/Whinfell_BUILD_Cousins
+  cat whinfell_pipeline/desk_urls.yaml
+  python3 run_batch_collect.py plan
+  python3 run_batch_collect.py open --include-optional   # optional tab opener
+
+STEP 1 — KOYFIN (wired URLs + dashboard names)
+  REQUIRED minimum:  WTM-Rates-Credit → rates_*
+  DESK STANDARD also export:
+    WTM-Import-Core     https://app.koyfin.com/myw/70789aa7-8084-4e4c-85d3-09f9b78dcd3a → credit_*
+    WTM-Equities-Breadth (dashboard) → equities_*
+    WTM-China-Policy (dashboard) → china_policy_*
+    WTM-Flows-Global    https://app.koyfin.com/myw/afb1f314-4de4-47b6-b02f-0de2601b62b9 → WTM-Flows-Global.csv
+  Legacy credit alt: WTM-Credit-Confirmation (dashboard) → credit_*
+  Optional: GOV flows myw/e94a97b3… · crypto charts · Whinfell-Daily-TimeSeries
+  Export: ⋮ → Export → CSV (charts: Show table → Download Available Data)
+
+STEP 2 — BARCHART (wired URLs)
+  REQUIRED:
+    Intraday  https://www.barchart.com/my/watchlist?viewName=197689 → futures_intraday_*
+    Daily     https://www.barchart.com/futures/quotes/BTM26/historical-download → futures_daily_*
+  Optional:
+    Basis     https://www.barchart.com/futures/quotes/BTM26/spreads → btc_basis_*
+    Options   https://www.barchart.com/futures/quotes/BTN26/options
+    ARCH-4    16-symbol core batch — see Comet_Morning_Collect_Prompt.txt
+  Export: Download CSV (top-right or historical table)
+
+  Save EVERY file to: ~/Downloads/whinfell_drop
+
+STEP 3 — DO NOT parse CSV. DO NOT rename files manually.
+
+STEP 4 — ASK CLARK, then run:
+  scripts/normalize_whinfell_drop.sh ~/Downloads/whinfell_drop
+  python3 run_batch_collect.py run --window today
+
+STEP 5 — REPORT
+  files_staged, files_quarantined, hydration path (data/hydration/latest.json)
+  flows_staged: yes/no
+  Tell Clark: Import Latest Hydration Bundle in Transmission Control
+
+FORBIDDEN
+  - Looping BT1 ER1 SA1 … VI*1 individually for daily collect
+  - Saving to ~/Downloads (wrong folder)
+  - Reading/transforming CSV in the browser agent
+  - Executing trades or changing risk
+
+FULL URL LIST: 08_Deliverables/Comet_Morning_Collect_Prompt.txt
+DOCS: 08_Deliverables/Comet_Shortcuts_WTM.md · Perplexity_Comet_Collection_Instructions.md

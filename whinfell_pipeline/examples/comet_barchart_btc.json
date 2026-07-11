@@ -1,0 +1,18 @@
+{
+  "collector_version": "1.0.0",
+  "collector_id": "comet-first-pass",
+  "collected_at": "2026-06-27T15:00:00Z",
+  "source_channel": "barchart",
+  "track": "execution",
+  "page_url": "https://www.barchart.com/futures/major-commodities",
+  "payload": {
+    "observation_id": "exec-2026-06-27-barchart-01",
+    "source": "barchart",
+    "near_month": "Jul",
+    "far_month": "Dec",
+    "basis_spread": "1.25",
+    "ref_low": "0.50",
+    "ref_mid": "1.00",
+    "ref_high": "1.75"
+  }
+}

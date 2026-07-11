@@ -1,0 +1,198 @@
+{
+  "version": "1.1.0",
+  "mode": "batch",
+  "strategy": "Export only — 8 required bulk screens + optional crypto enrichments. Not 13 per-ticker loops.",
+  "total_exports_required": 6,
+  "total_exports_optional": 7,
+  "total_clicks_required": 12,
+  "drop_dir": "/Users/clarksonwthornburgh/Downloads/whinfell_drop",
+  "authority_files": [
+    "whinfell_pipeline/collection_manifest.yaml",
+    "whinfell_pipeline/desk_urls.yaml",
+    "whinfell_pipeline/data_dictionary.yaml"
+  ],
+  "required_batch_ids": [
+    "koyfin_rates",
+    "koyfin_equities",
+    "koyfin_credit",
+    "koyfin_china",
+    "barchart_futures_intraday",
+    "barchart_futures_daily"
+  ],
+  "optional_batch_ids": [
+    "koyfin_daily_spot",
+    "barchart_btc_basis",
+    "koyfin_crypto_price",
+    "koyfin_crypto_correl_btc",
+    "koyfin_crypto_correl_eth",
+    "koyfin_crypto_correl_xrp",
+    "koyfin_crypto_correl_sol",
+    "koyfin_crypto_corr_series"
+  ],
+  "agent_rules": [
+    "Use batch_exports for daily Whinfell — never loop all 13 tickers unless Clark requests analytics archive.",
+    "Export only — do not parse CSV content in the browser agent.",
+    "All files land in ~/Downloads/whinfell_drop (not ~/Downloads root).",
+    "Run scripts/normalize_whinfell_drop.sh if filenames are raw vendor names.",
+    "After exports, run: python3 run_batch_collect.py run --window today",
+    "WTM-Credit-Confirmation export auto-ingests crypto_sleeve snapshot (BTC/ETH/XRP/SOL).",
+    "china_policy CSV is REQUIRED for china_ladder.horizons in hydration bundle.",
+    "If BARCHART_API_KEY is set, use fetch-api instead of browser for historical series."
+  ],
+  "steps": [
+    {
+      "step": 1,
+      "id": "koyfin_rates",
+      "required": true,
+      "source": "koyfin",
+      "dataset": "rates",
+      "saved_view": "WTM-Rates-Credit",
+      "clicks": 2,
+      "canonical_name": "rates_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 2,
+      "id": "koyfin_equities",
+      "required": true,
+      "source": "koyfin",
+      "dataset": "equities",
+      "saved_view": "WTM-Equities-Breadth",
+      "clicks": 2,
+      "canonical_name": "equities_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 3,
+      "id": "koyfin_credit",
+      "required": true,
+      "source": "koyfin",
+      "dataset": "credit",
+      "saved_view": "WTM-Credit-Confirmation",
+      "clicks": 2,
+      "canonical_name": "credit_{YYYYMMDD}_{HHMM}.csv",
+      "notes": "WTM-Credit-Confirmation — also feeds crypto_sleeve snapshot on stage"
+    },
+    {
+      "step": 4,
+      "id": "koyfin_china",
+      "required": true,
+      "source": "koyfin",
+      "dataset": "china_policy",
+      "saved_view": "WTM-China-Policy",
+      "clicks": 2,
+      "canonical_name": "china_policy_{YYYYMMDD}_{HHMM}.csv",
+      "notes": "REQUIRED for china_ladder.horizons in hydration bundle"
+    },
+    {
+      "step": 5,
+      "id": "barchart_futures_intraday",
+      "required": true,
+      "source": "barchart",
+      "dataset": "futures_intraday",
+      "saved_view": "WTM-Futures-Intraday",
+      "clicks": 2,
+      "canonical_name": "futures_intraday_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 6,
+      "id": "barchart_futures_daily",
+      "required": true,
+      "source": "barchart",
+      "dataset": "futures_daily",
+      "saved_view": "WTM-Futures-Daily",
+      "clicks": 2,
+      "canonical_name": "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 7,
+      "id": "koyfin_daily_spot",
+      "required": false,
+      "source": "koyfin",
+      "dataset": "rates",
+      "saved_view": "Whinfell-Daily-TimeSeries",
+      "clicks": 3,
+      "canonical_name": "rates_{YYYYMMDD}_{HHMM}.csv",
+      "notes": "Wide backup — prefer crypto charts for history"
+    },
+    {
+      "step": 8,
+      "id": "barchart_btc_basis",
+      "required": false,
+      "source": "barchart",
+      "dataset": "futures_daily",
+      "saved_view": "WTM-BTC-Basis",
+      "clicks": 2,
+      "canonical_name": "btc_basis_{YYYYMMDD}.csv"
+    },
+    {
+      "step": 9,
+      "id": "koyfin_crypto_price",
+      "required": false,
+      "source": "crypto",
+      "dataset": "btc_price_chart",
+      "saved_view": "WTM-Crypto-Price",
+      "clicks": 3,
+      "canonical_name": "btc_price_chart_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 10,
+      "id": "koyfin_crypto_correl_btc",
+      "required": false,
+      "source": "crypto",
+      "dataset": "btc_correl_chart",
+      "saved_view": "WTM-Crypto-Correl",
+      "clicks": 3,
+      "canonical_name": "btc_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 11,
+      "id": "koyfin_crypto_correl_eth",
+      "required": false,
+      "source": "crypto",
+      "dataset": "eth_correl_chart",
+      "saved_view": "WTM-Crypto-Correl-ETH",
+      "clicks": 3,
+      "canonical_name": "eth_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 12,
+      "id": "koyfin_crypto_correl_xrp",
+      "required": false,
+      "source": "crypto",
+      "dataset": "xrp_correl_chart",
+      "saved_view": "WTM-Crypto-Correl-XRP",
+      "clicks": 3,
+      "canonical_name": "xrp_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 13,
+      "id": "koyfin_crypto_correl_sol",
+      "required": false,
+      "source": "crypto",
+      "dataset": "sol_correl_chart",
+      "saved_view": "WTM-Crypto-Correl-SOL",
+      "clicks": 3,
+      "canonical_name": "sol_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+    },
+    {
+      "step": 14,
+      "id": "koyfin_crypto_corr_series",
+      "required": false,
+      "source": "crypto",
+      "dataset": "crypto_corr_series",
+      "saved_view": "Koyfin historical correlation export",
+      "clicks": 3,
+      "canonical_name": "crypto_corr_series_{YYYYMMDD}_{HHMM}.csv"
+    }
+  ],
+  "hydration_success_criteria": {
+    "global": ["whinfell_score", "transmission_state", "btc_bias"],
+    "china": ["sq3_score", "china_ladder.horizons"],
+    "crypto_sleeve": ["assets.btc_spot_usd", "assets.eth_spot_usd", "assets.xrp_spot_usd", "assets.sol_spot_usd"],
+    "execution": ["near_month", "basis_spread"]
+  },
+  "after_exports": [
+    "scripts/normalize_whinfell_drop.sh ~/Downloads/whinfell_drop",
+    "python3 /Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins/run_batch_collect.py run --window today",
+    "Transmission Control → Import Latest Hydration Bundle → data/hydration/latest.json"
+  ]
+}

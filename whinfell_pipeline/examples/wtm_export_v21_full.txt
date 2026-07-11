@@ -1,0 +1,23 @@
+--- WTM EXPORT v2.1 ---
+Whinfell Score: 58
+Transmission State: Stressed
+Regime Tag: Fragile Risk-On
+Key Observation: Credit mixed; breadth narrowing; BTC lagging SPY.
+Gross Risk Recommendation: 35% total, Light posture
+BTC Bias: Neutral
+Timestamp: 2026-06-27T14:00:00
+SQ3 Score: 55
+SQ3 Band: Mixed / Fragile
+Policy Strength: 74
+State Impulse Score: 38
+Growth Impulse Score: 61
+China Regime Tag: targeted fiscal support
+Signal Tracer — Liquidity & Rates: 1d: → | 5d: → | 20d: ↓ | 60d: ↓
+Signal Tracer — Credit Confirmation: 1d: ↓ | 5d: ↓ | 20d: → | 60d: →
+Signal Tracer — High-Beta / BTC: 1d: ↓ | 5d: ↓ | 20d: → | 60d: →
+Snapshot ID: snap_20260627_koyfin_01
+Lineage Hash: sha256:fe1d83d6a1ea739b2e8b3b5b96d9186393762f682498e0c82b76d745f231339f
+Validation Status: parsed
+Data As Of: 2026-06-27T14:00:00Z
+Source Channel: koyfin
+Freshness Status: fresh

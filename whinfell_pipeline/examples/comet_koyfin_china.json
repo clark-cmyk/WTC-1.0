@@ -1,0 +1,34 @@
+{
+  "collector_version": "1.0.0",
+  "collector_id": "comet-first-pass",
+  "collected_at": "2026-06-27T14:30:00Z",
+  "source_channel": "koyfin",
+  "track": "china_policy",
+  "page_url": "https://app.koyfin.com/",
+  "payload": {
+    "observation_id": "china-2026-06-27-koyfin-02",
+    "timestamp": "2026-06-27T14:30:00",
+    "source": "koyfin",
+    "policy_hierarchy_strength": {
+      "hierarchy_level": "sectoral",
+      "policy_strength": 68,
+      "dominant_theme": "industrial policy acceleration",
+      "supporting_signals": ["semiconductor subsidies", "export credit lines"],
+      "notes": "Sectoral directives dominate this window."
+    },
+    "state_control_impulse": {
+      "impulse_score": 22,
+      "regulatory_direction": "neutral",
+      "state_intervention_level": "medium",
+      "key_controls": ["data localization review"],
+      "notes": "Control impulse moderating vs prior week."
+    },
+    "growth_market_impulse": {
+      "growth_impulse_score": 55,
+      "market_sentiment": "constructive",
+      "liquidity_impulse": "expanding",
+      "key_indicators": ["CSI300 breadth", "credit spread compression"],
+      "notes": "Market impulse improving on liquidity support."
+    }
+  }
+}

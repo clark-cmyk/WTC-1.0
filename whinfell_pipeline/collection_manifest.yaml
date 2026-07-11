@@ -1,0 +1,547 @@
+# Whinfell desk CSV collection manifest — machine-readable plan for Comet / Perplexity / batch_collect.py
+# Authority: Master Data Dictionary v1.0 (whinfell_pipeline/data_dictionary.yaml)
+# Strategy: BATCH exports (8 clicks) beat per-ticker navigation (40+ clicks).
+version: "1.0.0"
+updated: "2026-07-04"
+master_data_dictionary: "1.0"
+
+drop_dir: "~/Downloads/whinfell_drop"
+
+# Wired URLs: whinfell_pipeline/desk_urls.yaml (merged at runtime by batch_collect.py)
+# Agent instructions: 08_Deliverables/Perplexity_Comet_Collection_Instructions.md
+# Paste prompt: whinfell_pipeline/examples/AGENT_COLLECTION_PROMPT.txt
+# Override via env: KOYFIN_VIEW_*_URL, BARCHART_SCREEN_*_URL
+
+strategy:
+  primary: batch_exports
+  secondary: per_ticker_analytics
+  notes: >
+    Perplexity and Comet are slow when they download one ticker at a time.
+    Use batch_exports for the daily Whinfell chain. Use per_ticker only when
+    WhinVis/data_parser needs full raw archives (analytics / 2.2e).
+  # Easiest Barchart per-ticker CSV path (desk + Comet — do not invent alternate flows)
+  barchart_ticker_navigation:
+    path: "Main Watchlist → find ticker → choose CSV type"
+    steps:
+      - "Start at the main Watchlist (WTM-Futures-Intraday / viewName=197689)."
+      - "Find the specific ticker in the watchlist."
+      - "From the ticker screen, download the correct CSV."
+    futures_csv:
+      - "Historical Data (system default date range)"
+      - "Futures Spreads"
+    options_csv:
+      - "Volatility & Greeks"
+      - "Options Prices"
+
+# ---------------------------------------------------------------------------
+# PRIMARY — 8 bulk exports (Comet Blueprint §2–§3)
+# ---------------------------------------------------------------------------
+batch_exports:
+  - id: koyfin_rates
+    priority: 1
+    source: koyfin
+    dataset: rates
+    saved_view: WTM-Rates-Credit
+    url: "${KOYFIN_VIEW_RATES_URL}"
+    fallback_url: "https://app.koyfin.com/"
+    clicks: 2
+    steps:
+      - "Open saved view WTM-Rates-Credit (do not rebuild panels)."
+      - "Export CSV → save to ~/Downloads/whinfell_drop/"
+    canonical_name: "rates_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: rates
+    raw_filename_patterns:
+      - "koyfin_WTM-Rates-Credit_*"
+      - "WTM-Rates-Credit.csv"
+      - "koyfin_????-??-??.csv"
+
+  - id: koyfin_equities
+    priority: 2
+    source: koyfin
+    dataset: equities
+    saved_view: WTM-Equities-Breadth
+    url: "${KOYFIN_VIEW_EQUITIES_URL}"
+    fallback_url: "https://app.koyfin.com/"
+    clicks: 2
+    steps:
+      - "Open saved view WTM-Equities-Breadth."
+      - "Export CSV → whinfell_drop/"
+    canonical_name: "equities_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: equities
+    raw_filename_patterns:
+      - "koyfin_WTM-Equities-Breadth_*"
+      - "WTM-Equities-Breadth.csv"
+      - "koyfin_simplify_all_etfs_*"
+
+  - id: koyfin_import_core
+    priority: 3
+    source: koyfin
+    dataset: credit
+    saved_view: WTM-Import-Core
+    url: "${KOYFIN_VIEW_IMPORT_CORE_URL}"
+    fallback_url: "https://app.koyfin.com/myw/70789aa7-8084-4e4c-85d3-09f9b78dcd3a"
+    clicks: 2
+    steps:
+      - "Open saved watchlist WTM-Import-Core (canonical snapshot universe)."
+      - "Export CSV → whinfell_drop/ (feeds crypto_sleeve + global score proxy)."
+    canonical_name: "credit_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: credit
+    notes: >
+      ARCH-3 shipped — replaces interim WhinPump-only path. Tickers: data_dictionary.yaml koyfin_import_core.
+      Legacy WTM-Credit-Confirmation still accepted via normalize_rules.
+
+  - id: koyfin_credit
+    priority: 4
+    source: koyfin
+    dataset: credit
+    saved_view: WTM-Credit-Confirmation
+    url: "${KOYFIN_VIEW_CREDIT_URL}"
+    fallback_url: "https://app.koyfin.com/"
+    clicks: 2
+    steps:
+      - "Open saved view WTM-Credit-Confirmation."
+      - "Export CSV → whinfell_drop/"
+    canonical_name: "credit_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: credit
+    notes: >
+      WTM-Credit-Confirmation export auto-ingests crypto_sleeve snapshot (BTCUSD, ETHUSD, XRPUSD, SOLUSD)
+      when staged. Vendor rename rules: whinfell_pipeline/data_dictionary.yaml normalize_rules.
+
+  - id: koyfin_china
+    priority: 5
+    source: koyfin
+    dataset: china_policy
+    saved_view: WTM-China-Policy
+    url: "${KOYFIN_VIEW_CHINA_URL}"
+    fallback_url: "https://app.koyfin.com/"
+    clicks: 2
+    tickers_ref: koyfin_china_policy
+    tickers:
+      - KWEB
+      - "000300.SS"
+      - HSTECH
+      - ASHR
+      - KHYB
+      - CBON
+    koyfin_tickers:
+      - KWEB
+      - SHSZ300
+      - "551550"
+      - ASHR
+      - KHYB
+      - CBON
+    koyfin_ticker_map:
+      "000300.SS": SHSZ300
+      HSTECH: "551550"
+    industrial_proxy:
+      symbol: HG1
+      source: barchart
+      barchart_screen: WTM-China-Cyclical
+    steps:
+      - "Open saved view WTM-China-Policy (KWEB, 000300.SS, HSTECH, ASHR, KHYB, CBON)."
+      - "Export CSV → whinfell_drop/"
+    canonical_name: "china_policy_{YYYYMMDD}_{HHMM}.csv"
+    raw_filename_patterns:
+      - "koyfin_WTM-China-Policy_*"
+      - "WTM-China-Policy.csv"
+    notes: >
+      FINAL LOCK — China Policy tickers locked; no further ticker changes.
+      Primary industrial proxy: HG1 (Copper Futures - Barchart). SCO1 removed.
+
+  - id: koyfin_daily_spot
+    priority: 5
+    source: koyfin
+    dataset: rates
+    saved_view: "Koyfin daily time-series (Date column)"
+    url: "${KOYFIN_DAILY_EXPORT_URL}"
+    fallback_url: "https://app.koyfin.com/"
+    clicks: 3
+    optional: true
+    steps:
+      - "Open Whinfell macro watchlist with Date + Close columns (BTCUSD, ETHUSD, SPY, US10Y, IBIT Close)."
+      - "Export historical CSV — filename koyfin_YYYY-MM-DD.csv"
+      - "Move to whinfell_drop/ (renamed to rates_* by normalize)"
+    canonical_name: "rates_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: rates
+    notes: "For WhinVis spot joins. Use Date-column export — not cross-section snapshots."
+
+  - id: barchart_futures_intraday
+    priority: 6
+    source: barchart
+    dataset: futures_intraday
+    saved_view: WTM-Futures-Intraday
+    url: "${BARCHART_SCREEN_INTRADAY_URL}"
+    fallback_url: "https://www.barchart.com/my/watchlist?viewName=197689"
+    clicks: 2
+    steps:
+      - "Open saved screen WTM-Futures-Intraday (BTC1!, ES1!, CL1!, IBIT in one screen)."
+      - "Download CSV → whinfell_drop/"
+    canonical_name: "futures_intraday_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: futures_intraday
+
+  - id: barchart_futures_daily
+    priority: 7
+    source: barchart
+    dataset: futures_daily
+    saved_view: WTM-Futures-Daily
+    url: "${BARCHART_SCREEN_DAILY_URL}"
+    fallback_url: "https://www.barchart.com/futures/major-commodities"
+    clicks: 2
+    steps:
+      - "Main Watchlist → find ticker → Historical Data (system default date range)."
+      - "Download CSV → whinfell_drop/"
+    canonical_name: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: futures_daily
+
+  - id: barchart_core_batch
+    priority: 7
+    source: barchart
+    dataset: futures_daily
+    saved_view: WTM-Barchart-Core
+    url: "${BARCHART_CORE_BATCH_URL}"
+    fallback_url: "https://www.barchart.com/futures/major-commodities"
+    clicks: 16
+    optional: true
+    symbols_ref: barchart_core
+    steps:
+      - "ARCH-4 — download daily-nearby historical CSV for each symbol in universes.barchart_core (16 symbols)."
+      - "Quote page → Historical Data → Download for each: ^BTCUSD, ^ETHUSD, ^XRPUSD, ^SOLUSD, IBIT, GBTC, SOFR, $HSI, $VHSI, $VXHY, CBON, KHYB, ASHR, DXY00, GCY00, HGY00."
+      - "Save all to whinfell_drop/ (normalize maps *_daily_historical* → futures_daily_*)."
+      - "Fast-path when BARCHART_API_KEY set: python3 run_batch_collect.py fetch-tickers"
+    canonical_name: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: futures_daily
+    raw_filename_patterns:
+      - "*_daily_historical-data-*"
+      - "*_daily-nearby_historical-data-*"
+      - "*daily_historical-data*"
+    notes: >
+      ARCH-4 shipped — canonical 16-symbol core historical batch. Raw vendor files stage as
+      historical_timeseries (no WTM row squash). Feeds barchart_hydration sidecar.
+
+  - id: barchart_btc_basis
+    priority: 8
+    source: barchart
+    dataset: btc_basis
+    saved_view: WTM-BTC-Basis
+    url: "${BARCHART_SCREEN_BASIS_URL}"
+    fallback_url: "https://www.barchart.com/futures/quotes/BTM26/spreads"
+    clicks: 3
+    optional: true
+    front_contract: BTM26
+    shortcut: BT1
+    csv_type: Futures Spreads
+    metrics:
+      - basis_level
+      - calendar_spreads
+    steps:
+      - "Main Watchlist → find BTM26 (Bitcoin front month · BT1)."
+      - "Open quote → Spreads tab (or /futures/quotes/BTM26/spreads)."
+      - "Futures Spreads → Download CSV → whinfell_drop/"
+    canonical_name: "btc_basis_{YYYYMMDD}.csv"
+    dictionary_dataset: btc_basis
+    raw_filename_patterns:
+      - "futures-spreads-btm*"
+      - "futures-spreads-btn*"
+    notes: >
+      Barchart-only — not Koyfin. Vendor file futures-spreads-btm26-*.csv normalizes to btc_basis_*.
+      Front leg BTM26; spread rows (Leg1/Leg2/Type/Latest) feed basis node rv_basis + execution refs.
+
+  # ---------------------------------------------------------------------------
+  # OPTIONAL — crypto sleeve chart + correlation enrichments
+  # ---------------------------------------------------------------------------
+  - id: koyfin_crypto_price
+    priority: 9
+    source: crypto
+    dataset: btc_price_chart
+    saved_view: WTM-Crypto-Price
+    url: "${KOYFIN_CRYPTO_PRICE_CHART_URL}"
+    fallback_url: "https://app.koyfin.com/crypto/BTCUSD"
+    clicks: 3
+    optional: true
+    steps:
+      - "Open saved chart WTM-Crypto-Price (BTC spot price history)."
+      - "Show table → Download Available Data → whinfell_drop/"
+    canonical_name: "btc_price_chart_{YYYYMMDD}_{HHMM}.csv"
+    notes: "Primary BTC price history — preferred over wide timeseries backup."
+
+  - id: koyfin_crypto_correl_btc
+    priority: 10
+    source: crypto
+    dataset: btc_correl_chart
+    saved_view: WTM-Crypto-Correl
+    url: "${KOYFIN_CRYPTO_CORREL_CHART_URL}"
+    fallback_url: "https://app.koyfin.com/crypto/BTCUSD"
+    clicks: 3
+    optional: true
+    steps:
+      - "Open saved chart WTM-Crypto-Correl (BTC / SPY correlation)."
+      - "Download Available Data → whinfell_drop/"
+    canonical_name: "btc_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+
+  - id: koyfin_crypto_correl_eth
+    priority: 11
+    source: crypto
+    dataset: eth_correl_chart
+    saved_view: WTM-Crypto-Correl-ETH
+    url: "${KOYFIN_CRYPTO_CORREL_ETH_CHART_URL}"
+    fallback_url: "https://app.koyfin.com/crypto/ETHUSD"
+    clicks: 3
+    optional: true
+    steps:
+      - "Open ETH / SPY correlation chart."
+      - "Download Available Data → whinfell_drop/"
+    canonical_name: "eth_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+
+  - id: koyfin_crypto_correl_xrp
+    priority: 12
+    source: crypto
+    dataset: xrp_correl_chart
+    saved_view: WTM-Crypto-Correl-XRP
+    url: "${KOYFIN_CRYPTO_CORREL_XRP_CHART_URL}"
+    fallback_url: "https://app.koyfin.com/crypto/XRPUSD"
+    clicks: 3
+    optional: true
+    steps:
+      - "Open XRP / SPY correlation chart."
+      - "Download Available Data → whinfell_drop/"
+    canonical_name: "xrp_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+
+  - id: koyfin_crypto_correl_sol
+    priority: 13
+    source: crypto
+    dataset: sol_correl_chart
+    saved_view: WTM-Crypto-Correl-SOL
+    url: "${KOYFIN_CRYPTO_CORREL_SOL_CHART_URL}"
+    fallback_url: "https://app.koyfin.com/crypto/SOLUSD"
+    clicks: 3
+    optional: true
+    steps:
+      - "Open SOL / SPY correlation chart."
+      - "Download Available Data → whinfell_drop/"
+    canonical_name: "sol_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+
+  - id: koyfin_crypto_corr_series
+    priority: 14
+    source: crypto
+    dataset: crypto_corr_series
+    saved_view: "Koyfin historical correlation export"
+    url: "${KOYFIN_VIEW_RATES_URL}"
+    fallback_url: "https://app.koyfin.com/"
+    clicks: 3
+    optional: true
+    steps:
+      - "Export dated correlation CSV (Date + HYG SPY Corr, JAAA SPY Corr, etc.)."
+      - "Save to whinfell_drop/ (normalize → crypto_corr_series_*)"
+    canonical_name: "crypto_corr_series_{YYYYMMDD}_{HHMM}.csv"
+    raw_filename_patterns:
+      - "koyfin_*-*-?.csv"
+      - "koyfin_*-*-??.csv"
+    notes: "Non-crypto pairwise correlation series (credit vs SPY)."
+
+  - id: koyfin_flows_global
+    priority: 15
+    optional: true
+    source: koyfin
+    dataset: flows
+    saved_view: WTM-Flows-Global
+    url: "${KOYFIN_VIEW_FLOWS_GLOBAL_URL}"
+    fallback_url: "https://app.koyfin.com/myw/afb1f314-4de4-47b6-b02f-0de2601b62b9"
+    clicks: 2
+    steps:
+      - "Open watchlist WTM-Flows-Global."
+      - "Export CSV → whinfell_drop/ as WTM-Flows-Global.csv (normalize → flows_{YYYYMMDD}_{HHMM}.csv)"
+    canonical_name: "flows_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: flows
+    raw_filename_patterns:
+      - "WTM-Flows-Global.csv"
+      - "WTM-Flows*.csv"
+    notes: >
+      Primary funds-flow time series. Optional — not in required_batch_ids.
+
+  - id: koyfin_flows_gov
+    priority: 16
+    optional: true
+    source: koyfin
+    dataset: flows
+    saved_view: WTM-GOV-USPRC
+    url: "${KOYFIN_VIEW_FLOWS_GOV_URL}"
+    fallback_url: "https://app.koyfin.com/myw/e94a97b3-600d-47d4-91d3-a01f8749146d"
+    clicks: 2
+    steps:
+      - "Open watchlist WTM-GOV-USPRC (US–PRC government tickers)."
+      - "Export CSV → whinfell_drop/ as WTM-Flows-GOV-USPRC.csv"
+    canonical_name: "flows_{YYYYMMDD}_{HHMM}.csv"
+    dictionary_dataset: flows
+    raw_filename_patterns:
+      - "WTM-Flows-GOV-USPRC.csv"
+      - "WTM-Flows*.csv"
+    notes: >
+      Optional US–PRC gov flows enrichment. Same flows_* contract via normalize_rules.
+
+- id: koyfin_midwest_corporate_gm
+  priority: 5
+  source: koyfin
+  dataset: litmus_corporate_gm
+  saved_view: WTM-Midwest-Corporate-GM
+  url: "${https://app.koyfin.com/myw/790f7aab-ba98-43df-9807-78b01c779a29}"
+  canonical_name: "midwest_corporate_gm_{YYYYMMDD}*{HHMM}.csv"
+  raw_filename_patterns:
+    - "koyfin_WTM-Midwest-Corporate-GM**"
+    - "WTM-Midwest-Corporate-GM.csv"
+
+
+# Minimum files before auto-pipeline runs (required batch ids)
+required_batch_ids:
+  - koyfin_rates
+  - barchart_futures_intraday
+  - barchart_futures_daily
+
+# ---------------------------------------------------------------------------
+# SECONDARY — per-ticker URLs (analytics only; do NOT run daily for all 13)
+# Navigation: strategy.barchart_ticker_navigation (Watchlist → ticker → CSV type)
+# ---------------------------------------------------------------------------
+ticker_queue:
+  - BT1
+  - ER1
+  - SA1
+  - SJ1
+  - GC1
+  - ES1
+  - ZN1
+  - CL1
+  - SQ1
+  - OY1
+  - QR1
+  - DX1
+  - VI*1
+
+tickers:
+  BT:
+    shortcut: BT1
+    contract_nearby: BTM26
+    contract_prefix: btm
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/BTM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/BTM26"
+      prices_slug: bitcoin-futures
+    koyfin_spot_col: BTCUSD Close
+  ER:
+    shortcut: ER1
+    contract_nearby: ERM26
+    contract_prefix: erm
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/ERM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/ERM26"
+      prices_slug: ether-futures
+    koyfin_spot_col: ETHUSD Close
+  SA:
+    shortcut: SA1
+    contract_nearby: SAM26
+    contract_prefix: sam
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/SAM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/SAM26"
+    koyfin_spot_col: SOLUSD Close
+  SJ:
+    shortcut: SJ1
+    contract_nearby: SJM26
+    contract_prefix: sjm
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/SJM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/SJM26"
+    koyfin_spot_col: XRPUSD Close
+  GC:
+    shortcut: GC1
+    contract_nearby: GCM26
+    contract_prefix: gcm
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/GCM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/GCM26"
+    koyfin_spot_col: GC1 Close
+  ES:
+    shortcut: ES1
+    contract_nearby: ESM26
+    contract_prefix: esm
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/ESM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/ESM26"
+    koyfin_spot_col: SPY Close
+  ZN:
+    shortcut: ZN1
+    contract_nearby: ZNM26
+    contract_prefix: zn
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/ZNM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/ZNM26"
+    koyfin_spot_col: US10Y Close
+    basis_note: yield-based — not simple price spread
+  CL:
+    shortcut: CL1
+    contract_nearby: CLN26
+    contract_prefix: cl
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/CLN26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/CLN26"
+    koyfin_spot_col: CL1 Close
+  SQ:
+    shortcut: SQ1
+    contract_nearby: SQM26
+    contract_prefix: sq
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/SQM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/SQM26"
+    koyfin_spot_col: SOFR Close
+  OY:
+    shortcut: OY1
+    contract_nearby: OYU26
+    contract_prefix: oyu
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/OYU26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/OYU26"
+    koyfin_spot_col: HYG Close
+  QR:
+    shortcut: QR1
+    contract_nearby: QRM26
+    contract_prefix: qrm
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/QRM26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/QRM26"
+    koyfin_spot_col: IWM Adj. Close
+  DX:
+    shortcut: DX1
+    contract_nearby: DXU26
+    contract_prefix: dxu
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/DXU26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/DXU26"
+    koyfin_spot_col: UUP Close
+  VI:
+    shortcut: VI*1
+    contract_nearby: VIN26
+    contract_prefix: vin
+    urls:
+      historical: "https://www.barchart.com/futures/quotes/VIN26/historical-download"
+      quote: "https://www.barchart.com/futures/quotes/VIN26"
+
+etf:
+  IBIT:
+    source: koyfin
+    koyfin_col: IBIT Close
+    note: ETF — not a Barchart futures shortcut
+
+skip_patterns:
+  - "*.crdownload"
+  - "Unconfirmed*"
+  - "* (1).csv"
+  - "*__wtm_*.csv"
+  - ".gitkeep"
+
+agent_rules:
+  - "Use batch_exports for daily Whinfell — never loop all 13 tickers unless Clark requests analytics archive."
+  - "Export only — do not parse CSV content in the browser agent."
+  - "All files land in ~/Downloads/whinfell_drop (not ~/Downloads root)."
+  - "After exports, run: python3 run_batch_collect.py run (normalize + stage + daily)."
+  - "If BARCHART_API_KEY is set, use fetch-api instead of browser for historical series."
+  - "WTM-Credit-Confirmation export satisfies crypto_sleeve snapshot — optional crypto chart CSVs are enrichments only."
+  - "china_policy CSV is REQUIRED for china_ladder.horizons in hydration bundle."
+  - "Authority: collection_manifest.yaml + desk_urls.yaml + data_dictionary.yaml."

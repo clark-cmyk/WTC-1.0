@@ -1,77 +1,90 @@
-// modules/01_risk_curve/risk_curve.js
+// js/01_shell.js
 
-const riskNodes = [
-    {
-        id: "liquidity",
-        name: "Liquidity",
-        score: 78,
-        signal: "good",
-        quartile: "Q3",
-        description: "SOFR vs Fed Funds spread"
-    },
-    {
-        id: "credit",
-        name: "Credit",
-        score: 45,
-        signal: "neutral",
-        quartile: "Q2",
-        description: "Corporate spreads and credit conditions"
-    },
-    {
-        id: "equity",
-        name: "Equity Depth",
-        score: 62,
-        signal: "good",
-        quartile: "Q3",
-        description: "Market breadth and participation"
-    },
-    {
-        id: "highbeta",
-        name: "High Beta",
-        score: 29,
-        signal: "bad",
-        quartile: "Q1",
-        description: "High beta stocks performance"
-    },
-    {
-        id: "btc",
-        name: "Bitcoin Basis",
-        score: 85,
-        signal: "good",
-        quartile: "Q4",
-        description: "BTC spot vs futures basis"
-    }
+let currentModule = 6;
+
+const modules = [
+    { id: 1, code: "ART", name: "Articulate" },
+    { id: 2, code: "ARK", name: "Ark" },
+    { id: 3, code: "BAS", name: "Basis" },
+    { id: 4, code: "BBD", name: "Bang Bang Da" },
+    { id: 5, code: "COM", name: "Compute" },
+    { id: 6, code: "RCV", name: "Risk Curve" },
+    { id: 7, code: "SQ3", name: "SQ3" },
+    { id: 8, code: "DICT", name: "Data Dictionary" }
 ];
 
-function renderRiskCurve() {
-    let html = `<h2>Risk Curve</h2><div class="risk-nodes-grid">`;
+function renderTabs() {
+    const container = document.getElementById('module-tabs');
+    container.innerHTML = modules.map(m => `
+        <div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>
+    `).join('');
+}
 
-    riskNodes.forEach(node => {
-        const signalClass = node.signal;
-        html += `
-            <div class="risk-node-card ${signalClass}" onclick="expandRiskNode('${node.id}')">
-                <div class="node-header">
-                    <span class="node-name">${node.name}</span>
-                    <span class="node-quartile">Q${node.quartile}</span>
+function switchModule(id) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab')[id-1].classList.add('active');
+    
+    const content = document.getElementById('mainContent');
+    
+    if (id === 6) {
+        content.innerHTML = `
+            <h2>Risk Curve (RCV)</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px;">
+                <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);">
+                    <h3>Liquidity</h3>
+                    <div style="font-size:42px;font-weight:700;color:#0A4D2E;">78</div>
+                    <div style="color:#0A4D2E;">Q3 • Good</div>
+                    <p style="margin-top:8px;font-size:13px;">SOFR vs Fed Funds</p>
+                    <button onclick="articulate()" style="margin-top:8px;">A</button>
                 </div>
-                <div class="node-score">${node.score}</div>
-                <button class="node-articulate" onclick="event.stopImmediatePropagation(); articulateRiskNode('${node.name}')">A</button>
-                <div class="node-desc">${node.description}</div>
-            </div>`;
-    });
-
-    html += `</div>`;
-    return html;
+                <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);">
+                    <h3>Credit</h3>
+                    <div style="font-size:42px;font-weight:700;color:#8B6F00;">45</div>
+                    <div style="color:#8B6F00;">Q2 • Neutral</div>
+                    <p style="margin-top:8px;font-size:13px;">Corporate spreads</p>
+                    <button onclick="articulate()" style="margin-top:8px;">A</button>
+                </div>
+                <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);">
+                    <h3>Equity Depth</h3>
+                    <div style="font-size:42px;font-weight:700;color:#0A4D2E;">62</div>
+                    <div style="color:#0A4D2E;">Q3 • Good</div>
+                    <p style="margin-top:8px;font-size:13px;">Market breadth</p>
+                    <button onclick="articulate()" style="margin-top:8px;">A</button>
+                </div>
+                <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);">
+                    <h3>High Beta</h3>
+                    <div style="font-size:42px;font-weight:700;color:#6B1E1E;">29</div>
+                    <div style="color:#6B1E1E;">Q1 • Weak</div>
+                    <p style="margin-top:8px;font-size:13px;">High beta performance</p>
+                    <button onclick="articulate()" style="margin-top:8px;">A</button>
+                </div>
+                <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);">
+                    <h3>Bitcoin Basis</h3>
+                    <div style="font-size:42px;font-weight:700;color:#0A4D2E;">85</div>
+                    <div style="color:#0A4D2E;">Q4 • Strong</div>
+                    <p style="margin-top:8px;font-size:13px;">Spot vs Futures</p>
+                    <button onclick="articulate()" style="margin-top:8px;">A</button>
+                </div>
+            </div>
+        `;
+    } else if (id === 8) {
+        content.innerHTML = `<h2>Data Dictionary (DICT)</h2><p>Data dictionary will go here.</p>`;
+    } else {
+        const mod = modules.find(m => m.id === id);
+        content.innerHTML = `<h2>${mod.name} (${mod.code})</h2><p>Module content loads here.</p>`;
+    }
 }
 
-// Placeholder functions for expand and articulate
-function expandRiskNode(id) {
-    alert(`Deep dive for ${id} node would open in full page`);
+function refreshData() { alert("Data refreshed"); }
+function articulate() { alert("Articulate snapshot copied"); }
+function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
 }
 
-function articulateRiskNode(name) {
-    alert(`Articulate prompt for ${name} copied to clipboard`);
-}
+document.addEventListener('keydown', e => {
+    if (e.key >= '1' && e.key <= '8') switchModule(parseInt(e.key));
+});
 
-// Make available globally
-window.renderRiskCurve = renderRiskCurve;
+renderTabs();
+switchModule(6);

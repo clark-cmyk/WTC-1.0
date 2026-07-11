@@ -1,0 +1,17 @@
+{
+  "collector_version": "1.0.0",
+  "collector_id": "comet-first-pass",
+  "collected_at": "2026-06-27T14:00:00Z",
+  "source_channel": "koyfin",
+  "track": "global",
+  "page_url": "https://app.koyfin.com/",
+  "payload": {
+    "observation_id": "global-2026-06-27-koyfin-01",
+    "timestamp": "2026-06-27T14:00:00",
+    "source": "koyfin",
+    "whinfell_score": 58,
+    "transmission_state": "stressed",
+    "regime_tag": "Fragile Risk-On",
+    "key_observation": "Credit mixed; breadth narrowing; BTC lagging SPY."
+  }
+}

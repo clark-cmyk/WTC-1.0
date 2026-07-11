@@ -1,0 +1,1261 @@
+# Master Data Dictionary v1.0 — LOCKED canonical naming authority
+# Machine registry for ingestion routing, symbol mapping, transmission outputs.
+# Human companion: 01_Strategy_Docs/Master_Data_Dictionary_v1.0.md
+# Architecture: 01_Strategy_Docs/WTM_Data_Architecture_Build_Plan.md
+
+master_data_dictionary:
+  version: "1.0"
+  date: "2026-06-29"
+  status: "Locked"
+  alignment: "Aligned"
+  human_companion: "01_Strategy_Docs/Master_Data_Dictionary_v1.0.md"
+  machine_registry: "whinfell_pipeline/data_dictionary.yaml"
+
+version: "1.0"
+updated: "2026-07-04"
+term_structure_authority: barchart
+status: "Locked"
+desk: Clark
+
+# ---------------------------------------------------------------------------
+# Project structure — folder paths and roles (Whinfell_Transmission_Control)
+# ---------------------------------------------------------------------------
+project_structure:
+  repo_root: "~/Desktop/Whinfell_Transmission_Control"
+  pipeline_repo_root: "~/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE"
+  drop_dir: "~/Downloads/whinfell_drop"
+  hydration_path: "data/hydration/latest.json"
+  transmission_control: "index.html"
+  transmission_control_pages: "docs/"
+  transmission_control_legacy: "08_Deliverables/Whinfell_Transmission_Control.html"
+  basis_watch: "Whinfell_BasisWatch.html"
+  auto_download_cli: "run_auto_download.py"
+  data_dictionary_meta: "data_dictionary_meta.json"
+  human_dictionary_doc: "documentation/DATA_DICTIONARY_v1.5.md"
+  directories:
+    "01_Strategy_Docs": "Strategy, BUILD TODO, progress logs, Task Force arena plans"
+    "08_Deliverables": "Care packages, desk feedback, auto-download design docs"
+    css: "Modular desk stylesheets"
+    js: "Desk application modules (core, cockpits, basis watch)"
+    documentation: "TC user guide and human DATA_DICTIONARY companion"
+    docs: "GitHub Pages build output — rebuilt by scripts/publish.sh; do not hand-edit"
+    data/hydration: "Local hydration bundle (latest.json, task_force.json)"
+    data/staged: "Auto-download staging probes and collect noise quarantine"
+    data/archive: "Drop CSV archive retention"
+    data/barchart: "Barchart hydration sidecar cache"
+    data/quarantine: "Failed export quarantine"
+    prompts: "Operator and Task Force prompt library"
+    prompts/task_force: "Task Force arena specialist prompts"
+    scripts: "build, publish, morning collect, verification, merge_task_force"
+    tests: "Desk probes, adapter tests, dictionary lock tests"
+    whinfell_pipeline: "Master YAML registry, manifest, desk_urls, auto_download"
+    whinfell_pipeline/auto_download: "Barchart/Koyfin export adapters and orchestrator"
+    .github/workflows: "GitHub Pages desk-preview CI"
+  pipeline_directories:
+    "04_Score_Calculation": "Credit confirmation score logic (Cousins pipeline repo)"
+    "05_Fallback_Tools": "Excel fallback dashboards (Cousins pipeline repo)"
+    "06_Testing_Logs": "Integration and prompt test logs (Cousins pipeline repo)"
+    "07_Reference_Materials": "Ticker master list, review logs (Cousins pipeline repo)"
+    china_policy_track: "SQ3 + China ladder Python track (Cousins pipeline repo)"
+    data/global/v1: "Global observations parquet (Cousins pipeline repo)"
+    data/china_policy/v1: "China policy observations parquet (Cousins pipeline repo)"
+    data/crypto/v1: "Crypto sleeve sidecar JSON (Cousins pipeline repo)"
+    data/execution/v1: "Execution L3 sidecar JSON (Cousins pipeline repo)"
+    data/flows/v1: "Funds flow sidecar (latest_flows.json) (Cousins pipeline repo)"
+    whinfell_pipeline: "Full ingest, transform, hydrate pipeline (Cousins pipeline repo)"
+
+# ---------------------------------------------------------------------------
+# Watchlist names — Koyfin saved views and Barchart screens
+# ---------------------------------------------------------------------------
+watchlist_names:
+  koyfin_saved_views:
+    WTM-Rates-Credit:
+      url: "https://app.koyfin.com/myw/575998c3-3ba1-4572-b46b-9477f374c6f1"
+      dataset: rates
+      filename_pattern: "rates_{YYYYMMDD}_{HHMM}.csv"
+      vendor_detect_glob: "koyfin_????-??-??.csv"
+    WTM-Equities-Breadth:
+      url: "https://app.koyfin.com/myw/495e878c-8a1f-4371-9c9d-ed256743b1a4"
+      dataset: equities
+      filename_pattern: "equities_{YYYYMMDD}_{HHMM}.csv"
+      vendor_detect_glob: "koyfin_simplify_all_etfs_*"
+    WTM-Import-Core:
+      url: "https://app.koyfin.com/chart-template/36482f9e-0bf0-4cf9-a75a-46293c8838a3/fx-yom8ay"
+      dataset: credit
+      filename_pattern: "credit_{YYYYMMDD}_{HHMM}.csv"
+      vendor_detect_glob: "koyfin_wtm-import-core*"
+      feeds: [crypto_sleeve_snapshot, global_score_proxy]
+      replaces: WTM-Credit-Confirmation
+      status: active
+    WTM-Credit-Confirmation:
+      url: "https://app.koyfin.com/chart-template/5e9eb67c-9c34-46c2-a02a-b67f6e186359/et-1ctfue"
+      dataset: credit
+      filename_pattern: "credit_{YYYYMMDD}_{HHMM}.csv"
+      vendor_detect_glob: "koyfin_whinpump*"
+      feeds: [crypto_sleeve_snapshot, global_score_proxy]
+      status: legacy_interim
+    WTM-China-Policy:
+      dataset: china_policy
+      filename_pattern: "china_policy_{YYYYMMDD}_{HHMM}.csv"
+      status: locked
+      tickers:
+        - KWEB
+        - "000300.SS"
+        - HSTECH
+        - ASHR
+        - KHYB
+        - CBON
+      koyfin_tickers:
+        - KWEB
+        - SHSZ300
+        - "551550"
+        - ASHR
+        - KHYB
+        - CBON
+      koyfin_ticker_map:
+        "000300.SS": SHSZ300
+        HSTECH: "551550"
+      industrial_proxy:
+        symbol: HG1
+        source: barchart
+        barchart_screen: WTM-China-Cyclical
+      notes: "FINAL LOCK — no further ticker changes for China Policy."
+    WTM-Crypto-Price:
+      dataset: btc_price_chart
+      filename_pattern: "btc_price_chart_{YYYYMMDD}_{HHMM}.csv"
+    WTM-Crypto-Correl:
+      dataset: correl_chart
+      filename_pattern: "{asset}_correl_chart_{YYYYMMDD}_{HHMM}.csv"
+      assets: [btc, eth, xrp, sol]
+    WTM-Flows:
+      dataset: flows
+      filename_pattern: "flows_{YYYYMMDD}_{HHMM}.csv"
+      vendor_detect_glob: "*WTM-Flows*.csv"
+      optional: true
+      clicks: 2
+  koyfin_watchlists:
+    WTM-Import-Core:
+      role: source_of_truth
+      status: active
+      replaces: WhinPump
+      tickers_ref: koyfin_import_core
+    WTM-Research-Sandbox:
+      role: deprecated_for_ingest
+      status: planned
+  barchart_screens:
+    WTM-Futures-Intraday:
+      dataset: futures_intraday
+      filename_pattern: "futures_intraday_{YYYYMMDD}_{HHMM}.csv"
+    WTM-Futures-Daily:
+      dataset: futures_daily
+      filename_pattern: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+    WTM-BTC-Basis:
+      dataset: btc_basis
+      filename_pattern: "btc_basis_{YYYYMMDD}.csv"
+      vendor_detect_glob: "futures-spreads-btm*"
+      source: barchart
+      front_contract: BTM26
+      shortcut: BT1
+      csv_type: Futures Spreads
+      metrics: [basis_level, calendar_spreads]
+      status: active
+      notes: >
+        Barchart futures-spreads export only — not Koyfin. Front month BTM26;
+        Leg1/Leg2/Type/Latest rows feed basis_level and calendar_spreads (EQ/AE legs).
+    WTM-China-Cyclical:
+      dataset: futures_daily
+      primary_symbol: HG1
+      symbols: [HG1]
+      source: barchart
+      status: locked
+      notes: >
+        FINAL LOCK — primary industrial proxy HG1 (Copper Futures - Barchart).
+        SCO1 removed; no further ticker changes for China cyclical proxy.
+
+# ---------------------------------------------------------------------------
+# File naming conventions — staged contract and vendor→canonical map
+# ---------------------------------------------------------------------------
+file_naming_conventions:
+  staged_contract:
+    observation_row: "{dataset}_{YYYYMMDD}_{HHMM}.csv"
+    product_flavor: "{product}_{flavor}_{YYYYMMDD}.csv"
+    normalize_script: "scripts/normalize_whinfell_drop.sh"
+    quarantine_dir: "data/staged/quarantine"
+  normalize_rules:
+    - detect_glob: "koyfin_whinpump*"
+      canonical_template: "credit_{YYYYMMDD}_{HHMM}.csv"
+      dataset: credit
+      saved_view: WTM-Credit-Confirmation
+    - detect_glob: "koyfin_simplify_all_etfs_*"
+      canonical_template: "equities_{YYYYMMDD}_{HHMM}.csv"
+      dataset: equities
+      saved_view: WTM-Equities-Breadth
+    - detect_glob: "koyfin_????-??-??.csv"
+      canonical_template: "rates_{YYYYMMDD}_{HHMM}.csv"
+      dataset: rates
+      saved_view: WTM-Rates-Credit
+    - detect_glob: "koyfin_????-??-??-?.csv"
+      canonical_template: "crypto_corr_series_{YYYYMMDD}_{HHMM}.csv"
+      dataset: crypto_corr_series
+    - detect_glob: "*_daily-nearby_historical-data-*"
+      canonical_template: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+      dataset: futures_daily
+      saved_view: WTM-Futures-Daily
+    - detect_glob: "*_daily_historical-data-*"
+      canonical_template: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+      dataset: futures_daily
+      saved_view: WTM-Futures-Daily
+    - detect_glob: "*daily_historical-data*"
+      canonical_template: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+      dataset: futures_daily
+      saved_view: WTM-Futures-Daily
+    - detect_glob: "*-prices-intraday-*"
+      canonical_template: "futures_intraday_{YYYYMMDD}_{HHMM}.csv"
+      dataset: futures_intraday
+      saved_view: WTM-Futures-Intraday
+    - detect_glob: "watchlist-*-intraday-*"
+      canonical_template: "futures_intraday_{YYYYMMDD}_{HHMM}.csv"
+      dataset: futures_intraday
+    - detect_glob: "futures-spreads-btn*"
+      canonical_template: "btc_basis_{YYYYMMDD}.csv"
+      dataset: btc_basis
+      saved_view: WTM-BTC-Basis
+    - detect_glob: "futures-spreads-btm*"
+      canonical_template: "btc_basis_{YYYYMMDD}.csv"
+      dataset: btc_basis
+    - detect_glob: "futures-spreads-*"
+      canonical_template: "btc_basis_{YYYYMMDD}.csv"
+      dataset: btc_basis
+      saved_view: WTM-BTC-Basis
+    - detect_glob: "*-volatility-greeks-*"
+      canonical_template: "greeks_{YYYYMMDD}_{HHMM}.csv"
+      dataset: greeks
+      saved_view: WTM-Options-Greeks
+    - detect_glob: "*volatility-greeks*"
+      canonical_template: "greeks_{YYYYMMDD}_{HHMM}.csv"
+      dataset: greeks
+      saved_view: WTM-Options-Greeks
+    - detect_glob: "*-options-*"
+      canonical_template: "options_{YYYYMMDD}_{HHMM}.csv"
+      dataset: options
+      saved_view: WTM-Options-Greeks
+    - detect_glob: "*options*exp*"
+      canonical_template: "options_{YYYYMMDD}_{HHMM}.csv"
+      dataset: options
+      saved_view: WTM-Options-Greeks
+    - detect_glob: "*WTM-Flows*.csv"
+      canonical_template: "flows_{YYYYMMDD}_{HHMM}.csv"
+      dataset: flows
+      saved_view: WTM-Flows
+    - detect_glob: "WTM-Global-Rates.csv"
+      canonical_template: "rates_{YYYYMMDD}_{HHMM}.csv"
+      dataset: rates
+      saved_view: WTM-Global-Rates
+    - detect_glob: "WTM-Rates-Credit.csv"
+      canonical_template: "rates_{YYYYMMDD}_{HHMM}.csv"
+      dataset: rates
+      saved_view: WTM-Rates-Credit
+    - detect_glob: "koyfin_WTM-Rates-Credit_*"
+      canonical_template: "rates_{YYYYMMDD}_{HHMM}.csv"
+      dataset: rates
+      saved_view: WTM-Rates-Credit
+    - detect_glob: "WTM-Equities-Breath.csv"
+      canonical_template: "equities_{YYYYMMDD}_{HHMM}.csv"
+      dataset: equities
+      saved_view: WTM-Equities-Breadth
+    - detect_glob: "WTM-Equities-Breadth.csv"
+      canonical_template: "equities_{YYYYMMDD}_{HHMM}.csv"
+      dataset: equities
+      saved_view: WTM-Equities-Breadth
+    - detect_glob: "koyfin_WTM-Equities-Breadth_*"
+      canonical_template: "equities_{YYYYMMDD}_{HHMM}.csv"
+      dataset: equities
+      saved_view: WTM-Equities-Breadth
+    - detect_glob: "WTM-Credit-Confirmation*.csv"
+      canonical_template: "credit_{YYYYMMDD}_{HHMM}.csv"
+      dataset: credit
+      saved_view: WTM-Credit-Confirmation
+    - detect_glob: "WTM-China-Policy.csv"
+      canonical_template: "china_policy_{YYYYMMDD}_{HHMM}.csv"
+      dataset: china_policy
+      saved_view: WTM-China-Policy
+    - detect_glob: "koyfin_WTM-China-Policy_*"
+      canonical_template: "china_policy_{YYYYMMDD}_{HHMM}.csv"
+      dataset: china_policy
+      saved_view: WTM-China-Policy
+    - detect_glob: "WTM-China-Credit*.csv"
+      canonical_template: "credit_{YYYYMMDD}_{HHMM}.csv"
+      dataset: credit
+      saved_view: WTM-China-Credit
+    - detect_glob: "koyfin_wtm-mas-koy_*.csv"
+      canonical_template: "equities_{YYYYMMDD}_{HHMM}.csv"
+      dataset: equities
+      saved_view: WTM-MAS-KOY
+    - detect_glob: "koyfin_wtm-import-core*"
+      canonical_template: "credit_{YYYYMMDD}_{HHMM}.csv"
+      dataset: credit
+      saved_view: WTM-Import-Core
+    - detect_glob: "koyfin_????-??-?? (*.csv"
+      canonical_template: "rates_{YYYYMMDD}_{HHMM}.csv"
+      dataset: rates
+      saved_view: WTM-Rates-Credit
+      note: browser duplicate suffix — prefer strip in batch_collect
+    - detect_glob: "koyfin_????-??-??*.csv"
+      canonical_template: "rates_{YYYYMMDD}_{HHMM}.csv"
+      dataset: rates
+      saved_view: WTM-Rates-Credit
+    - detect_glob: "*weekly_historical-data*"
+      canonical_template: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+      dataset: futures_daily
+      saved_view: WTM-Futures-Daily
+  vendor_to_canonical:
+    credit_vendor_snapshot: "credit_{YYYYMMDD}_{HHMM}.csv"
+    equities_vendor_snapshot: "equities_{YYYYMMDD}_{HHMM}.csv"
+    rates_vendor_wide: "rates_{YYYYMMDD}_{HHMM}.csv"
+    correl_vendor_export: "crypto_corr_series_{YYYYMMDD}_{HHMM}.csv"
+    futures_daily_vendor: "futures_daily_{YYYYMMDD}_{HHMM}.csv"
+    btc_basis_vendor: "btc_basis_{YYYYMMDD}.csv"
+    flows_vendor_timeseries: "flows_{YYYYMMDD}_{HHMM}.csv"
+  canonical_datasets:
+    - rates
+    - equities
+    - credit
+    - flows
+    - china_policy
+    - futures_intraday
+    - futures_daily
+    - btc_basis
+    - btc_price_chart
+    - btc_correl_chart
+    - eth_correl_chart
+    - xrp_correl_chart
+    - sol_correl_chart
+    - crypto_corr_series
+
+# ---------------------------------------------------------------------------
+# JSON field names and structure — hydration, export, TC state
+# ---------------------------------------------------------------------------
+json_structures:
+  hydration_bundle:
+    path: "data/hydration/latest.json"
+    version_field: hydration_version
+    expected_version: "1.3.0"
+    legacy_version: "1.2.0"
+    blocks:
+      global: [whinfell_score, transmission_state, regime_tag, key_observation, btc_bias]
+      china: [sq3_score, sq3_band, policy_strength, state_impulse_score]
+      china_ladder: [horizons, weakest_china_stage]
+      crypto_sleeve: [assets, charts, correlation_series, snapshot]
+      execution: [near_month, basis_spread, btc_bias]
+      suggested_tracer: [marks, confirm_required]
+      node_cockpits: [liquidity, credit, breadth, highbeta, basis]
+      cockpit_context: [transmission_health_score, weakest_node_id, gate_zone, whinfell_score]
+      flows_sidecar: [as_of, source_file, ingest_mode, ticker_count, warnings]
+      ai_compute: [ornn_h200, miso_indiana_hub, gpu_forward_curve, crush_trade]
+      corporate_credit: [hy_oas_bps, richness, rv_posture, tactical_lead]
+      trade_tracker: [trades]
+      btc_attribution: [btc_bias, attribution, summary]
+      margin_rules: [tier, gross_risk_cap_pct, layer2_allowed, layer3_allowed]
+  flows_sidecar:
+    path: "data/flows/v1/latest_flows.json"
+    version_field: version
+  wtm_export:
+    format: "WTM EXPORT v2.2"
+    legacy_format: "WTM EXPORT v2.0"
+    v21_format: "WTM EXPORT v2.1"
+    node_cockpit_block: "NODE COCKPIT"
+    header_fields: [whinfell_score, transmission_state, regime_tag, btc_bias, key_observation]
+  transmission_control_state:
+    local_storage_key: whinfell_transmission_control_v6
+    version_field: version
+    current_version: 6
+  crypto_sleeve_sidecar:
+    path: "data/crypto/v1/latest_crypto_sleeve.json"
+    spot_ids: [BTCUSD, ETHUSD, XRPUSD, SOLUSD]
+
+# ---------------------------------------------------------------------------
+# Column mappings — display labels → canonical snake_case fields
+# ---------------------------------------------------------------------------
+column_mappings:
+  authority_ref: field_mappings
+  wtm_observation_required:
+    koyfin: [timestamp, whinfell_score, regime_tag, transmission_state, btc_bias]
+    barchart: [timestamp, near_month, basis_spread, spread_type]
+  display_to_field:
+    "Whinfell Score": whinfell_score
+    "Transmission State": transmission_state
+    "Regime Tag": regime_tag
+    "BTC Bias": btc_bias
+    "Near Month": near_month
+    "Basis Spread": basis_spread
+    "SQ3 Score": sq3_score
+
+# ---------------------------------------------------------------------------
+# Ticker standards — vendor format rules
+# ---------------------------------------------------------------------------
+ticker_standards:
+  koyfin:
+    format: uppercase_plain
+    examples: [BTCUSD, HYG, US10Y, GCN10YR]
+    provides: [snapshot_csv, dated_series_charts, correlation_exports, macro_panels]
+    does_not_provide: [futures_term_structure, calendar_spreads, contract_curves, roll_context]
+  barchart_crypto:
+    format: caret_prefix
+    examples: ["^BTCUSD", "^ETHUSD"]
+  barchart_index:
+    format: dollar_prefix
+    examples: ["$HSI", "$VHSI", "$VXHY"]
+  barchart_futures:
+    format: contract_code
+    examples: [BTM26, GCY00, HGY00]
+    provides: [futures_historical, futures_spreads, contract_curves, term_structure, roll_context]
+    term_structure_authority: true
+  resolution: canonical_assets
+
+# ---------------------------------------------------------------------------
+# Operator alignment — active desk docs scanned for forbidden legacy names
+# ---------------------------------------------------------------------------
+operator_alignment:
+  enforcement:
+    active_globs:
+      - "08_Deliverables/Perplexity_*.txt"
+      - "08_Deliverables/Perplexity_*.md"
+      - "08_Deliverables/Comet_Shortcuts_WTM.md"
+      - "08_Deliverables/Whinfell_Data_Update_Guide.md"
+      - "08_Deliverables/Whinfell_Transmission_Ladder_Teach_In.md"
+      - "08_Deliverables/Perplexity_Barchart_Koyfin_Playbook.md"
+      - "08_Deliverables/desk_chart_links.*"
+      - "whinfell_pipeline/examples/AGENT_COLLECTION_PROMPT.txt"
+      - "whinfell_pipeline/examples/comet_collection_plan.json"
+      - "whinfell_pipeline/collection_manifest.yaml"
+      - "whinfell_pipeline/desk_urls.yaml"
+    forbidden_patterns:
+      - WhinPump
+      - whinpump
+      - WHINPUMP
+      - OR_WHINPUMP
+      - Simplify All ETFs
+      - Simplify ETFs
+      - Simplify snapshot
+      - Simplify/WhinPump
+      - Koyfin Simplify
+      - koyfin_WhinPump
+      - koyfin_Simplify
+      - Simplify for history
+      - SCO1
+      - SCO1!
+      - SCO26
+
+# ---------------------------------------------------------------------------
+# Source system definitions (ingestion routing keys)
+# ---------------------------------------------------------------------------
+source_systems:
+  koyfin_snapshot_csv:
+    vendor: koyfin
+    shape: cross_section
+    description: Broad watchlist/snapshot export (Ticker, Last Price, returns, vol)
+    detect:
+      headers_any: ["Ticker", "Last Price"]
+      filename_patterns: ["crypto_snapshot_*", "credit_*"]
+    parser: whinfell_pipeline.crypto_sleeve.parse_snapshot_rows
+    outputs: [snapshot_validation, universe_membership]
+    raw_metadata_field: _raw
+
+  koyfin_correlation_csv:
+    vendor: koyfin
+    shape: dated_series
+    description: Date + pairwise SPY correlation columns (HYG SPY Corr, etc.)
+    detect:
+      headers_any: ["Date"]
+      headers_pattern: "SPY Corr"
+      filename_patterns: ["koyfin_*-*-*.csv", "crypto_corr_series_*"]
+    parser: whinfell_pipeline.crypto_sleeve.parse_correlation_series
+    outputs: [correlation_series]
+    raw_metadata_field: raw_labels
+
+  koyfin_saved_chart:
+    vendor: koyfin
+    shape: dated_series
+    description: Saved chart object export (WTM-Crypto-Price, correl charts)
+    detect:
+      headers_any: ["Date"]
+      filename_patterns:
+        - "btc_price_chart_*"
+        - "btc_correl_chart_*"
+        - "eth_correl_chart_*"
+        - "xrp_correl_chart_*"
+        - "sol_correl_chart_*"
+    parser: whinfell_pipeline.crypto_sleeve.parse_chart_timeseries
+    outputs: [historical_timeseries]
+    priority: primary
+
+  koyfin_wide_timeseries:
+    vendor: koyfin
+    shape: dated_panel
+    description: Whinfell-Daily-TimeSeries wide export (Date + many Close columns)
+    detect:
+      headers_any: ["Date"]
+      min_close_columns: 4
+      filename_patterns: ["koyfin_????-??-??.csv", "rates_*"]
+    parser: whinfell_pipeline.raw_csv_transform.koyfin_wide_timeseries
+    outputs: [historical_timeseries, correlation_series, global_score_proxy]
+    priority: backup
+
+  koyfin_dashboard_object:
+    vendor: koyfin
+    shape: dashboard
+    description: Saved dashboard (WTM-Global-Rates, WTM-Rates-Credit, etc.)
+    detect:
+      saved_view_prefix: WTM-
+    outputs: [operator_navigation]
+    note: Dashboards route to snapshot or wide export on CSV download; not a separate parser.
+
+  barchart_core_history:
+    vendor: barchart
+    shape: dated_series
+    description: Core multi-ticker historical quotes (canonical always-on set)
+    universe_ref: barchart_core
+    detect:
+      symbol_in: barchart_core
+      filename_patterns: ["barchart_core_*", "futures_daily_*", "futures_intraday_*"]
+    outputs: [historical_timeseries, quote_snapshot]
+    priority: primary
+
+  barchart_curve_history:
+    vendor: barchart
+    shape: dated_series
+    description: Contract-level curves, spreads, and strategy symbols
+    universe_ref: barchart_curves
+    detect:
+      symbol_in: barchart_curves
+      filename_patterns: ["btc_basis_*", "futures-spreads-*"]
+    outputs: [curve_series, basis_spread, term_structure]
+    priority: curve_only
+
+  barchart_quote_snapshot:
+    vendor: barchart
+    shape: cross_section
+    description: Watchlist / intraday screen snapshot (Symbol, Latest)
+    detect:
+      headers_any: ["Symbol", "Latest"]
+    outputs: [quote_snapshot, execution_l3]
+    note: Dense mixed watchlists are NOT canonical import universe.
+
+# ---------------------------------------------------------------------------
+# Canonical asset identifiers
+# ---------------------------------------------------------------------------
+canonical_assets:
+  # Crypto spot
+  btc_spot_usd:
+    class: crypto_spot
+    sources: {koyfin: BTCUSD, barchart: "^BTCUSD"}
+  eth_spot_usd:
+    class: crypto_spot
+    sources: {koyfin: ETHUSD, barchart: "^ETHUSD"}
+  xrp_spot_usd:
+    class: crypto_spot
+    sources: {koyfin: XRPUSD, barchart: "^XRPUSD"}
+  sol_spot_usd:
+    class: crypto_spot
+    sources: {koyfin: SOLUSD, barchart: "^SOLUSD"}
+
+  # Crypto vehicles
+  btc_vehicle_ibit:
+    class: crypto_vehicle
+    sources: {koyfin: IBIT, barchart: IBIT}
+  btc_vehicle_gbtc:
+    class: crypto_vehicle
+    sources: {koyfin: GBTC, barchart: GBTC}
+  ibit:
+    class: btc_vehicle
+    sources: {koyfin: IBIT, barchart: IBIT}
+    note: Alias for funds-flow basket resolution; prefer btc_vehicle_ibit for transmission
+  bito:
+    class: btc_vehicle
+    sources: {koyfin: BITO, barchart: BITO}
+  gbtc:
+    class: btc_vehicle
+    sources: {koyfin: GBTC, barchart: GBTC}
+    note: Alias for funds-flow basket resolution; prefer btc_vehicle_gbtc for transmission
+
+  # Rates / macro
+  us10y:
+    class: rates
+    sources: {koyfin: US10Y, barchart: null}
+  cn10y:
+    class: rates
+    sources: {koyfin: GCN10YR, barchart: null}
+  sofr:
+    class: rates
+    sources: {koyfin: SOFR, barchart: SOFR}
+  sofr_index:
+    class: rates_index
+    sources: {barchart: SOFR}
+  shy:
+    class: rates_etf
+    sources: {koyfin: SHY, barchart: SHY}
+  ief:
+    class: rates_etf
+    sources: {koyfin: IEF, barchart: IEF}
+  tlt:
+    class: rates_etf
+    sources: {koyfin: TLT, barchart: TLT}
+  bil:
+    class: rates_etf
+    sources: {koyfin: BIL, barchart: BIL}
+  hsi_index:
+    class: equity_index
+    sources: {barchart: "$HSI"}
+  hsi_vol_index:
+    class: vol_index
+    sources: {barchart: "$VHSI"}
+  hy_credit_vol_index:
+    class: vol_index
+    sources: {barchart: "$VXHY"}
+  china_bond_etf:
+    class: china_fixed_income
+    sources: {koyfin: CBON, barchart: CBON}
+  asia_hy_bond_etf:
+    class: credit_etf
+    sources: {koyfin: KHYB, barchart: KHYB}
+  china_ashares_etf:
+    class: china_equity
+    sources: {koyfin: ASHR, barchart: ASHR}
+  kweb_etf:
+    class: china_equity
+    sources: {koyfin: KWEB, barchart: null}
+  csi300_index:
+    class: china_equity
+    sources: {koyfin: SHSZ300, barchart: null}
+  hstech_index:
+    class: china_equity
+    sources: {koyfin: "551550", barchart: null}
+  dxy_index:
+    class: fx_index
+    sources: {barchart: DXY00}
+
+  # Credit
+  hyg:
+    class: credit_etf
+    sources: {koyfin: HYG, barchart: null}
+  jaaa:
+    class: credit_etf
+    sources: {koyfin: JAAA, barchart: null}
+  bkln:
+    class: credit_etf
+    sources: {koyfin: BKLN, barchart: null}
+  cwb:
+    class: credit_etf
+    sources: {koyfin: CWB, barchart: null}
+  cbond:
+    class: credit_etf
+    sources: {koyfin: CBON, barchart: CBON}
+  khyb:
+    class: credit_etf
+    sources: {koyfin: KHYB, barchart: KHYB}
+
+  # Equities / risk
+  spy:
+    class: equity_index
+    sources: {koyfin: SPY, barchart: null}
+  iwm:
+    class: equity_etf
+    sources: {koyfin: IWM, barchart: IWM}
+  rsp:
+    class: equity_etf
+    sources: {koyfin: RSP, barchart: RSP}
+  qqq:
+    class: equity_index
+    sources: {koyfin: QQQ, barchart: null}
+  xlre:
+    class: sector_etf
+    sources: {koyfin: XLRE, barchart: null}
+  hsi:
+    class: equity_index
+    sources: {koyfin: HSI, barchart: "$HSI"}
+
+  # Commodities / FX
+  gld_proxy:
+    class: commodity_etf
+    sources: {koyfin: null, barchart: null}
+  gold_front_or_cont_proxy:
+    class: commodity_futures
+    sources: {koyfin: GC1, barchart: GCY00}
+  gold_continuous:
+    class: commodity_futures
+    sources: {barchart: GCY00}
+  copper_continuous:
+    class: commodity_futures
+    sources: {koyfin: HG1, barchart: HGY00}
+  dxy_continuous:
+    class: fx_futures
+    sources: {barchart: DXY00}
+  btc_near_contract:
+    class: crypto_futures
+    sources: {koyfin: null, barchart: BTM26}
+
+  # China access
+  ashr:
+    class: china_equity
+    sources: {koyfin: ASHR, barchart: ASHR}
+
+# ---------------------------------------------------------------------------
+# Field mapping — raw Koyfin/Barchart → canonical snake_case
+# ---------------------------------------------------------------------------
+field_mappings:
+  snapshot:
+    "Last Price": last_price
+    "1d Chg": chg_1d
+    "Total Return (1D)": chg_1d
+    "Volatility 1M": vol_1m
+    "Volatility (1M)": vol_1m
+    "Volatility 3M": vol_3m
+    "Volatility (3M)": vol_3m
+    "Volatility 1Y": vol_1y
+    "Volatility (1Y)": vol_1y
+    "Total Return 5D": tr_5d
+    "Total Return 1W": tr_1w
+    "Total Return (1W)": tr_1w
+    "Total Return 1M": tr_1m
+    "Total Return (3M)": tr_3m
+    "Total Return 6M": tr_6m
+    "Total Return 1Y": tr_1y
+    "Total Return (1Y)": tr_1y
+    "Ticker": ticker
+    "Name": name
+  correlation:
+    "HYG SPY Corr": corr_hyg_spy
+    "JAAA SPY Corr": corr_jaaa_spy
+    "BKLN SPY Corr": corr_bkln_spy
+    "CWB SPY Corr": corr_cwb_spy
+    "XLRE SPY Corr": corr_xlre_spy
+    pattern_spy_corr: "corr_{left}_spy"  # also matches HYG / SPY Corr
+  barchart_quote:
+    "Symbol": symbol
+    "Latest": last_price
+    "Close": close
+    "Time": timestamp
+  curve_metadata:
+    near_month: near_month
+    far_month: far_month
+    basis_spread: basis_spread
+    spread_type: spread_type
+
+# ---------------------------------------------------------------------------
+# Canonical universes (import-driven, not catch-all research)
+# ---------------------------------------------------------------------------
+universes:
+  koyfin_watchlists:
+    WTM-Import-Core:
+      role: source_of_truth
+      description: Canonical cross-section import universe (limited WTM operating set)
+      status: active
+      replaces: ad_hoc WhinPump-only validation
+      tickers_ref: koyfin_import_core
+    WTM-Research-Sandbox:
+      role: deprecated_for_ingest
+      description: Exploratory list — never auto-ingested
+      status: planned
+
+  koyfin_import_core:
+    status: active_partial
+    note: >
+      Cross-section snapshot only. GC1, HG1, SOFR are continuous-price fields in Koyfin —
+      not term structure. Calendar spreads, contract curves, and roll context require
+      universes.barchart_term_structure (Barchart).
+    tickers:
+      - BTCUSD
+      - ETHUSD
+      - XRPUSD
+      - SOLUSD
+      - HYG
+      - JAAA
+      - BKLN
+      - CWB
+      - CBON
+      - KHYB
+      - SPY
+      - QQQ
+      - XLRE
+      - SOFR
+      - GC1
+      - HG1
+
+  koyfin_china_policy:
+    status: locked
+    saved_view: WTM-China-Policy
+    note: "FINAL LOCK — no further ticker changes for China Policy."
+    tickers:
+      - KWEB
+      - "000300.SS"
+      - HSTECH
+      - ASHR
+      - KHYB
+      - CBON
+    koyfin_tickers:
+      - KWEB
+      - SHSZ300
+      - "551550"
+      - ASHR
+      - KHYB
+      - CBON
+    koyfin_ticker_map:
+      "000300.SS": SHSZ300
+      HSTECH: "551550"
+    industrial_proxy:
+      symbol: HG1
+      source: barchart
+      barchart_screen: WTM-China-Cyclical
+
+  barchart_core:
+    role: source_of_truth
+    description: Always-on multi-ticker historical download set
+    symbols:
+      - "^BTCUSD"
+      - "^ETHUSD"
+      - "^XRPUSD"
+      - "^SOLUSD"
+      - IBIT
+      - GBTC
+      - SOFR
+      - "$HSI"
+      - "$VHSI"
+      - "$VXHY"
+      - CBON
+      - KHYB
+      - ASHR
+      - DXY00
+      - GCY00
+      - HGY00
+
+  barchart_term_structure:
+    vendor: barchart
+    status: active
+    description: >
+      Sole authority for futures term structure, calendar spreads, contract curves,
+      and ladder/basis roll context. Koyfin does not expose term structures — do not
+      create a Koyfin WTM-Import-Curves watchlist.
+    screens_ref: watchlist_names.barchart_screens
+    active_screens:
+      - WTM-BTC-Basis
+      - WTM-China-Cyclical
+      - WTM-China-Basis
+      - WTM-China-Futures-Daily
+      - WTM-Futures-Daily
+    universe_ref: barchart_curves
+    manifest_ref: collection_manifest.yaml#tickers
+    ladder_shortcuts: [BT1, ER1, SA1, SJ1, GC1, ES1, ZN1, CL1, SQ1, OY1, QR1, DX1, "VI*1"]
+    csv_types: [Futures Spreads, "Historical Data"]
+    cancelled_koyfin_watchlist:
+      name: WTM-Import-Curves
+      reason: Koyfin has no futures term-structure export
+      superseded_by: barchart_term_structure
+
+  barchart_curves:
+    role: curve_only
+    vendor: barchart
+    description: Contract curves, strips, and structured spreads — not daily core ingest
+    universe_ref: barchart_term_structure
+    symbol_groups:
+      fx_futures: [DXM26, E6M26, J6M26, A6M26]
+      metals_curves: [GCN26, GCQ26, GCU26, GCV26, GCX26, GCZ26, GCF27, HGN26, HGQ26]
+      energy_curves: [CLQ26, CLG27, CLV26, CLU26, CLZ26, CLX26, CLF27, NGQ26]
+      btc_futures_curves: [BTM26, BTN26, BTQ26, BTU26, BTV26, BTX26, BTZ26, BTH27]
+      sofr_curves: [TAN26, TAQ26, TAU26, TAV26, TAX26, TAZ26, TAH27]
+      rates_strips: [ZMN26, ZLN26, ZBU26, ZFM26, ZNU26, ZQM26]
+      hy_contracts: [OYU26, OYZ26, OYH27, OGU26, OGZ26, OGH27]
+      misc_contracts: [LUN26, FLM26, LVN26, QRU26, "S!N26", SQJ26, U7M26, VIN26, YCN26, YQN26]
+      structured_spreads:
+        - _S_IV_ZBU6_UDU6
+        - _S_RT_ZBU6_ZBZ6
+        - _S_BF_ZBU6_ZBZ6_ZBH7
+        - _S_RT_ZBU6_ZBH7
+        - _S_RT_ZBZ6_ZBH7
+
+# Explicit Barchart raw symbol → canonical ID (core universe)
+barchart_canonical_core:
+  "^BTCUSD": btc_spot_usd
+  "^ETHUSD": eth_spot_usd
+  "^XRPUSD": xrp_spot_usd
+  "^SOLUSD": sol_spot_usd
+  IBIT: btc_vehicle_ibit
+  GBTC: btc_vehicle_gbtc
+  SOFR: sofr_index
+  "$HSI": hsi_index
+  "$VHSI": hsi_vol_index
+  "$VXHY": hy_credit_vol_index
+  CBON: china_bond_etf
+  KHYB: asia_hy_bond_etf
+  ASHR: china_ashares_etf
+  DXY00: dxy_index
+  GCY00: gold_continuous
+  HGY00: copper_continuous
+
+# Barchart core instrument_class (bucket=core)
+barchart_instrument_class:
+  "^BTCUSD": crypto_spot
+  "^ETHUSD": crypto_spot
+  "^XRPUSD": crypto_spot
+  "^SOLUSD": crypto_spot
+  IBIT: etf
+  GBTC: etf
+  SOFR: index
+  "$HSI": index
+  "$VHSI": vol_index
+  "$VXHY": vol_index
+  CBON: etf
+  KHYB: etf
+  ASHR: etf
+  DXY00: index
+  GCY00: continuous
+  HGY00: continuous
+
+# Barchart historical row field normalization
+barchart_history_fields:
+  Date: date
+  "Date Time": date
+  Time: date
+  Open: open
+  High: high
+  Low: low
+  Close: close
+  Latest: close
+  Volume: volume
+  "Open Interest": open_interest
+  "Open Int": open_interest
+  Change: change
+  "%Change": pct_change
+
+# ---------------------------------------------------------------------------
+# Legacy aliases (compatibility only — never primary source objects)
+# ---------------------------------------------------------------------------
+legacy_aliases:
+  BTCPRice:
+    canonical: btc_spot_usd
+    status: alias_only
+    note: Do not recreate as primary source object
+  BTCPRice_close:
+    canonical_field: last_price
+    source_preference: [koyfin_saved_chart, koyfin_snapshot_csv, barchart_core_history]
+
+# ---------------------------------------------------------------------------
+# Classification matrix
+# ---------------------------------------------------------------------------
+classification:
+  source_of_truth:
+    - koyfin_saved_chart.btc_price_chart
+    - koyfin_saved_chart.btc_correl_chart
+    - koyfin_correlation_csv.pairwise
+    - koyfin_snapshot_csv.WTM-Import-Core
+    - barchart_core_history
+    - data/global/v1/global_observations.parquet
+    - data/china_policy/v1/china_policy_observations.parquet
+  alias_only:
+    - BTCPRice
+    - koyfin_wide_timeseries.crypto_price_backup
+    - IBIT as btc_vehicle_ibit alongside btc_spot_usd
+  deprecated:
+    - raw_dense_barchart_watchlist_as_canonical_universe
+    - daily_13_ticker_per_loop_downloads
+    - WhinPump as sole long-term canonical list without WTM-Import-Core split
+  curve_only:
+    - universes.barchart_term_structure
+    - barchart_curves.all
+    - barchart_curve_history
+    - barchart_screens.WTM-BTC-Basis
+    - barchart_screens.WTM-China-Cyclical
+    - barchart_screens.WTM-China-Basis
+
+# ---------------------------------------------------------------------------
+# RV / basis series registry (Phase 2 — quartile_direction per series)
+# ---------------------------------------------------------------------------
+rv_series:
+  version: "1.0"
+  status: Locked
+  date: "2026-06-29"
+  lookback_trading_days:
+    1m: 22
+    3m: 63
+    6m: 126
+    12m: 252
+    3y: 756
+  quartile_direction_values: [higher_is_richer, higher_is_cheaper]
+  richness_labels: [cheap, fair, rich, extreme]
+  series:
+    usgg2y10y:
+      node_id: liquidity
+      label: "US 2s10s spread"
+      quartile_direction: higher_is_richer
+      unit: pct
+      primary: true
+      history_source: koyfin_dated_series
+      history_key: USGG2Y10Y
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [us10y]
+    sofr_ois_spread:
+      node_id: liquidity
+      label: "SOFR front-end stress"
+      quartile_direction: higher_is_cheaper
+      unit: bps
+      primary: false
+      history_source: koyfin_dated_series
+      history_key: SOFR
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [sofr]
+    hy_oas_proxy:
+      node_id: credit
+      label: "HY OAS proxy"
+      quartile_direction: higher_is_cheaper
+      unit: bps
+      primary: true
+      history_source: koyfin_dated_series
+      history_key: HYOAS
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [hyg]
+    hyg_lqd_ratio:
+      node_id: credit
+      label: "HYG / LQD ratio"
+      quartile_direction: higher_is_richer
+      unit: ratio
+      primary: false
+      history_source: koyfin_dated_series
+      history_key: HYG_LQD
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [hyg, jaaa]
+    iwm_spy_ratio:
+      node_id: breadth
+      label: "IWM / SPY participation"
+      quartile_direction: higher_is_richer
+      unit: ratio
+      primary: true
+      history_source: koyfin_dated_series
+      history_key: IWM_SPY
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [spy]
+    xlf_xlu_relative:
+      node_id: breadth
+      label: "XLF vs XLU relative"
+      quartile_direction: higher_is_richer
+      unit: ratio
+      primary: false
+      history_source: koyfin_dated_series
+      history_key: XLF_XLU
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [xlre]
+    ibit_qqq_beta_spread:
+      node_id: highbeta
+      label: "IBIT vs QQQ beta spread"
+      quartile_direction: higher_is_richer
+      unit: ratio
+      primary: true
+      history_source: koyfin_dated_series
+      history_key: IBIT_QQQ
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [btc_vehicle_ibit, qqq]
+    btc_spy_corr:
+      node_id: highbeta
+      label: "BTC / SPY correlation"
+      quartile_direction: higher_is_richer
+      unit: ratio
+      primary: false
+      history_source: koyfin_dated_series
+      history_key: BTC_SPY_CORR
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [btc_spot_usd, spy]
+    btc_calendar_bt_near_deferred:
+      node_id: basis
+      label: "BT near-deferred calendar"
+      quartile_direction: higher_is_richer
+      unit: pct
+      primary: true
+      history_source: barchart_spread_history
+      history_key: BTM26
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [btc_near_contract]
+    btc_basis_vs_refs:
+      node_id: basis
+      label: "Basis vs ref band"
+      quartile_direction: higher_is_richer
+      unit: pct
+      primary: false
+      history_source: barchart_spread_history
+      history_key: BTC_BASIS_REFS
+      horizons_supported: [1m, 3m, 6m, 12m, 3y]
+      canonical_assets: [btc_near_contract, btc_vehicle_ibit]
+
+# ---------------------------------------------------------------------------
+# Node composite score weights (Phase 2 interim — non-credit nodes)
+# ---------------------------------------------------------------------------
+node_score_weights:
+  version: "1.0-interim"
+  status: Locked
+  date: "2026-06-29"
+  design:
+    base_score: 50
+    clamp_min: 0
+    clamp_max: 100
+    direction_multipliers: {bullish: 1.0, bearish: -1.0, mixed: 0.5, unavailable: 0}
+    fallback_min_components: 2
+    fallback_field: horizon_net
+    interim_doc: "04_Score_Calculation/Phase2_Interim_Node_Score_Weights.md"
+    authoritative_credit_doc: "04_Score_Calculation/Whinfell_Credit_Confirmation_Score_Logic.md"
+  nodes:
+    liquidity:
+      display_name: "Liquidity & Rates"
+      components:
+        - {id: usgg2y10y_direction, weight_pct: 30, asset_ids: [us10y], signal: "2s10s 5D+20D direction"}
+        - {id: sofr_funding_stress, weight_pct: 25, asset_ids: [sofr], signal: "SOFR / front-end funding impulse"}
+        - {id: us10y_impulse, weight_pct: 20, asset_ids: [us10y], signal: "10Y yield 3M change"}
+        - {id: dxy_liquidity, weight_pct: 15, asset_ids: [dxy_continuous], signal: "DXY 5D+20D (liquidity conditions)"}
+        - {id: real_rates_proxy, weight_pct: 10, asset_ids: [us10y], signal: "Real rates / duration pressure proxy"}
+    breadth:
+      display_name: "Equity Breadth"
+      components:
+        - {id: iwm_spy_ratio, weight_pct: 30, asset_ids: [spy], signal: "IWM/SPY ratio 5D+20D"}
+        - {id: equal_cap_participation, weight_pct: 25, asset_ids: [spy], signal: "Equal-weight vs cap-weight participation"}
+        - {id: xlf_xlu_relative, weight_pct: 20, asset_ids: [xlre], signal: "Financials vs defensives 5D+20D"}
+        - {id: cyclical_participation, weight_pct: 15, asset_ids: [spy, qqq], signal: "Cyclicals keeping pace with index"}
+        - {id: sector_breadth, weight_pct: 10, asset_ids: [spy], signal: "Multi-sector participation breadth"}
+    highbeta:
+      display_name: "High-Beta / BTC"
+      components:
+        - {id: ibit_qqq_relative, weight_pct: 30, asset_ids: [btc_vehicle_ibit, qqq], signal: "IBIT vs QQQ 5D+20D"}
+        - {id: ibit_spy_beta, weight_pct: 25, asset_ids: [btc_vehicle_ibit, spy], signal: "IBIT beta transmission vs SPY"}
+        - {id: btc_spot_momentum, weight_pct: 20, asset_ids: [btc_spot_usd], signal: "BTC spot 5D+20D momentum"}
+        - {id: btc_spy_decoupling, weight_pct: 15, asset_ids: [btc_spot_usd, spy], signal: "BTC/SPY correlation trend"}
+        - {id: eth_btc_confirm, weight_pct: 10, asset_ids: [eth_spot_usd, btc_spot_usd], signal: "ETH/BTC high-beta confirmation"}
+    basis:
+      display_name: "Basis & Term Structure"
+      components:
+        - {id: btc_calendar_level, weight_pct: 30, asset_ids: [btc_near_contract], signal: "Near-deferred calendar level vs refs"}
+        - {id: btc_calendar_direction, weight_pct: 25, asset_ids: [btc_near_contract], signal: "Calendar spread 5D+20D direction"}
+        - {id: contango_stability, weight_pct: 20, asset_ids: [btc_near_contract], signal: "Roll / contango stability"}
+        - {id: basis_vs_ref_band, weight_pct: 15, asset_ids: [btc_near_contract], signal: "Spread vs ref_low/mid/high"}
+        - {id: ibit_futures_basis_gap, weight_pct: 10, asset_ids: [btc_vehicle_ibit, btc_near_contract], signal: "ETF vs futures basis consistency"}
+    credit:
+      display_name: "Credit Confirmation"
+      authoritative: true
+      doc: "04_Score_Calculation/Whinfell_Credit_Confirmation_Score_Logic.md"
+      component_count: 8
+
+# ---------------------------------------------------------------------------
+# Funds flow sponsorship — baskets, thresholds, ingest (Phase 2b PR-1)
+# ---------------------------------------------------------------------------
+funds_flow_baskets:
+  version: "1.0"
+  status: Locked
+  normalization: flow_pct_aum
+  horizons:
+    display: [1d, 5d]
+    persistence_lookback_sessions: 20
+  nodes:
+    liquidity:
+      basket_id: liquidity_duration
+      basket_label: "Duration & front-end sponsorship"
+      primary_ticker: IEF
+      etfs:
+        - {ticker: SHY, asset_id: shy, role: front_end, primary: false, weight: 0.2}
+        - {ticker: IEF, asset_id: ief, role: intermediate_duration, primary: true, weight: 0.35}
+        - {ticker: TLT, asset_id: tlt, role: long_duration, primary: false, weight: 0.25}
+        - {ticker: BIL, asset_id: bil, role: t_bill, primary: false, weight: 0.2}
+    credit:
+      basket_id: credit_hy_ig
+      basket_label: "Credit ETF sponsorship"
+      primary_ticker: HYG
+      etfs:
+        - {ticker: HYG, asset_id: hyg, role: hy_high_yield, primary: true, weight: 0.35}
+        - {ticker: LQD, asset_id: jaaa, role: ig_investment_grade, primary: false, weight: 0.30}
+        - {ticker: BKLN, asset_id: bkln, role: leveraged_loan, primary: false, weight: 0.20}
+        - {ticker: CWB, asset_id: cwb, role: convertibles, primary: false, weight: 0.15}
+    breadth:
+      basket_id: breadth_participation
+      basket_label: "Equity participation sponsorship"
+      primary_ticker: IWM
+      etfs:
+        - {ticker: IWM, asset_id: iwm, role: small_cap, primary: true, weight: 0.35}
+        - {ticker: SPY, asset_id: spy, role: large_cap, primary: false, weight: 0.25}
+        - {ticker: QQQ, asset_id: qqq, role: growth_tech, primary: false, weight: 0.20}
+        - {ticker: RSP, asset_id: rsp, role: equal_weight, primary: false, weight: 0.20}
+    highbeta:
+      basket_id: highbeta_crypto_beta
+      basket_label: "High-beta & crypto vehicle sponsorship"
+      primary_ticker: IBIT
+      etfs:
+        - {ticker: IBIT, asset_id: btc_vehicle_ibit, role: btc_spot_vehicle, primary: true, weight: 0.40}
+        - {ticker: QQQ, asset_id: qqq, role: growth_beta, primary: false, weight: 0.30}
+        - {ticker: SPY, asset_id: spy, role: market_beta, primary: false, weight: 0.20}
+        - {ticker: BITO, asset_id: bito, role: btc_futures_vehicle, primary: false, weight: 0.10}
+    basis:
+      basket_id: basis_warehouse_proxy
+      basket_label: "Warehouse / ETF basis proxy sponsorship"
+      primary_ticker: IBIT
+      etfs:
+        - {ticker: IBIT, asset_id: btc_vehicle_ibit, role: primary_warehouse, primary: true, weight: 0.50}
+        - {ticker: BITO, asset_id: bito, role: futures_linked, primary: false, weight: 0.25}
+        - {ticker: GBTC, asset_id: gbtc, role: trust_proxy, primary: false, weight: 0.25}
+
+funds_flow_thresholds:
+  version: "1.0"
+  supportive_5d_pct: 0.15
+  weak_5d_pct: 0.05
+  divergence_5d_pct: -0.05
+  breadth_supportive_ratio: 0.60
+  concentration_single_etf: 0.70
+  primary_divergence_weight: 2.0
+
+funds_flow_column_patterns:
+  flow_usd_1d: ["{TICKER} Flow (D)", "Fund Flows/Periodic (D)"]
+  aum_usd: ["{TICKER} AUM", "AUM"]
+  flow_pct_aum_1d: ["{TICKER} Flow % AUM (D)"]
+  date: ["Date"]
+
+funds_flow_ingest:
+  version: "1.0"
+  status: Locked
+  sidecar_path: "data/flows/v1/latest_flows.json"
+  sidecar_version: "1.0.0"
+  source_channel_primary: koyfin_wtm_flows
+  source_channel_fallback: credit_cross_section_fallback
+  ingest_modes: [timeseries_primary, fallback_1d_only, disabled]
+  units:
+    flow_usd: millions_usd
+    aum_usd: millions_usd
+    flow_pct_aum: percent
+  basket_coverage_min_ratio: 0.60
+  series_tail_sessions: 20
+  flows_meta:
+    flows_status: [ok, partial, fallback_1d, unavailable]
+    flows_source: [wtm_flows_timeseries, credit_cross_section, none]
+    degrade_modes: [full, partial_basket, fallback_1d_credit, unavailable]
+    fallback_reasons:
+      - missing_wtm_flows_file
+      - credit_cross_section_1d_only
+      - missing_basket_etfs
+      - ticker_columns_absent
+      - non_credit_node_no_fallback
+    flows_confidence_penalty_range: [0, 2]
+
+# ---------------------------------------------------------------------------
+# Transmission output blocks (hydration bundle + WTM export extensions)
+# ---------------------------------------------------------------------------
+transmission_outputs:
+  hydration_bundle:
+    version: "1.2.0"
+    blocks:
+      global: {source: parquet, fields: [whinfell_score, transmission_state, regime_tag, key_observation, btc_bias]}
+      china: {source: parquet, fields: [sq3_score, sq3_band, policy_strength, state_impulse_score]}
+      china_ladder: {source: derived, fields: [horizons, weakest_china_stage]}
+      crypto_sleeve: {source: data/crypto/v1/latest_crypto_sleeve.json, fields: [assets, charts, correlation_series, snapshot]}
+      execution: {source: data/execution/v1/latest_execution.json, fields: [near_month, basis_spread, btc_bias]}
+      suggested_tracer: {source: derived, confirm_required: true}
+      node_cockpits: {source: derived, nodes: [liquidity, credit, breadth, highbeta, basis]}
+      cockpit_context: {source: derived, fields: [weakest_node_id, gate_zone, whinfell_score]}
+  flows_sidecar:
+    source: data/flows/v1/latest_flows.json
+    fields: [as_of, ingest_mode, tickers]
+  output_kinds:
+    snapshot: cross_sectional current-state validation
+    historical_timeseries: dated price/level series
+    correlation_series: dated pairwise correlation series
+    curve_series: contract-level term structure
+    derived_signals: whinfell_score, sq3_score, china_ladder, btc_bias

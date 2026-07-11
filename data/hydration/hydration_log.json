@@ -1,0 +1,788 @@
+{
+  "audit_version": "1.0.0",
+  "generated_at": "2026-07-03T05:19:17.135784+00:00",
+  "snapshot_id": "global-2026-07-02-raw2wtm-01",
+  "lineage_hash": "sha256:f8e459bdf1895393ef844f94c18b96063e19ea1429557220e73ab53ab00e851e",
+  "summary": {
+    "total_fields": 43,
+    "required_fields": 33,
+    "required_ok": 33,
+    "status_counts": {
+      "ok": 36,
+      "optional_empty": 1,
+      "partial": 6
+    },
+    "bundle_quality_score": 63,
+    "tc_session_level": "ok",
+    "coverage_pct": 100.0
+  },
+  "fields": [
+    {
+      "section": "provenance",
+      "field": "snapshot_id",
+      "bundle_path": "snapshot_id",
+      "ui_target": "command bar \u00b7 provenance",
+      "status": "ok",
+      "required": true,
+      "value": "global-2026-07-02-raw2wtm-01",
+      "value_preview": "global-2026-07-02-raw2wtm-01",
+      "notes": ""
+    },
+    {
+      "section": "provenance",
+      "field": "lineage_hash",
+      "bundle_path": "lineage_hash",
+      "ui_target": "command bar \u00b7 lineage",
+      "status": "ok",
+      "required": true,
+      "value": "sha256:f8e459bdf1895393ef844f94c18b96063e19ea1429557220e73ab53ab00e851e",
+      "value_preview": "sha256:f8e459bdf1895393ef844f94c18b96063e19ea1429557220e73ab53ab00e851e",
+      "notes": ""
+    },
+    {
+      "section": "provenance",
+      "field": "as_of",
+      "bundle_path": "as_of",
+      "ui_target": "freshness chip \u00b7 data as-of",
+      "status": "ok",
+      "required": true,
+      "value": "2026-07-02T12:01:21+00:00",
+      "value_preview": "2026-07-02T12:01:21+00:00",
+      "notes": ""
+    },
+    {
+      "section": "provenance",
+      "field": "freshness_status",
+      "bundle_path": "freshness_status",
+      "ui_target": "freshness chip",
+      "status": "ok",
+      "required": true,
+      "value": "aging",
+      "value_preview": "aging",
+      "notes": ""
+    },
+    {
+      "section": "provenance",
+      "field": "validation_status",
+      "bundle_path": "validation_status",
+      "ui_target": "import guard",
+      "status": "ok",
+      "required": true,
+      "value": "parsed",
+      "value_preview": "parsed",
+      "notes": ""
+    },
+    {
+      "section": "provenance",
+      "field": "hydration_version",
+      "bundle_path": "hydration_version",
+      "ui_target": "import compatibility",
+      "status": "ok",
+      "required": true,
+      "value": "1.3.0",
+      "value_preview": "1.3.0",
+      "notes": ""
+    },
+    {
+      "section": "global_intake",
+      "field": "whinfell_score",
+      "bundle_path": "global.whinfell_score",
+      "ui_target": "#whinfellScore",
+      "status": "ok",
+      "required": true,
+      "value": 46,
+      "value_preview": "46",
+      "notes": ""
+    },
+    {
+      "section": "global_intake",
+      "field": "transmission_state",
+      "bundle_path": "global.transmission_state",
+      "ui_target": "#transmissionState",
+      "status": "ok",
+      "required": true,
+      "value": "stressed",
+      "value_preview": "stressed",
+      "notes": ""
+    },
+    {
+      "section": "global_intake",
+      "field": "regime_tag",
+      "bundle_path": "global.regime_tag",
+      "ui_target": "#regimeTag",
+      "status": "ok",
+      "required": true,
+      "value": "Fragile Risk-On",
+      "value_preview": "Fragile Risk-On",
+      "notes": ""
+    },
+    {
+      "section": "global_intake",
+      "field": "key_observation",
+      "bundle_path": "global.key_observation",
+      "ui_target": "#keyObservation \u00b7 handover",
+      "status": "ok",
+      "required": true,
+      "value": "USDCNY -; USDCNH -; CN10Y +; CN2Y -; US2Y +",
+      "value_preview": "USDCNY -; USDCNH -; CN10Y +; CN2Y -; US2Y +",
+      "notes": ""
+    },
+    {
+      "section": "global_intake",
+      "field": "gate_status",
+      "bundle_path": "global.gate_status",
+      "ui_target": "gate chip",
+      "status": "optional_empty",
+      "required": false,
+      "value": "",
+      "value_preview": "\u2014",
+      "notes": "Often derived in TC from score + transmission; parquet may leave empty"
+    },
+    {
+      "section": "global_intake",
+      "field": "btc_bias",
+      "bundle_path": "global.btc_bias",
+      "ui_target": "BTC bias \u00b7 execution rail",
+      "status": "ok",
+      "required": true,
+      "value": "Neutral",
+      "value_preview": "Neutral",
+      "notes": ""
+    },
+    {
+      "section": "china_intake",
+      "field": "policy_strength",
+      "bundle_path": "china.policy_strength",
+      "ui_target": "#chinaPolicyStrength",
+      "status": "ok",
+      "required": true,
+      "value": 50,
+      "value_preview": "50",
+      "notes": ""
+    },
+    {
+      "section": "china_intake",
+      "field": "state_impulse_score",
+      "bundle_path": "china.state_impulse_score",
+      "ui_target": "#chinaStateImpulse",
+      "status": "ok",
+      "required": true,
+      "value": 0,
+      "value_preview": "0",
+      "notes": ""
+    },
+    {
+      "section": "china_intake",
+      "field": "growth_impulse_score",
+      "bundle_path": "china.growth_impulse_score",
+      "ui_target": "#chinaGrowthImpulse",
+      "status": "ok",
+      "required": true,
+      "value": 0,
+      "value_preview": "0",
+      "notes": ""
+    },
+    {
+      "section": "china_intake",
+      "field": "sq3_score",
+      "bundle_path": "china.sq3_score",
+      "ui_target": "SQ3 chip \u00b7 command bar",
+      "status": "ok",
+      "required": true,
+      "value": 35,
+      "value_preview": "35",
+      "notes": ""
+    },
+    {
+      "section": "china_intake",
+      "field": "regime_tag",
+      "bundle_path": "china.regime_tag",
+      "ui_target": "#chinaRegimeTag",
+      "status": "ok",
+      "required": true,
+      "value": "desk-auto",
+      "value_preview": "desk-auto",
+      "notes": ""
+    },
+    {
+      "section": "china_intake",
+      "field": "as_of",
+      "bundle_path": "china.as_of",
+      "ui_target": "China freshness",
+      "status": "ok",
+      "required": false,
+      "value": "2026-06-30T18:20:00+00:00",
+      "value_preview": "2026-06-30T18:20:00+00:00",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "near_month",
+      "bundle_path": "execution.near_month",
+      "ui_target": "L3 near month",
+      "status": "ok",
+      "required": true,
+      "value": "Jul",
+      "value_preview": "Jul",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "far_month",
+      "bundle_path": "execution.far_month",
+      "ui_target": "L3 far month",
+      "status": "ok",
+      "required": true,
+      "value": "Back",
+      "value_preview": "Back",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "basis_spread",
+      "bundle_path": "execution.basis_spread",
+      "ui_target": "L3 basis spread",
+      "status": "ok",
+      "required": true,
+      "value": "61530.00",
+      "value_preview": "61530.00",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "ref_low",
+      "bundle_path": "execution.ref_low",
+      "ui_target": "L3 ref low",
+      "status": "ok",
+      "required": true,
+      "value": "49224.00",
+      "value_preview": "49224.00",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "ref_mid",
+      "bundle_path": "execution.ref_mid",
+      "ui_target": "L3 ref mid",
+      "status": "ok",
+      "required": true,
+      "value": "61530.00",
+      "value_preview": "61530.00",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "ref_high",
+      "bundle_path": "execution.ref_high",
+      "ui_target": "L3 ref high",
+      "status": "ok",
+      "required": true,
+      "value": "73836.00",
+      "value_preview": "73836.00",
+      "notes": ""
+    },
+    {
+      "section": "execution_l3",
+      "field": "btc_bias",
+      "bundle_path": "execution.btc_bias",
+      "ui_target": "Layer 2/3 BTC bias",
+      "status": "ok",
+      "required": true,
+      "value": "Neutral",
+      "value_preview": "Neutral",
+      "notes": ""
+    },
+    {
+      "section": "flows",
+      "field": "flows_status",
+      "bundle_path": "flows_sidecar.flows_status",
+      "ui_target": "coverage \u00b7 flows pill",
+      "status": "ok",
+      "required": true,
+      "value": "fallback_1d",
+      "value_preview": "fallback_1d",
+      "notes": ""
+    },
+    {
+      "section": "flows",
+      "field": "flows_as_of",
+      "bundle_path": "flows_sidecar.as_of",
+      "ui_target": "flows sponsorship as-of",
+      "status": "ok",
+      "required": false,
+      "value": "2026-07-02",
+      "value_preview": "2026-07-02",
+      "notes": "Re-export WTM-Flows-Global.csv when stale"
+    },
+    {
+      "section": "flows",
+      "field": "ticker_count",
+      "bundle_path": "flows_sidecar.ticker_count",
+      "ui_target": "funds-flow card",
+      "status": "ok",
+      "required": false,
+      "value": 3,
+      "value_preview": "3",
+      "notes": ""
+    },
+    {
+      "section": "node_rv",
+      "field": "liquidity.rv_horizons",
+      "bundle_path": "node_cockpits.liquidity.rv_basis",
+      "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 liquidity",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "5/5 horizons on active series"
+    },
+    {
+      "section": "node_signals",
+      "field": "liquidity.component_inputs",
+      "bundle_path": "node_cockpits.liquidity.component_inputs",
+      "ui_target": "mission read diagnostics \u00b7 liquidity",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "2 rv_history \u00b7 5 total components"
+    },
+    {
+      "section": "node_flows",
+      "field": "liquidity.flows_status",
+      "bundle_path": "node_cockpits.liquidity.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 liquidity",
+      "status": "partial",
+      "required": false,
+      "value": "unavailable",
+      "value_preview": "unavailable",
+      "notes": ""
+    },
+    {
+      "section": "node_rv",
+      "field": "credit.rv_horizons",
+      "bundle_path": "node_cockpits.credit.rv_basis",
+      "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 credit",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "5/5 horizons on active series"
+    },
+    {
+      "section": "node_signals",
+      "field": "credit.component_inputs",
+      "bundle_path": "node_cockpits.credit.component_inputs",
+      "ui_target": "mission read diagnostics \u00b7 credit",
+      "status": "partial",
+      "required": false,
+      "value": 0,
+      "value_preview": "0",
+      "notes": "Credit uses authoritative RV + horizon-net composite (C1 doc); component_inputs intentionally empty \u2014 not a ingest failure"
+    },
+    {
+      "section": "node_flows",
+      "field": "credit.flows_status",
+      "bundle_path": "node_cockpits.credit.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 credit",
+      "status": "partial",
+      "required": false,
+      "value": "fallback_1d",
+      "value_preview": "fallback_1d",
+      "notes": ""
+    },
+    {
+      "section": "node_rv",
+      "field": "breadth.rv_horizons",
+      "bundle_path": "node_cockpits.breadth.rv_basis",
+      "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 breadth",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "5/5 horizons on active series"
+    },
+    {
+      "section": "node_signals",
+      "field": "breadth.component_inputs",
+      "bundle_path": "node_cockpits.breadth.component_inputs",
+      "ui_target": "mission read diagnostics \u00b7 breadth",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "2 rv_history \u00b7 5 total components"
+    },
+    {
+      "section": "node_flows",
+      "field": "breadth.flows_status",
+      "bundle_path": "node_cockpits.breadth.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 breadth",
+      "status": "partial",
+      "required": false,
+      "value": "unavailable",
+      "value_preview": "unavailable",
+      "notes": ""
+    },
+    {
+      "section": "node_rv",
+      "field": "highbeta.rv_horizons",
+      "bundle_path": "node_cockpits.highbeta.rv_basis",
+      "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 highbeta",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "5/5 horizons on active series"
+    },
+    {
+      "section": "node_signals",
+      "field": "highbeta.component_inputs",
+      "bundle_path": "node_cockpits.highbeta.component_inputs",
+      "ui_target": "mission read diagnostics \u00b7 highbeta",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "4 rv_history \u00b7 5 total components"
+    },
+    {
+      "section": "node_flows",
+      "field": "highbeta.flows_status",
+      "bundle_path": "node_cockpits.highbeta.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 highbeta",
+      "status": "partial",
+      "required": false,
+      "value": "unavailable",
+      "value_preview": "unavailable",
+      "notes": ""
+    },
+    {
+      "section": "node_rv",
+      "field": "basis.rv_horizons",
+      "bundle_path": "node_cockpits.basis.rv_basis",
+      "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 basis",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "5/5 horizons on active series"
+    },
+    {
+      "section": "node_signals",
+      "field": "basis.component_inputs",
+      "bundle_path": "node_cockpits.basis.component_inputs",
+      "ui_target": "mission read diagnostics \u00b7 basis",
+      "status": "ok",
+      "required": true,
+      "value": 5,
+      "value_preview": "5",
+      "notes": "5 rv_history \u00b7 5 total components"
+    },
+    {
+      "section": "node_flows",
+      "field": "basis.flows_status",
+      "bundle_path": "node_cockpits.basis.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 basis",
+      "status": "partial",
+      "required": false,
+      "value": "unavailable",
+      "value_preview": "unavailable",
+      "notes": ""
+    }
+  ],
+  "nodes": {
+    "liquidity": {
+      "composite_score": 100,
+      "composite_score_source": "weighted_components",
+      "rv_horizon_count": 5,
+      "rv_richness": "fair",
+      "component_count": 5,
+      "signals_status": "partial",
+      "flows_status": "unavailable",
+      "fields": [
+        {
+          "section": "node_rv",
+          "field": "liquidity.rv_horizons",
+          "bundle_path": "node_cockpits.liquidity.rv_basis",
+          "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 liquidity",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "5/5 horizons on active series"
+        },
+        {
+          "section": "node_signals",
+          "field": "liquidity.component_inputs",
+          "bundle_path": "node_cockpits.liquidity.component_inputs",
+          "ui_target": "mission read diagnostics \u00b7 liquidity",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "2 rv_history \u00b7 5 total components"
+        },
+        {
+          "section": "node_flows",
+          "field": "liquidity.flows_status",
+          "bundle_path": "node_cockpits.liquidity.funds_flows.flows_meta.flows_status",
+          "ui_target": "funds-flow card \u00b7 liquidity",
+          "status": "partial",
+          "required": false,
+          "value": "unavailable",
+          "value_preview": "unavailable",
+          "notes": ""
+        }
+      ]
+    },
+    "credit": {
+      "composite_score": 12,
+      "composite_score_source": "horizon_net_fallback",
+      "rv_horizon_count": 5,
+      "rv_richness": "cheap",
+      "component_count": 0,
+      "signals_status": "partial",
+      "flows_status": "fallback_1d",
+      "fields": [
+        {
+          "section": "node_rv",
+          "field": "credit.rv_horizons",
+          "bundle_path": "node_cockpits.credit.rv_basis",
+          "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 credit",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "5/5 horizons on active series"
+        },
+        {
+          "section": "node_signals",
+          "field": "credit.component_inputs",
+          "bundle_path": "node_cockpits.credit.component_inputs",
+          "ui_target": "mission read diagnostics \u00b7 credit",
+          "status": "partial",
+          "required": false,
+          "value": 0,
+          "value_preview": "0",
+          "notes": "Credit uses authoritative RV + horizon-net composite (C1 doc); component_inputs intentionally empty \u2014 not a ingest failure"
+        },
+        {
+          "section": "node_flows",
+          "field": "credit.flows_status",
+          "bundle_path": "node_cockpits.credit.funds_flows.flows_meta.flows_status",
+          "ui_target": "funds-flow card \u00b7 credit",
+          "status": "partial",
+          "required": false,
+          "value": "fallback_1d",
+          "value_preview": "fallback_1d",
+          "notes": ""
+        }
+      ]
+    },
+    "breadth": {
+      "composite_score": 72,
+      "composite_score_source": "weighted_components",
+      "rv_horizon_count": 5,
+      "rv_richness": "fair",
+      "component_count": 5,
+      "signals_status": "partial",
+      "flows_status": "unavailable",
+      "fields": [
+        {
+          "section": "node_rv",
+          "field": "breadth.rv_horizons",
+          "bundle_path": "node_cockpits.breadth.rv_basis",
+          "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 breadth",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "5/5 horizons on active series"
+        },
+        {
+          "section": "node_signals",
+          "field": "breadth.component_inputs",
+          "bundle_path": "node_cockpits.breadth.component_inputs",
+          "ui_target": "mission read diagnostics \u00b7 breadth",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "2 rv_history \u00b7 5 total components"
+        },
+        {
+          "section": "node_flows",
+          "field": "breadth.flows_status",
+          "bundle_path": "node_cockpits.breadth.funds_flows.flows_meta.flows_status",
+          "ui_target": "funds-flow card \u00b7 breadth",
+          "status": "partial",
+          "required": false,
+          "value": "unavailable",
+          "value_preview": "unavailable",
+          "notes": ""
+        }
+      ]
+    },
+    "highbeta": {
+      "composite_score": 72,
+      "composite_score_source": "weighted_components",
+      "rv_horizon_count": 5,
+      "rv_richness": "fair",
+      "component_count": 5,
+      "signals_status": "partial",
+      "flows_status": "unavailable",
+      "fields": [
+        {
+          "section": "node_rv",
+          "field": "highbeta.rv_horizons",
+          "bundle_path": "node_cockpits.highbeta.rv_basis",
+          "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 highbeta",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "5/5 horizons on active series"
+        },
+        {
+          "section": "node_signals",
+          "field": "highbeta.component_inputs",
+          "bundle_path": "node_cockpits.highbeta.component_inputs",
+          "ui_target": "mission read diagnostics \u00b7 highbeta",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "4 rv_history \u00b7 5 total components"
+        },
+        {
+          "section": "node_flows",
+          "field": "highbeta.flows_status",
+          "bundle_path": "node_cockpits.highbeta.funds_flows.flows_meta.flows_status",
+          "ui_target": "funds-flow card \u00b7 highbeta",
+          "status": "partial",
+          "required": false,
+          "value": "unavailable",
+          "value_preview": "unavailable",
+          "notes": ""
+        }
+      ]
+    },
+    "basis": {
+      "composite_score": 100,
+      "composite_score_source": "weighted_components",
+      "rv_horizon_count": 5,
+      "rv_richness": "rich",
+      "component_count": 5,
+      "signals_status": "ok",
+      "flows_status": "unavailable",
+      "fields": [
+        {
+          "section": "node_rv",
+          "field": "basis.rv_horizons",
+          "bundle_path": "node_cockpits.basis.rv_basis",
+          "ui_target": "CURRENT READING \u00b7 RV chart \u00b7 basis",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "5/5 horizons on active series"
+        },
+        {
+          "section": "node_signals",
+          "field": "basis.component_inputs",
+          "bundle_path": "node_cockpits.basis.component_inputs",
+          "ui_target": "mission read diagnostics \u00b7 basis",
+          "status": "ok",
+          "required": true,
+          "value": 5,
+          "value_preview": "5",
+          "notes": "5 rv_history \u00b7 5 total components"
+        },
+        {
+          "section": "node_flows",
+          "field": "basis.flows_status",
+          "bundle_path": "node_cockpits.basis.funds_flows.flows_meta.flows_status",
+          "ui_target": "funds-flow card \u00b7 basis",
+          "status": "partial",
+          "required": false,
+          "value": "unavailable",
+          "value_preview": "unavailable",
+          "notes": ""
+        }
+      ]
+    }
+  },
+  "remediation": [
+    {
+      "priority": "medium",
+      "field": "node_flows.liquidity.flows_status",
+      "bundle_path": "node_cockpits.liquidity.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 liquidity",
+      "action": "Review fallback for node_cockpits.liquidity.funds_flows.flows_meta.flows_status"
+    },
+    {
+      "priority": "medium",
+      "field": "node_signals.credit.component_inputs",
+      "bundle_path": "node_cockpits.credit.component_inputs",
+      "ui_target": "mission read diagnostics \u00b7 credit",
+      "action": "Credit uses authoritative RV + horizon-net composite (C1 doc); component_inputs intentionally empty \u2014 not a ingest failure"
+    },
+    {
+      "priority": "medium",
+      "field": "node_flows.credit.flows_status",
+      "bundle_path": "node_cockpits.credit.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 credit",
+      "action": "Review fallback for node_cockpits.credit.funds_flows.flows_meta.flows_status"
+    },
+    {
+      "priority": "medium",
+      "field": "node_flows.breadth.flows_status",
+      "bundle_path": "node_cockpits.breadth.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 breadth",
+      "action": "Review fallback for node_cockpits.breadth.funds_flows.flows_meta.flows_status"
+    },
+    {
+      "priority": "medium",
+      "field": "node.breadth.Equal-weight vs cap-weight participation",
+      "bundle_path": "node_cockpits.breadth.component_inputs",
+      "ui_target": "mission diagnostics \u00b7 breadth",
+      "action": "Map RV history for component spy or accept horizon_fallback"
+    },
+    {
+      "priority": "medium",
+      "field": "node.breadth.Cyclicals keeping pace with index",
+      "bundle_path": "node_cockpits.breadth.component_inputs",
+      "ui_target": "mission diagnostics \u00b7 breadth",
+      "action": "Map RV history for component spy or accept horizon_fallback"
+    },
+    {
+      "priority": "medium",
+      "field": "node.breadth.Multi-sector participation breadth",
+      "bundle_path": "node_cockpits.breadth.component_inputs",
+      "ui_target": "mission diagnostics \u00b7 breadth",
+      "action": "Map RV history for component spy or accept horizon_fallback"
+    },
+    {
+      "priority": "medium",
+      "field": "node_flows.highbeta.flows_status",
+      "bundle_path": "node_cockpits.highbeta.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 highbeta",
+      "action": "Review fallback for node_cockpits.highbeta.funds_flows.flows_meta.flows_status"
+    },
+    {
+      "priority": "medium",
+      "field": "node.highbeta.ETH/BTC high-beta confirmation",
+      "bundle_path": "node_cockpits.highbeta.component_inputs",
+      "ui_target": "mission diagnostics \u00b7 highbeta",
+      "action": "Map RV history for component eth_spot_usd or accept horizon_fallback"
+    },
+    {
+      "priority": "medium",
+      "field": "node_flows.basis.flows_status",
+      "bundle_path": "node_cockpits.basis.funds_flows.flows_meta.flows_status",
+      "ui_target": "funds-flow card \u00b7 basis",
+      "action": "Review fallback for node_cockpits.basis.funds_flows.flows_meta.flows_status"
+    }
+  ]
+}

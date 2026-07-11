@@ -1,0 +1,65 @@
+{
+  "version": "1.0",
+  "date": "2026-07-11",
+  "status": "Active",
+  "alignment": "WTC 1.0 + Ark Core",
+  "nodes": {
+    "liquidity": {
+      "id": "liquidity",
+      "source": "SOFR vs Fed Funds",
+      "metric": "spread_tightness",
+      "score": 78,
+      "quartile": "Q3",
+      "color": "green",
+      "mental_math": "SOFR - Fed Funds = 15bps (tight)",
+      "commentary": "Liquidity is strong, supporting risk-on trades.",
+      "dig_prompt": "Explain SOFR vs Fed Funds spread and its implication for market liquidity."
+    },
+    "credit": {
+      "id": "credit",
+      "source": "Corporate spreads",
+      "metric": "hy_ig_spread",
+      "score": 45,
+      "quartile": "Q2",
+      "color": "yellow",
+      "mental_math": "HY-IG spread = 320bps (neutral)",
+      "commentary": "Credit is neutral.",
+      "dig_prompt": "Analyze corporate credit spreads and HY vs IG dynamics."
+    },
+    "equity_depth": {
+      "id": "equity_depth",
+      "source": "Market breadth",
+      "metric": "advance_decline_ratio",
+      "score": 62,
+      "quartile": "Q3",
+      "color": "green",
+      "mental_math": "A/D ratio = 1.8 (good breadth)",
+      "commentary": "Equity depth is good.",
+      "dig_prompt": "Explain market breadth and advance-decline ratio implications."
+    },
+    "high_beta": {
+      "id": "high_beta",
+      "source": "High beta performance",
+      "metric": "high_beta_vs_spx",
+      "score": 29,
+      "quartile": "Q1",
+      "color": "red",
+      "mental_math": "High beta underperforming SPX by 8%",
+      "commentary": "High beta is weak.",
+      "dig_prompt": "Analyze high beta performance relative to SPX."
+    },
+    "bitcoin_basis": {
+      "id": "bitcoin_basis",
+      "source": "Spot vs Futures",
+      "metric": "btc_basis_spread",
+      "score": 85,
+      "quartile": "Q4",
+      "color": "green",
+      "mental_math": "Basis = 450bps (strong contango)",
+      "commentary": "Bitcoin basis is strong.",
+      "dig_prompt": "Explain Bitcoin basis spread and its implication for crypto market."
+    }
+  },
+  "sources": ["barchart", "koyfin", "coinglass", "cousins"],
+  "source": "barchart_curve_history.json + BBDM"
+}

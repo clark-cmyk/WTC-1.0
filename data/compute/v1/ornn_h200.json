@@ -1,0 +1,36 @@
+{
+  "source": "ornn_stub_v1",
+  "as_of": "2026-07-03T05:16:02Z",
+  "gpu": "H200",
+  "rental_usd_per_hr": {
+    "spot": 4.12,
+    "1m_fwd": 4.45,
+    "3m_fwd": 4.78,
+    "6m_fwd": 5.02
+  },
+  "forward_curve": [
+    {
+      "tenor": "Spot",
+      "price": 4.12
+    },
+    {
+      "tenor": "1M",
+      "price": 4.45
+    },
+    {
+      "tenor": "3M",
+      "price": 4.78
+    },
+    {
+      "tenor": "6M",
+      "price": 5.02
+    },
+    {
+      "tenor": "12M",
+      "price": 5.28
+    }
+  ],
+  "basis_vs_h100_pct": -8.4,
+  "delivery_slippage_days": 12,
+  "status": "stub"
+}

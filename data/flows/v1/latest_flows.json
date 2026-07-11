@@ -1,0 +1,63 @@
+{
+  "version": "1.0.0",
+  "as_of": "2026-07-09",
+  "source_file": "flows_20260709_0937.csv",
+  "source_channel": "credit_cross_section_fallback",
+  "ingest_mode": "fallback_1d_only",
+  "units": {
+    "flow_usd": "millions_usd",
+    "aum_usd": "millions_usd",
+    "flow_pct_aum": "percent"
+  },
+  "tickers": {
+    "LQD": {
+      "ticker": "LQD",
+      "asset_id": "jaaa",
+      "canonical_asset_resolved": true,
+      "latest": {
+        "date": "2026-07-09",
+        "flow_usd_1d": 150.87,
+        "aum_usd": 35230.55,
+        "flow_pct_aum_1d": 0.4282
+      },
+      "rolling": {},
+      "series_tail": []
+    },
+    "HYG": {
+      "ticker": "HYG",
+      "asset_id": "hyg",
+      "canonical_asset_resolved": true,
+      "latest": {
+        "date": "2026-07-09",
+        "flow_usd_1d": -278.93,
+        "aum_usd": 16859.07,
+        "flow_pct_aum_1d": -1.6545
+      },
+      "rolling": {},
+      "series_tail": []
+    },
+    "BKLN": {
+      "ticker": "BKLN",
+      "asset_id": "bkln",
+      "canonical_asset_resolved": true,
+      "latest": {
+        "date": "2026-07-09",
+        "flow_usd_1d": -4.09,
+        "aum_usd": 7183.21,
+        "flow_pct_aum_1d": -0.0569
+      },
+      "rolling": {},
+      "series_tail": []
+    }
+  },
+  "fallback_overlay": {
+    "active": true,
+    "source": "credit_cross_section",
+    "tickers_patched": [
+      "LQD",
+      "HYG",
+      "BKLN"
+    ]
+  },
+  "warnings": []
+}
