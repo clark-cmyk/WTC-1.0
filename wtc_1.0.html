@@ -27,7 +27,7 @@
 
     <script src="js/02_core.js"></script>
     <script>
-        let currentTabId = 6;  // Default to Risk Curve
+        let currentTabId = 6;
 
         const modules = [
             { id: 1, code: "ART", name: "Articulate" },
@@ -56,69 +56,53 @@
             
             const content = document.getElementById('mainContent');
             
-            if (id === 6) {  // Risk Curve
+            if (id === 6) {
                 content.innerHTML = `<h2>Risk Curve (RCV) — Loading from ARK...</h2>`;
-                
-                let curveData = null;
-                if (window.ARK && typeof window.ARK.get === 'function') {
-                    curveData = window.ARK.get('risk_curve');
-                }
-
+                let curveData = window.ARK ? window.ARK.get('risk_curve') : null;
                 if (curveData && curveData.nodes) {
-                    const nodes = curveData.nodes;
                     let html = `<h2>Risk Curve (RCV)</h2>
                                 <p style="color:green;">✅ ARK Connected • ${curveData.as_of || 'Latest'}</p>
                                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px;">`;
-
-                    Object.entries(nodes).forEach(([key, node]) => {
-                        const score = node.score !== null ? node.score : '—';
-                        const color = (node.status === "Good" || node.status === "Strong") ? "#0A4D2E" : 
-                                     (node.status === "Weak") ? "#6B1E1E" : "#8B6F00";
-                        html += `
-                            <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);" 
-                                 onmouseover="showHover(this)" onmouseout="hideHover(this)">
-                                <h3>${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
-                                <div style="font-size:42px;font-weight:700;color:${color};">${score}</div>
-                                <div style="color:${color};">${node.quartile || 'Q?'} • ${node.status || 'Pending'}</div>
-                                <p style="margin-top:8px;font-size:13px;">${node.description || ''}</p>
-                                <button onclick="articulateNode('${key}')" style="margin-top:8px;">A</button>
-                            </div>
-                        `;
+                    Object.entries(curveData.nodes).forEach(([key, node]) => {
+                        const score = node.score !== null && node.score !== undefined ? node.score : '—';
+                        const color = (node.status === "Good" || node.status === "Strong") ? "#0A4D2E" : (node.status === "Weak") ? "#6B1E1E" : "#8B6F00";
+                        html += `<div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);" onmouseover="showHover(this)" onmouseout="hideHover(this)">
+                            <h3>${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+                            <div style="font-size:42px;font-weight:700;color:${color};">${score}</div>
+                            <div style="color:${color};">${node.quartile || 'Q?'} • ${node.status || 'Pending'}</div>
+                            <p style="margin-top:8px;font-size:13px;">${node.description || ''}</p>
+                            <button onclick="articulateNode('${key}')" style="margin-top:8px;">A</button>
+                        </div>`;
                     });
-
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:#888;">ARK data not ready yet.</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:#888;">ARK data not ready.</p>`;
                 }
             } else if (id === 8) {
                 content.innerHTML = `
                     <h2>Data Dictionary (DICT)</h2>
-                    <button onclick="downloadCSV()" style="padding:10px 20px;">Download CSV + Refresh</button>
+                    <button onclick="downloadCSVFromARK()" style="padding:12px 24px;font-size:16px;margin:10px;">📥 Export Full ARK to CSV</button>
+                    <div id="dictContent" style="margin-top:20px;font-family:monospace;white-space:pre-wrap;background:#111;color:#0f0;padding:15px;border-radius:6px;"></div>
                 `;
+                loadDictContent();
             } else if (id === 9) {
-                content.innerHTML = `<h2>Drone Wars</h2><p>Multi-agent arena ready for integration.</p>`;
+                content.innerHTML = `<h2>Drone Wars</h2><p>Multi-agent arena — ARK signals ready.</p>`;
             } else {
                 const mod = modules.find(m => m.id === id);
-                content.innerHTML = `<h2>${mod.name} (${mod.code})</h2><p>Module under construction. ARK wired.</p>`;
+                content.innerHTML = `<h2>${mod.name} (${mod.code})</h2><p>Module under construction. ARK live.</p>`;
             }
         }
 
-        function showHover(el) {
-            if (el) el.classList.add('hover-active');
-        }
-
-        function hideHover(el) {
-            if (el) el.classList.remove('hover-active');
-        }
+        function showHover(el) { if (el) el.classList.add('hover-active'); }
+        function hideHover(el) { if (el) el.classList.remove('hover-active'); }
 
         function articulate() {
-            console.log("✅ Articulate snapshot copied");
-            showToast("Articulate snapshot copied to clipboard");
+            showToast("Articulate snapshot copied");
         }
 
         function articulateNode(node) {
-            showToast(`ART prompt initiated for ${node} node`);
+            showToast(`ART prompt for ${node} node`);
         }
 
         function showToast(message) {
@@ -135,29 +119,42 @@
         }
 
         function refreshData() {
-            console.log("🔄 Refresh triggered — preserving tab", currentTabId);
-            showToast("Refreshing data... Tab will be preserved");
-            setTimeout(() => {
-                window.location.reload();
-            }, 600);
+            showToast("Refreshing — tab preserved");
+            setTimeout(() => window.location.reload(), 600);
         }
 
-        function downloadCSV() {
-            console.log("🚀 CSV download triggered");
-            showToast("CSV export started from ARK");
-            // TODO: Real ARK → CSV logic in Phase 2
-            setTimeout(() => window.location.reload(), 800);
+        async function loadDictContent() {
+            const container = document.getElementById('dictContent');
+            const risk = window.ARK ? window.ARK.get('risk_curve') : null;
+            container.textContent = risk ? JSON.stringify(risk, null, 2) : "ARK not loaded";
+        }
+
+        function downloadCSVFromARK() {
+            const risk = window.ARK ? window.ARK.get('risk_curve') : null;
+            if (!risk || !risk.nodes) {
+                showToast("No ARK data");
+                return;
+            }
+            let csv = "Node,Score,Quartile,Status,Description\n";
+            Object.entries(risk.nodes).forEach(([key, node]) => {
+                csv += `"${key}",${node.score || ''},"${node.quartile || ''}","${node.status || ''}","${(node.description || '').replace(/"/g, '""')}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `WTC_ARK_${new Date().toISOString().slice(0,10)}.csv`;
+            a.click();
+            showToast("ARK CSV exported");
         }
 
         document.addEventListener('keydown', e => {
             if (e.key >= '1' && e.key <= '9') switchModule(parseInt(e.key));
         });
 
-        // Initialize
         renderTabs();
         switchModule(currentTabId);
-        
-        console.log("✅ WTC 1.0 Shell loaded with ARK real wiring + tab-preserving refresh");
+        console.log("✅ WTC 1.0 Full Shell + ARK + DICT live");
     </script>
 </body>
 </html>
