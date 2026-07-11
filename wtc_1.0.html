@@ -9,9 +9,30 @@
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
         .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
-        .panel { position: relative; transition: all 0.2s; }
-        .panel:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(10, 77, 46, 0.5); }
-        .dig-layer { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 77, 46, 0.95); color: white; padding: 20px; border-radius: 8px; z-index: 10; overflow-y: auto; }
+        .panel { 
+            position: relative; 
+            transition: all 0.2s ease; 
+            cursor: pointer;
+        }
+        .panel:hover { 
+            transform: scale(1.03); 
+            box-shadow: 0 0 20px rgba(10, 77, 46, 0.6); 
+        }
+        .hover-active { 
+            border: 3px solid #0A4D2E !important; 
+            background: rgba(10, 77, 46, 0.2) !important; 
+        }
+        .dig-layer { 
+            display: none; 
+            position: absolute; 
+            top: 0; left: 0; right: 0; bottom: 0; 
+            background: rgba(10, 77, 46, 0.95); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            z-index: 20; 
+            overflow-y: auto;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +40,7 @@
         <div class="logo">WHINFELL</div>
         <div class="tabs" id="tabs"></div>
         <div class="top-right">
-            <button onclick="articulate()">A</button>
+            <button onclick="globalArticulate()">A</button>
             <button onclick="refreshData()">🔄</button>
             <button onclick="toggleTheme()">🌗</button>
         </div>
@@ -65,8 +86,8 @@
                             <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
                             <div>${node.status} ${node.quartile}</div>
                             <p>${node.description}</p>
-                            <button onclick="articulateNode('${key}', ${JSON.stringify(node)})">A</button>
-                            <div class="dig-layer" id="dig-${key}">DIG Layer for ${key}...</div>
+                            <button onclick="articulateNode('${key}', ${JSON.stringify(node).replace(/"/g, '&quot;')})">A</button>
+                            <div class="dig-layer" id="dig-${key.replace(/\s+/g,'-')}">DIG Layer for ${key}...<br><small>Auto-hide in 5s</small></div>
                         </div>`;
                     });
                     html += `</div>`;
@@ -86,34 +107,35 @@
         function showHover(el) { if (el) el.classList.add('hover-active'); }
         function hideHover(el) { if (el) el.classList.remove('hover-active'); }
 
-        function articulateNode(key, node) {
-            const prompt = `You are Goldman Prop Desk Chief. Deeply analyze this Risk Curve panel:
+        function articulateNode(key, nodeStr) {
+            const node = JSON.parse(nodeStr);
+            const prompt = `Goldman Prop Desk Chief - ${key} Analysis
 
-Node: ${key}
 Score: ${node.score}
-Quartile: ${node.quartile}
 Status: ${node.status}
+Quartile: ${node.quartile}
 Description: ${node.description}
 
-Answer with live signal context:
-- How was this signal calculated?
-- What does the signal tell us about current regime?
-- Comparison: 1D | 30D | 60D | 90D | 1Y | 3Y ($, %, quartile)?
-- Socratic challenges: What are we missing? Think outside the box.
-- Market neutral trade suggestion?
-- Long trade if supported?
-- Short trade if supported?
+- How was signal calculated?
+- Regime implication?
+- Timeframe comparison (1D/30D/60D/90D/1Y/3Y)?
+- Socratic questions?
+- Market neutral / long / short trades?
 
-Provide actionable Whinfell Transmission Control recommendations.`;
+Whinfell recommendations.`;
 
-            navigator.clipboard.writeText(prompt).then(() => showToast(`Goldman Chief prompt copied for ${key}`));
+            navigator.clipboard.writeText(prompt).then(() => {
+                showToast(`Prompt copied for ${key}`);
+            }).catch(() => {
+                alert(prompt);
+                showToast("Prompt shown in alert");
+            });
 
-            const dig = document.getElementById(`dig-${key}`);
-            if (dig) {
-                dig.style.display = 'block';
-                setTimeout(() => dig.style.display = 'none', 5000);
-            }
+            const dig = document.getElementById(`dig-${key.replace(/\s+/g,'-')}`);
+            if (dig) { dig.style.display = 'block'; setTimeout(() => dig.style.display = 'none', 5000); }
         }
+
+        function globalArticulate() { showToast("Global Articulate Snapshot"); }
 
         function showToast(msg) {
             const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
@@ -121,10 +143,16 @@ Provide actionable Whinfell Transmission Control recommendations.`;
         }
 
         function refreshData() { location.reload(); }
-        function articulate() { showToast("Global snapshot"); }
-        function toggleTheme() { }
+        function toggleTheme() {
+            const body = document.documentElement;
+            body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
         function downloadCSVFromARK() { showToast("CSV export"); }
         function triggerDroneWars() { showToast("Drone Wars"); }
+
+        document.addEventListener('keydown', e => {
+            if (e.key >= '1' && e.key <= '9') switchModule(parseInt(e.key));
+        });
 
         renderTabs();
         switchModule(6);
