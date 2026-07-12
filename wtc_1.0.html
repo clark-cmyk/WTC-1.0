@@ -9,8 +9,53 @@
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
         .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
-        .panel { position: relative; transition: all 0.2s; }
-        .panel:hover, .hover-active { transform: scale(1.03); box-shadow: 0 0 20px rgba(10, 77, 46, 0.8); border: 3px solid #0A4D2E !important; background: rgba(10, 77, 46, 0.25) !important; }
+       
+        .panel {
+            position: relative;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            background: var(--bg-card, #1a2a22);
+            border: 1px solid var(--border, #0A4D2E);
+            padding: 20px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .panel:hover, .hover-active {
+            transform: scale(1.04);
+            box-shadow: 0 0 25px rgba(10, 77, 46, 0.85);
+            border: 3px solid #0A4D2E !important;
+            background: rgba(10, 77, 46, 0.3) !important;
+        }
+        .scan-layer {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 77, 46, 0.97);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            z-index: 25;
+            overflow-y: auto;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .dig-layer {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 77, 46, 0.95);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 20;
+            overflow-y: auto;
+        }
+        .a-btn {
+            margin-top: 8px;
+            padding: 4px 10px;
+            font-size: 0.85em;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +68,6 @@
             <button onclick="toggleTheme()">🌗</button>
         </div>
     </div>
-
     <div class="main-content" id="mainContent"></div>
 
     <script src="js/02_core.js"></script>
@@ -43,7 +87,9 @@
         ];
 
         function renderTabs() {
-            document.getElementById('tabs').innerHTML = modules.map(m => `<div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>`).join('');
+            document.getElementById('tabs').innerHTML = modules.map(m =>
+                `<div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>`
+            ).join('');
         }
 
         function switchModule(id) {
@@ -57,20 +103,27 @@
             if (id === 6) {
                 const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
                 if (curveData && curveData.nodes) {
-                    let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
+                    let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p>
+                                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
+                   
                     Object.entries(curveData.nodes).forEach(([key, node]) => {
-                        html += `<div class="panel" style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border);" onmouseover="showHover(this)" onmouseout="hideHover(this)">
-                            <h3>${key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+                        const cleanKey = key.replace(/\s+/g, '-');
+                        html += `<div class="panel" onclick="copyPrompt('${key}')"
+                                    onmouseover="showScan(this, '${key}')"
+                                    onmouseout="hideScan(this)">
+                            <h3>${key}</h3>
                             <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
                             <div>${node.status} ${node.quartile}</div>
                             <p>${node.description}</p>
-                            <button onclick="articulateNode('${key}')">A</button>
+                            <button class="a-btn" onclick="event.stopImmediatePropagation(); articulateNode('${key}');">A</button>
+                            <div class="scan-layer" id="scan-${cleanKey}"></div>
+                            <div class="dig-layer" id="dig-${cleanKey}">DIG Layer active for ${key}...</div>
                         </div>`;
                     });
                     html += `</div>`;
                     content.innerHTML = html;
                 } else {
-                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes loaded.</p>`;
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No nodes loaded. Check js/02_core.js</p>`;
                 }
             } else if (id === 8) {
                 content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSVFromARK()">Export CSV</button>`;
@@ -81,25 +134,146 @@
             }
         }
 
-        function showHover(el) { if (el) el.classList.add('hover-active'); }
-        function hideHover(el) { if (el) el.classList.remove('hover-active'); }
+        function showScan(el, key) {
+            if (!el) return;
+            el.classList.add('hover-active');
+            
+            const scanLayer = document.getElementById(`scan-${key.replace(/\s+/g, '-')}`);
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            const node = (curveData && curveData.nodes && curveData.nodes[key]) || {};
+
+            let scanHTML = `<strong>SCAN: ${key.toUpperCase()}</strong><br><br>`;
+
+            scanHTML += `<strong>Score:</strong> ${node.score || 'N/A'} (${node.quartile || 'N/A'})<br><br>`;
+            scanHTML += `<strong>Regime|Length:</strong> ${node.regime || 'Pending'}<br><br>`;
+            scanHTML += `<strong>Why:</strong> ${node.scoreReason || 'Pending'}<br><br>`;
+            scanHTML += `<strong>Inputs:</strong> ${node.inputs || 'Pending'}<br><br>`;
+            scanHTML += `<strong>Outputs:</strong> ${node.quantOutputs || 'Pending'}<br><br>`;
+            scanHTML += `<strong>Lookback:</strong> ${node.lookback || 'Pending'}`;
+
+            if (scanLayer) {
+                scanLayer.innerHTML = scanHTML;
+                scanLayer.style.display = 'block';
+            }
+        }
+
+        function hideScan(el) {
+            if (el) {
+                el.classList.remove('hover-active');
+                const scanLayers = el.querySelectorAll('.scan-layer');
+                scanLayers.forEach(layer => layer.style.display = 'none');
+            }
+        }
+
+        function copyPrompt(key) {
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            const node = (curveData && curveData.nodes && curveData.nodes[key]) || {};
+
+            const prompt = `Goldman Prop Desk Chief Analysis — ${key} as of ${curveData ? curveData.as_of : 'today'}
+
+Score: ${node.score || 'N/A'} (${node.quartile || 'N/A'})
+Regime: ${node.regime || 'N/A'}
+Why: ${node.scoreReason || 'N/A'}
+Inputs: ${node.inputs || 'N/A'}
+Outputs: ${node.quantOutputs || 'N/A'}
+Lookback: ${node.lookback || 'N/A'}
+
+Context & Lookbacks:
+• Compare current quartile positioning vs 1D, 5D, 10D, 30D, 60D, 90D, 1Y, and 3Y periods.
+• Report what quartile each lookback period was in and the percentile rank (%ile) within that window.
+• Include key quantitative metrics (volatility, z-score, momentum, skew, kurtosis, etc.) for those periods.
+
+Trade Suggestions (Futures Focus):
+Focus exclusively on futures instruments. Prioritize contracts that support cross-margining. For each suggested trade:
+• Clearly explain the edge (why this setup has positive expected value).
+• Include direction (long/short/neutral), sizing rationale, entry/exit levels if applicable, and risk parameters.
+
+Provide concise, actionable Whinfell recommendations.`;
+
+            navigator.clipboard.writeText(prompt).then(() => {
+                showToast(`Prompt copied for ${key}`);
+            }).catch(() => {
+                alert(prompt);
+                showToast("Prompt shown in alert");
+            });
+        }
 
         function articulateNode(key) {
-            const node = (window.ARK && window.ARK.get('risk_curve') && window.ARK.get('risk_curve').nodes[key]) || {};
-            const prompt = `Goldman Prop Desk Chief - ${key} Analysis\nScore: ${node.score}\nStatus: ${node.status}\nQuartile: ${node.quartile}\nDescription: ${node.description}\n\n- Signal calculation?\n- Regime?\n- Timeframe comparison?\n- Socratic?\n- Trades?`;
-            navigator.clipboard.writeText(prompt).then(() => showToast(`Prompt copied for ${key}`)).catch(() => alert(prompt));
+            copyPrompt(key);
+        }
+
+        // Global Articulate with detailed node breakdown
+        function globalArticulate() {
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            const nodes = curveData ? curveData.nodes : {};
+
+            let nodeBreakdown = "";
+            Object.keys(nodes).forEach(key => {
+                const n = nodes[key];
+                nodeBreakdown += `\n${key.toUpperCase()}:\n`;
+                nodeBreakdown += `Score: ${n.score} (${n.quartile}) | ${n.description}\n`;
+                nodeBreakdown += `Why: ${n.scoreReason}\n`;
+                nodeBreakdown += `Inputs: ${n.inputs}\n`;
+                nodeBreakdown += `Outputs: ${n.quantOutputs}\n`;
+                nodeBreakdown += `Lookback: ${n.lookback}\n`;
+            });
+
+            const globalPrompt = `WHINFELL GLOBAL SNAPSHOT — ${curveData ? curveData.as_of : 'today'}
+
+Overall Risk Posture:
+Multi-node view across Liquidity, Credit, EquityBreadth, HighBeta, BTCBasis.
+
+Detailed Node Breakdown:
+${nodeBreakdown}
+
+Key Cross-Asset Themes:
+• Dominant macro regime and expected duration
+• Major catalysts (policy, ETF flows, earnings, geopolitics)
+• Quant signals: bps moves, %ile ranks, volatility regimes
+
+Whinfell Tactical Recommendations:
+• Portfolio tilt and risk budget
+• High-conviction futures trades with clear edge
+• Hedging priorities
+
+Provide concise, actionable desk guidance.`;
+
+            navigator.clipboard.writeText(globalPrompt).then(() => {
+                showToast("Global Snapshot copied to clipboard");
+            }).catch(() => {
+                alert(globalPrompt);
+                showToast("Global prompt shown in alert");
+            });
         }
 
         function showToast(msg) {
-            const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t);
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
             setTimeout(() => t.remove(), 2500);
         }
 
         function refreshData() { location.reload(); }
-        function globalArticulate() { showToast("Global Snapshot"); }
-        function toggleTheme() { }
-        function downloadCSVFromARK() { showToast("CSV"); }
-        function triggerDroneWars() { showToast("Drone Wars"); }
+
+        function toggleTheme() {
+            const body = document.documentElement;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        function downloadCSVFromARK() { showToast("CSV export"); }
+        function triggerDroneWars() { showToast("Drone Wars launched"); }
+
+        document.addEventListener('keydown', e => {
+            if (e.key >= '1' && e.key <= '9') {
+                const num = parseInt(e.key);
+                if (num <= modules.length) switchModule(num);
+            }
+        });
 
         renderTabs();
         switchModule(6);
