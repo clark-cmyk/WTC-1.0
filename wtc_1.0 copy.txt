@@ -9,6 +9,7 @@
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
         .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
+        
         .panel {
             position: relative;
             transition: all 0.25s ease;
@@ -39,23 +40,23 @@
             font-size: 0.9em;
             line-height: 1.5;
         }
+        .risk-elevated { border-color: #ff4444 !important; background: rgba(255, 68, 68, 0.1) !important; }
         .a-btn { margin-top: 8px; padding: 4px 10px; font-size: 0.85em; }
     </style>
 </head>
 <body>
     <div class="top-bar">
-        <div class="logo">WHINFELL</div>
+        <div class="logo">WHINFELL <span style="font-size:0.7em;">WTC 1.0</span></div>
         <div class="tabs" id="tabs"></div>
         <div class="top-right">
             <button onclick="globalArticulate()">A</button>
-            <button onclick="refreshAllData()">🔄</button>
-            <button onclick="downloadCSV()">📊</button>
+            <button onclick="refreshAllData()">🔄 Refresh</button>
+            <button onclick="downloadCSV()">📊 CSV</button>
             <button onclick="toggleTheme()">🌗</button>
         </div>
     </div>
     <div class="main-content" id="mainContent"></div>
 
-    <script src="js/03_blackboard.js"></script>
     <script src="js/02_core.js"></script>
     <script>
         let currentTabId = 6;
@@ -94,25 +95,25 @@
         function renderRiskCurve(content) {
             const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
             if (!curveData || !curveData.nodes) {
-                content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No data. Check 02_core.js</p>`;
+                content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">ARK data not loaded. Click Refresh.</p>`;
                 return;
             }
 
-            let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p>
+            let html = `<h2>Risk Curve (RCV) • ${curveData.as_of}</h2>
                         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
             
             Object.entries(curveData.nodes).forEach(([key, node]) => {
+                const isElevated = key === "Credit";
                 const cleanKey = key.replace(/\s+/g, '-');
-                html += `<div class="panel" onclick="copyPrompt('${key}')"
-                            onmouseover="showScan(this, '${key}')"
-                            onmouseout="hideScan(this)">
+                html += `<div class="panel ${isElevated ? 'risk-elevated' : ''}" onclick="copyPrompt('${key}')"
+                            onmouseover="showScan(this, '${key}')" onmouseout="hideScan(this)">
                     <h3>${key}</h3>
                     <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
                     <div>${node.status} ${node.quartile}</div>
                     <p>${node.description}</p>
+                    ${isElevated ? '<div style="color:#ff4444;font-weight:bold;margin-top:8px;">⚠ ELEVATED RISK — Monitor Credit</div>' : ''}
                     <button class="a-btn" onclick="event.stopImmediatePropagation(); articulateNode('${key}');">A</button>
                     <div class="scan-layer" id="scan-${cleanKey}"></div>
-                    <div class="dig-layer" id="dig-${cleanKey}">DIG Layer active for ${key}...</div>
                 </div>`;
             });
             html += `</div>`;
@@ -122,16 +123,14 @@
         function showScan(el, key) {
             if (!el) return;
             el.classList.add('hover-active');
-            
             const scanLayer = document.getElementById(`scan-${key.replace(/\s+/g, '-')}`);
             const node = getNode(key);
             if (!scanLayer || !node) return;
 
             let html = `<strong>SCAN: ${key.toUpperCase()}</strong><br>`;
             html += `<strong>Metric:</strong> ${node.metricDefinition || 'Core risk indicator'}: ${node.metricInsight || 'Market condition gauge.'}<br><br>`;
-            html += `<strong>Role on Risk Curve:</strong> ${node.role || 'N/A'}<br>`;
-            html += `<strong>Risk Adjacent Nodes:</strong> ${node.adjacent || 'N/A'}<br><br>`;
-
+            html += `<strong>Role:</strong> ${node.role || 'N/A'}<br>`;
+            html += `<strong>Adjacent:</strong> ${node.adjacent || 'N/A'}<br><br>`;
             html += `<strong>Score:</strong> ${node.score} (${node.quartile})<br><br>`;
             html += `<strong>Regime:</strong> ${node.regime || 'N/A'}<br><br>`;
             html += `<strong>Why:</strong> ${node.scoreReason || 'N/A'}<br><br>`;
@@ -159,7 +158,7 @@
         function copyPrompt(key) {
             const node = getNode(key);
             const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
-            const prompt = `Goldman Prop Desk Chief Analysis - ${key} as of ${curveData ? curveData.as_of : 'today'}\n\nScore: ${node.score} (${node.quartile})\nRegime: ${node.regime || 'N/A'}\nWhy: ${node.scoreReason || 'N/A'}\nInputs: ${node.inputs || 'N/A'}\nOutputs: ${node.quantOutputs || 'N/A'}\nLookback: ${node.lookback || 'N/A'}\n\nContext and Lookbacks. Futures focused trade suggestions with edge.`;
+            const prompt = `Goldman Prop Desk Chief Analysis - ${key} as of ${curveData ? curveData.as_of : 'today'}\n\nScore: ${node.score} (${node.quartile})\nRegime: ${node.regime || 'N/A'}\nWhy: ${node.scoreReason || 'N/A'}\nInputs: ${node.inputs || 'N/A'}\nOutputs: ${node.quantOutputs || 'N/A'}\nLookback: ${node.lookback || 'N/A'}`;
 
             navigator.clipboard.writeText(prompt).then(() => showToast(`Prompt copied: ${key}`))
                        .catch(() => { alert(prompt); showToast("Shown in alert"); });
@@ -176,10 +175,8 @@
                     breakdown += `\n${k}: Score ${n.score} (${n.quartile}) | ${n.scoreReason || ''}\n`;
                 });
             }
-            const prompt = `WHINFELL GLOBAL SNAPSHOT as of ${curveData ? curveData.as_of : 'today'}\n\nDetailed Node Breakdown:${breakdown}\n\nCross asset themes and trade recommendations.`;
-
-            navigator.clipboard.writeText(prompt).then(() => showToast("Global Snapshot copied"))
-                       .catch(() => alert(prompt));
+            const prompt = `WHINFELL GLOBAL SNAPSHOT as of ${curveData ? curveData.as_of : 'today'}\n\nDetailed Node Breakdown:${breakdown}\nCross asset themes and trade recommendations.`;
+            navigator.clipboard.writeText(prompt).then(() => showToast("Global Snapshot copied")).catch(() => alert(prompt));
         }
 
         function showToast(msg) {
@@ -191,8 +188,12 @@
         }
 
         function refreshAllData() {
-            if (window.ARK && typeof window.ARK.refresh === 'function') window.ARK.refresh();
-            showToast("Data refreshed");
+            if (window.ARK && typeof window.ARK.refresh === 'function') {
+                window.ARK.refresh();
+                showToast("Data Refreshed");
+            } else {
+                showToast("ARK not loaded - check js/02_core.js");
+            }
             switchModule(currentTabId);
         }
 
@@ -218,7 +219,6 @@
             body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         }
 
-        function downloadCSVFromARK() { downloadCSV(); }
         function triggerDroneWars() { showToast("Drone Wars launched"); }
 
         document.addEventListener('keydown', e => {

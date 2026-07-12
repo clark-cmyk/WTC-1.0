@@ -9,6 +9,7 @@
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
         .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
+        
         .panel {
             position: relative;
             transition: all 0.25s ease;
@@ -55,7 +56,6 @@
     </div>
     <div class="main-content" id="mainContent"></div>
 
-    <script src="js/03_blackboard.js"></script>
     <script src="js/02_core.js"></script>
     <script>
         let currentTabId = 6;
@@ -128,7 +128,7 @@
             if (!scanLayer || !node) return;
 
             let html = `<strong>SCAN: ${key.toUpperCase()}</strong><br>`;
-            html += `<strong>Metric:</strong> ${node.metricDefinition || 'Core risk indicator'}: ${node.metricInsight || 'Market condition gauge.'}<br><br>`;
+            html += `<strong>Metric:</strong> ${node.metricDefinition || 'Core risk indicator'} : ${node.metricInsight || 'Market condition gauge.'}<br><br>`;
             html += `<strong>Role on Risk Curve:</strong> ${node.role || 'N/A'}<br>`;
             html += `<strong>Risk Adjacent Nodes:</strong> ${node.adjacent || 'N/A'}<br><br>`;
 
@@ -159,7 +159,16 @@
         function copyPrompt(key) {
             const node = getNode(key);
             const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
-            const prompt = `Goldman Prop Desk Chief Analysis - ${key} as of ${curveData ? curveData.as_of : 'today'}\n\nScore: ${node.score} (${node.quartile})\nRegime: ${node.regime || 'N/A'}\nWhy: ${node.scoreReason || 'N/A'}\nInputs: ${node.inputs || 'N/A'}\nOutputs: ${node.quantOutputs || 'N/A'}\nLookback: ${node.lookback || 'N/A'}\n\nContext and Lookbacks. Futures focused trade suggestions with edge.`;
+            const prompt = `Goldman Prop Desk Chief Analysis - ${key} as of ${curveData ? curveData.as_of : 'today'}
+
+Score: ${node.score} (${node.quartile})
+Regime: ${node.regime || 'N/A'}
+Why: ${node.scoreReason || 'N/A'}
+Inputs: ${node.inputs || 'N/A'}
+Outputs: ${node.quantOutputs || 'N/A'}
+Lookback: ${node.lookback || 'N/A'}
+
+Context and Lookbacks. Futures focused trade suggestions with edge.`;
 
             navigator.clipboard.writeText(prompt).then(() => showToast(`Prompt copied: ${key}`))
                        .catch(() => { alert(prompt); showToast("Shown in alert"); });
@@ -176,7 +185,11 @@
                     breakdown += `\n${k}: Score ${n.score} (${n.quartile}) | ${n.scoreReason || ''}\n`;
                 });
             }
-            const prompt = `WHINFELL GLOBAL SNAPSHOT as of ${curveData ? curveData.as_of : 'today'}\n\nDetailed Node Breakdown:${breakdown}\n\nCross asset themes and trade recommendations.`;
+            const prompt = `WHINFELL GLOBAL SNAPSHOT as of ${curveData ? curveData.as_of : 'today'}
+
+Detailed Node Breakdown:${breakdown}
+
+Cross asset themes and trade recommendations.`;
 
             navigator.clipboard.writeText(prompt).then(() => showToast("Global Snapshot copied"))
                        .catch(() => alert(prompt));
