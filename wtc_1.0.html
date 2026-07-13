@@ -246,3 +246,43 @@ Cross asset themes and trade recommendations.`;
     </script>
 </body>
 </html>
+    <!-- Live Drone Wars Log (Added to DRONE tab only) -->
+    <h2>Drone Wars Live Log</h2>
+    <div id="drone-logs">Waiting for refresh...</div>
+
+    <script>
+        function addDroneLog(message) {
+            const logEl = document.getElementById('drone-logs');
+            if (logEl) {
+                const entry = document.createElement('div');
+                entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+                logEl.appendChild(entry);
+                logEl.scrollTop = logEl.scrollHeight;
+            }
+        }
+    </script>
+
+    <script>
+        // Override refreshAllData to call Drone Wars API
+        window.refreshAllData = async function() {
+            try {
+                const response = await fetch('http://localhost:5001/api/refresh-data', { method: 'POST' });
+                const data = await response.json();
+                if (data.success && data.panel_content) {
+                    // Update panels if they exist
+                    Object.keys(data.panel_content).forEach(key => {
+                        const panelId = key + '-panel';
+                        const panel = document.getElementById(panelId);
+                        if (panel) {
+                            const contentDiv = panel.querySelector('.content');
+                            if (contentDiv) contentDiv.innerHTML = data.panel_content[key];
+                        }
+                    });
+                }
+                showToast("Drone Wars refresh completed");
+            } catch (e) {
+                console.error(e);
+                showToast("Backend not reachable");
+            }
+        };
+    </script>

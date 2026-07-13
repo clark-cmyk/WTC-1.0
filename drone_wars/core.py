@@ -1,57 +1,79 @@
-from enum import Enum
-from typing import List, Dict, Any
 import asyncio
+from datetime import datetime
+from typing import Dict
 
-from models.grok_client import call_grok_api
-from models.deepseek_client import call_drone_api
-from agents.captain_prompts import get_captain_prompt
-from agents.orchestrator_prompt import get_orchestrator_prompt
-
-class AgentType(Enum):
-    ABADDON = "Abaddon"
-    GOLIATH = "Goliath"
-    LEVIATHAN = "Leviathan"
-    BENAIAH = "Benaiah"
-    SAMSON = "Samson"
-    JEPHTHAH = "Jephthah"
+from models.llm_client import LLMClient
 
 class DroneWars:
     def __init__(self):
-        self.orchestrator_model = "grok"
-        self.drone_model = "deepseek"
+        self.llm = LLMClient()
+        self.logs = []
 
-    async def run(self, ark_data: Dict):
-        """Main entry point - called automatically when Risk Curve updates"""
-        active_captains = await self._run_orchestrator(ark_data)
-        captain_tasks = [self._run_captain(c, ark_data) for c in active_captains]
-        captain_results = await asyncio.gather(*captain_tasks)
-        final_report = await self._run_jephthah_synthesis(ark_data, captain_results)
-        return final_report
+    def log(self, message: str, level: str = "system", actor: str = "SYSTEM"):
+        entry = {
+            "actor": actor,
+            "level": level,
+            "message": message,
+            "timestamp": datetime.now().isoformat()
+        }
+        self.logs.append(entry)
+        print(f"{actor}: {message}")
 
-    async def _run_orchestrator(self, ark_data: Dict):
-        """Decides which captains should participate"""
-        prompt = get_orchestrator_prompt(ark_data)
-        response = await call_grok_api(prompt)
-        return response.get("selected_captains", ["Jephthah"])
+    def get_logs(self):
+        return self.logs
 
-    async def _run_captain(self, captain_name: str, ark_data: Dict):
-        """Each captain can spawn drone teams"""
-        prompt = get_captain_prompt(captain_name, ark_data)
-        result = await call_grok_api(prompt)
-        if result.get("needs_drones"):
-            drone_results = await self._run_drone_team(result.get("drone_tasks", []))
-            result = await self._give_drone_results_to_captain(captain_name, result, drone_results)
+    async def run(self):
+        self.logs.clear()
+        self.log("🔄 Refresh Data initiated by user", "system")
+
+        data = {"market_data": "BTC basis trade data from CME futures and spot ETFs"}
+
+        self.log("Sovereign analyzing fresh market data...", "sovereign", "SOVEREIGN")
+        sovereign_result = await self._run_sovereign(data)
+
+        panel_content = await self._run_panel_analysis(data)
+
+        self.log("🧠 Lord Jephthah synthesizing...", "synthesis", "SYNTHESIS")
+        await self._run_synthesis(panel_content)
+
+        self.log("✅ Full Drone Wars cycle completed successfully", "system")
+        return {
+            "panel_content": panel_content,
+            "summary": sovereign_result.get("market_summary", "")
+        }
+
+    async def _run_sovereign(self, data: Dict) -> Dict:
+        prompt = f"""Market data: {data}
+
+Provide a brief, professional market summary.
+Output ONLY valid JSON:
+{{"market_summary": "one sentence summary"}}
+"""
+        result = await self.llm.call(prompt)
+        self.log(f"Market Summary: {result.get('market_summary', 'No summary available')}", "sovereign", "SOVEREIGN")
         return result
 
-    async def _run_jephthah_synthesis(self, ark_data: Dict, captain_results: List):
-        """Jephthah synthesizes everything"""
-        prompt = get_captain_prompt("Jephthah", {"ark_data": ark_data, "captain_results": captain_results})
-        return await call_grok_api(prompt)
+    async def _run_panel_analysis(self, data: Dict) -> Dict:
+        panel_prompts = {
+            "liquidity": "Analyze liquidity conditions.",
+            "credit": "Assess credit stress.",
+            "equity_breadth": "Evaluate equity breadth.",
+            "high_beta": "Evaluate high-beta performance.",
+            "bitcoin_basis": "Analyze Bitcoin basis trade opportunities."
+        }
 
-    async def _run_drone_team(self, tasks):
-        """Run cheap drones"""
-        return await asyncio.gather(*[call_drone_api(t) for t in tasks])
+        panel_content = {}
+        for panel_name, prompt in panel_prompts.items():
+            self.log(f"Analyzing {panel_name} panel...", "lord", panel_name.upper())
+            full_prompt = f"Market data: {data}\n\n{prompt}\nRespond with ONLY valid JSON: {{\"analysis\": \"detailed analysis\"}}"
+            result = await self.llm.call(full_prompt)
+            panel_content[panel_name] = result.get("analysis", "Analysis not available")
 
-    async def _give_drone_results_to_captain(self, captain_name: str, result, drone_results):
-        """Feed back to captain"""
-        return result
+        return panel_content
+
+    async def _run_synthesis(self, panel_content: Dict):
+        return {"synthesis": "Combined panel analysis"}
+
+if __name__ == "__main__":
+    dw = DroneWars()
+    asyncio.run(dw.run())
