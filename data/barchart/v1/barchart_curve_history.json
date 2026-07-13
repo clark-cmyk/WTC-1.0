@@ -1,169 +1,9 @@
 {
   "version": "1.0.0",
   "bucket": "curve",
-  "as_of": "2026-07-11T17:49:52.229267+00:00",
-  "symbol_count": 58,
+  "as_of": "2026-07-13T15:03:27.075190+00:00",
+  "symbol_count": 45,
   "records": [
-    {
-      "raw_symbol": "DXM26",
-      "canonical_id": "barchart_contract_dxm26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "DX",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "fx-futures"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 99.474,
-          "change": -0.271,
-          "pct_change": -0.27,
-          "high": 99.6,
-          "low": 99.445,
-          "volume": 411.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 99.474,
-        "change": -0.271,
-        "pct_change": -0.27,
-        "high": 99.6,
-        "low": 99.445,
-        "volume": 411.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
-    {
-      "raw_symbol": "E6M26",
-      "canonical_id": "barchart_contract_e6m26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "E6",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "fx-futures"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 1.16145,
-          "change": 0.0039500000000001,
-          "pct_change": 0.34,
-          "high": 1.16205,
-          "low": 1.1595,
-          "volume": 12049.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 1.16145,
-        "change": 0.0039500000000001,
-        "pct_change": 0.34,
-        "high": 1.16205,
-        "low": 1.1595,
-        "volume": 12049.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
-    {
-      "raw_symbol": "J6M26",
-      "canonical_id": "barchart_contract_j6m26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "J6",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "fx-futures"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 0.0062475,
-          "change": 6e-06,
-          "pct_change": 0.1,
-          "high": 0.00626,
-          "low": 0.0062415,
-          "volume": 3315.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 0.0062475,
-        "change": 6e-06,
-        "pct_change": 0.1,
-        "high": 0.00626,
-        "low": 0.0062415,
-        "volume": 3315.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
-    {
-      "raw_symbol": "A6M26",
-      "canonical_id": "barchart_contract_a6m26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "A6",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "fx-futures"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 0.70745,
-          "change": 0.0027,
-          "pct_change": 0.38,
-          "high": 0.7089,
-          "low": 0.7066,
-          "volume": 1100.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 0.70745,
-        "change": 0.0027,
-        "pct_change": 0.38,
-        "high": 0.7089,
-        "low": 0.7066,
-        "volume": 1100.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
     {
       "raw_symbol": "GCN26",
       "canonical_id": "barchart_contract_gcn26",
@@ -202,7 +42,7 @@
         "volume": 370.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "GCQ26",
@@ -242,7 +82,7 @@
         "volume": 71018.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "GCU26",
@@ -282,7 +122,7 @@
         "volume": 549.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "GCV26",
@@ -322,7 +162,7 @@
         "volume": 2490.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "GCX26",
@@ -362,7 +202,7 @@
         "volume": 5.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "GCZ26",
@@ -402,7 +242,7 @@
         "volume": 9537.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "GCF27",
@@ -442,7 +282,7 @@
         "volume": 15.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "HGN26",
@@ -482,7 +322,7 @@
         "volume": 178.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "HGQ26",
@@ -522,7 +362,7 @@
         "volume": 382.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLQ26",
@@ -562,7 +402,7 @@
         "volume": 123170.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLG27",
@@ -602,7 +442,7 @@
         "volume": 6062.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLV26",
@@ -642,7 +482,7 @@
         "volume": 47109.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLU26",
@@ -682,7 +522,7 @@
         "volume": 88551.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLZ26",
@@ -722,7 +562,7 @@
         "volume": 39386.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLX26",
@@ -762,7 +602,7 @@
         "volume": 29008.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "CLF27",
@@ -802,7 +642,7 @@
         "volume": 12155.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "NGQ26",
@@ -842,246 +682,15 @@
         "volume": 112524.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
-    },
-    {
-      "raw_symbol": "BTM26",
-      "canonical_id": "barchart_contract_btm26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "local_csv_supplement",
-      "vendor_format": "barchart_historical",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "BT",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "btc-futures-curves"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 18,
-      "points": [
-        {
-          "date": "2026-05-27",
-          "open": 76120.0,
-          "high": 76275.0,
-          "low": 74790.0,
-          "close": 75170.0,
-          "change": -725.0,
-          "pct_change": -0.96,
-          "volume": 18614.0,
-          "open_interest": 20185.0
-        },
-        {
-          "date": "2026-05-28",
-          "open": 74680.0,
-          "high": 74885.0,
-          "low": 72655.0,
-          "close": 73620.0,
-          "change": -1550.0,
-          "pct_change": -2.06,
-          "volume": 20082.0,
-          "open_interest": 20170.0
-        },
-        {
-          "date": "2026-05-29",
-          "open": 74090.0,
-          "high": 74535.0,
-          "low": 72595.0,
-          "close": 73715.0,
-          "change": 95.0,
-          "pct_change": 0.13,
-          "volume": 8175.0,
-          "open_interest": 18737.0
-        },
-        {
-          "date": "2026-06-01",
-          "open": 73555.0,
-          "high": 74410.0,
-          "low": 70750.0,
-          "close": 71735.0,
-          "change": -1980.0,
-          "pct_change": -2.69,
-          "volume": 9889.0,
-          "open_interest": 19504.0
-        },
-        {
-          "date": "2026-06-02",
-          "open": 70975.0,
-          "high": 71710.0,
-          "low": 66520.0,
-          "close": 67395.0,
-          "change": -4340.0,
-          "pct_change": -6.05,
-          "volume": 11490.0,
-          "open_interest": 19882.0
-        },
-        {
-          "date": "2026-06-03",
-          "open": 67790.0,
-          "high": 67975.0,
-          "low": 64900.0,
-          "close": 65585.0,
-          "change": -1810.0,
-          "pct_change": -2.69,
-          "volume": 10889.0,
-          "open_interest": 19647.0
-        },
-        {
-          "date": "2026-06-04",
-          "open": 65425.0,
-          "high": 65925.0,
-          "low": 61545.0,
-          "close": 63795.0,
-          "change": -1790.0,
-          "pct_change": -2.73,
-          "volume": 15516.0,
-          "open_interest": 19682.0
-        },
-        {
-          "date": "2026-06-05",
-          "open": 63905.0,
-          "high": 64060.0,
-          "low": 59275.0,
-          "close": 60515.0,
-          "change": -3280.0,
-          "pct_change": -5.14,
-          "volume": 18535.0,
-          "open_interest": 19450.0
-        },
-        {
-          "date": "2026-06-08",
-          "open": 62205.0,
-          "high": 64365.0,
-          "low": 59595.0,
-          "close": 63475.0,
-          "change": 2960.0,
-          "pct_change": 4.89,
-          "volume": 12302.0,
-          "open_interest": 19282.0
-        },
-        {
-          "date": "2026-06-09",
-          "open": 63845.0,
-          "high": 63920.0,
-          "low": 60805.0,
-          "close": 62170.0,
-          "change": -1305.0,
-          "pct_change": -2.06,
-          "volume": 10381.0,
-          "open_interest": 19776.0
-        },
-        {
-          "date": "2026-06-10",
-          "open": 61835.0,
-          "high": 62970.0,
-          "low": 60790.0,
-          "close": 62030.0,
-          "change": -140.0,
-          "pct_change": -0.23,
-          "volume": 8935.0,
-          "open_interest": 19678.0
-        },
-        {
-          "date": "2026-06-11",
-          "open": 60985.0,
-          "high": 63985.0,
-          "low": 60985.0,
-          "close": 63675.0,
-          "change": 1645.0,
-          "pct_change": 2.65,
-          "volume": 9627.0,
-          "open_interest": 20038.0
-        },
-        {
-          "date": "2026-06-12",
-          "open": 63530.0,
-          "high": 64485.0,
-          "low": 62835.0,
-          "close": 63660.0,
-          "change": -15.0,
-          "pct_change": -0.02,
-          "volume": 9310.0,
-          "open_interest": 21070.0
-        },
-        {
-          "date": "2026-06-15",
-          "open": 63505.0,
-          "high": 67360.0,
-          "low": 63430.0,
-          "close": 66575.0,
-          "change": 2915.0,
-          "pct_change": 4.58,
-          "volume": 9985.0,
-          "open_interest": 21135.0
-        },
-        {
-          "date": "2026-06-16",
-          "open": 66470.0,
-          "high": 67015.0,
-          "low": 65360.0,
-          "close": 65700.0,
-          "change": -875.0,
-          "pct_change": -1.31,
-          "volume": 6762.0,
-          "open_interest": 21125.0
-        },
-        {
-          "date": "2026-06-17",
-          "open": 65730.0,
-          "high": 66500.0,
-          "low": 64010.0,
-          "close": 64270.0,
-          "change": -1430.0,
-          "pct_change": -2.18,
-          "volume": 10883.0,
-          "open_interest": 20661.0
-        },
-        {
-          "date": "2026-06-18",
-          "open": 64375.0,
-          "high": 64830.0,
-          "low": 62230.0,
-          "close": 62945.0,
-          "change": -1325.0,
-          "pct_change": -2.06,
-          "volume": 17242.0,
-          "open_interest": 20584.0
-        },
-        {
-          "date": "2026-06-22",
-          "open": 63085.0,
-          "high": 65600.0,
-          "low": 62315.0,
-          "close": 64450.0,
-          "change": 1505.0,
-          "pct_change": 2.39,
-          "volume": 20807.0,
-          "open_interest": 20202.0
-        }
-      ],
-      "latest": {
-        "date": "2026-06-22",
-        "open": 63085.0,
-        "high": 65600.0,
-        "low": 62315.0,
-        "close": 64450.0,
-        "change": 1505.0,
-        "pct_change": 2.39,
-        "volume": 20807.0,
-        "open_interest": 20202.0
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260628/162529__btm26_daily-nearby_historical-data-06-28-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTN26",
       "canonical_id": "barchart_contract_btn26",
       "bucket": "curve",
       "source_system": "barchart",
-      "fetch_mode": "local_csv_supplement",
-      "vendor_format": "barchart_historical",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
       "instrument_class": "futures",
       "pricing_mode": "exchange_traded",
       "contract_meta": {
@@ -1092,65 +701,28 @@
       },
       "spread_meta": {},
       "field_map_version": "1.0.0",
-      "row_count": 4,
+      "row_count": 1,
       "points": [
         {
-          "date": "2026-06-23",
-          "open": 64570.0,
-          "high": 64625.0,
-          "low": 62170.0,
-          "close": 62610.0,
-          "change": -1840.0,
-          "pct_change": -2.85,
-          "volume": 18902.0,
-          "open_interest": 20554.0
-        },
-        {
-          "date": "2026-06-24",
-          "open": 62785.0,
-          "high": 63395.0,
-          "low": 59220.0,
-          "close": 60090.0,
-          "change": -2520.0,
-          "pct_change": -4.02,
-          "volume": 26086.0,
-          "open_interest": 22227.0
-        },
-        {
-          "date": "2026-06-25",
-          "open": 61300.0,
-          "high": 62155.0,
-          "low": 58190.0,
-          "close": 59435.0,
-          "change": -655.0,
-          "pct_change": -1.09,
-          "volume": 21634.0,
-          "open_interest": 20743.0
-        },
-        {
-          "date": "2026-06-26",
-          "open": 59710.0,
-          "high": 60935.0,
-          "low": 58475.0,
-          "close": 59995.0,
-          "change": 560.0,
-          "pct_change": 0.94,
-          "volume": 20919.0,
-          "open_interest": 20743.0
+          "close": 64210.0,
+          "change": 825.0,
+          "pct_change": 1.3,
+          "high": 64915.0,
+          "low": 63070.0,
+          "volume": 4963.0,
+          "date": "2026-07-10"
         }
       ],
       "latest": {
-        "date": "2026-06-26",
-        "open": 59710.0,
-        "high": 60935.0,
-        "low": 58475.0,
-        "close": 59995.0,
-        "change": 560.0,
-        "pct_change": 0.94,
-        "volume": 20919.0,
-        "open_interest": 20743.0
+        "close": 64210.0,
+        "change": 825.0,
+        "pct_change": 1.3,
+        "high": 64915.0,
+        "low": 63070.0,
+        "volume": 4963.0,
+        "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260628/162529__btm26_daily-nearby_historical-data-06-28-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTQ26",
@@ -1190,7 +762,7 @@
         "volume": 782.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTU26",
@@ -1230,7 +802,7 @@
         "volume": 13.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTV26",
@@ -1270,7 +842,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTX26",
@@ -1310,7 +882,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTZ26",
@@ -1350,7 +922,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "BTH27",
@@ -1390,7 +962,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAN26",
@@ -1430,7 +1002,7 @@
         "volume": 17810.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAQ26",
@@ -1470,7 +1042,7 @@
         "volume": 516.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAU26",
@@ -1510,7 +1082,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAV26",
@@ -1550,7 +1122,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAX26",
@@ -1590,7 +1162,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAZ26",
@@ -1630,7 +1202,7 @@
         "volume": 3.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "TAH27",
@@ -1670,7 +1242,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "ZMN26",
@@ -1710,7 +1282,7 @@
         "volume": 11.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "ZLN26",
@@ -1750,7 +1322,7 @@
         "volume": 31.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "ZBU26",
@@ -1790,47 +1362,7 @@
         "volume": 187479.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
-    },
-    {
-      "raw_symbol": "ZFM26",
-      "canonical_id": "barchart_contract_zfm26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "ZF",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "rates-strips"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 107.40625,
-          "change": 0.125,
-          "pct_change": 0.12,
-          "high": 107.453125,
-          "low": 107.25625,
-          "volume": 484.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 107.40625,
-        "change": 0.125,
-        "pct_change": 0.12,
-        "high": 107.453125,
-        "low": 107.25625,
-        "volume": 484.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "ZNU26",
@@ -1870,47 +1402,7 @@
         "volume": 748891.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
-    },
-    {
-      "raw_symbol": "ZQM26",
-      "canonical_id": "barchart_contract_zqm26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "ZQ",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "rates-strips"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 96.375,
-          "change": 0.0024999999999977,
-          "pct_change": 0.0,
-          "high": 96.375,
-          "low": 96.375,
-          "volume": 72.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 96.375,
-        "change": 0.0024999999999977,
-        "pct_change": 0.0,
-        "high": 96.375,
-        "low": 96.375,
-        "volume": 72.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "OYU26",
@@ -1950,7 +1442,7 @@
         "volume": 97.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "OYZ26",
@@ -1990,7 +1482,7 @@
         "volume": 110.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "OYH27",
@@ -2030,7 +1522,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "OGU26",
@@ -2070,7 +1562,7 @@
         "volume": 119.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "OGZ26",
@@ -2110,7 +1602,7 @@
         "volume": 21.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "OGH27",
@@ -2150,127 +1642,7 @@
         "volume": 0.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
-    },
-    {
-      "raw_symbol": "LUN26",
-      "canonical_id": "barchart_contract_lun26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "LU",
-        "month_code": "N",
-        "year": "2026",
-        "contract_type_bucket": "misc-contracts"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 113.35,
-          "change": -0.05,
-          "pct_change": -0.04,
-          "high": 114.25,
-          "low": 113.0,
-          "volume": 493.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 113.35,
-        "change": -0.05,
-        "pct_change": -0.04,
-        "high": 114.25,
-        "low": 113.0,
-        "volume": 493.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
-    {
-      "raw_symbol": "FLM26",
-      "canonical_id": "barchart_contract_flm26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "FL",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "misc-contracts"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 1.875,
-          "change": 0.005,
-          "pct_change": 0.27,
-          "high": 1.875,
-          "low": 1.875,
-          "volume": 0.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 1.875,
-        "change": 0.005,
-        "pct_change": 0.27,
-        "high": 1.875,
-        "low": 1.875,
-        "volume": 0.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
-    {
-      "raw_symbol": "LVN26",
-      "canonical_id": "barchart_contract_lvn26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "LV",
-        "month_code": "N",
-        "year": "2026",
-        "contract_type_bucket": "misc-contracts"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 103.2,
-          "change": -0.05,
-          "pct_change": -0.05,
-          "high": 103.2,
-          "low": 103.2,
-          "volume": 0.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 103.2,
-        "change": -0.05,
-        "pct_change": -0.05,
-        "high": 103.2,
-        "low": 103.2,
-        "volume": 0.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "QRU26",
@@ -2310,7 +1682,7 @@
         "volume": 72606.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "S!N26",
@@ -2350,7 +1722,7 @@
         "volume": 33287.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "SQJ26",
@@ -2390,47 +1762,7 @@
         "volume": 9.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
-    },
-    {
-      "raw_symbol": "U7M26",
-      "canonical_id": "barchart_contract_u7m26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "U7",
-        "month_code": "M",
-        "year": "2026",
-        "contract_type_bucket": "misc-contracts"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 243.25,
-          "change": 0.0,
-          "pct_change": 0.0,
-          "high": 243.25,
-          "low": 243.25,
-          "volume": 0.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 243.25,
-        "change": 0.0,
-        "pct_change": 0.0,
-        "high": 243.25,
-        "low": 243.25,
-        "volume": 0.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     },
     {
       "raw_symbol": "VIN26",
@@ -2470,87 +1802,7 @@
         "volume": 33933.0,
         "date": "2026-07-10"
       },
-      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
-    },
-    {
-      "raw_symbol": "YCN26",
-      "canonical_id": "barchart_contract_ycn26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "YC",
-        "month_code": "N",
-        "year": "2026",
-        "contract_type_bucket": "misc-contracts"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 801.4,
-          "change": 0.0,
-          "pct_change": 0.0,
-          "high": 801.4,
-          "low": 801.4,
-          "volume": 0.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 801.4,
-        "change": 0.0,
-        "pct_change": 0.0,
-        "high": 801.4,
-        "low": 801.4,
-        "volume": 0.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
-    },
-    {
-      "raw_symbol": "YQN26",
-      "canonical_id": "barchart_contract_yqn26",
-      "bucket": "curve",
-      "source_system": "barchart",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "vendor_format": "barchart_watchlist",
-      "instrument_class": "futures",
-      "pricing_mode": "exchange_traded",
-      "contract_meta": {
-        "contract_root": "YQ",
-        "month_code": "N",
-        "year": "2026",
-        "contract_type_bucket": "misc-contracts"
-      },
-      "spread_meta": {},
-      "field_map_version": "1.0.0",
-      "row_count": 1,
-      "points": [
-        {
-          "close": 1215.0,
-          "change": 16.0,
-          "pct_change": 1.33,
-          "high": 1218.0,
-          "low": 1207.5,
-          "volume": 251.0,
-          "date": "2026-06-29"
-        }
-      ],
-      "latest": {
-        "close": 1215.0,
-        "change": 16.0,
-        "pct_change": 1.33,
-        "high": 1218.0,
-        "low": 1207.5,
-        "volume": 251.0,
-        "date": "2026-06-29"
-      },
-      "source_file": "/Users/clarksonwthornburgh/Desktop/Whinfell_BUILD_Cousins_v2_OLD_2238_ARCHIVE/staged_raw/quarantine/20260629/watchlist-wtm-canonical-universe-intraday-06-29-2026.csv"
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
     }
   ]
 }

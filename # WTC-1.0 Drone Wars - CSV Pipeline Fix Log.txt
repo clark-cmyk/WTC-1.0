@@ -1,0 +1,46 @@
+# WTC-1.0 Drone Wars - CSV Pipeline Fix Log
+
+**Date**: July 13, 2026
+**Branch**: fix-real-data-pipeline
+**Goal**: Get `run_csv_download.py` running and feeding real data into DroneWars core.
+
+## Summary of Journey
+
+### Key Errors Encountered
+- `ModuleNotFoundError: No module named 'china_policy_track'`
+- `ModuleNotFoundError: No module named 'china_policy_track.china_ladder'`
+- `ModuleNotFoundError: No module named 'china_policy_track.models'`
+- `ModuleNotFoundError: No module named 'china_policy_track.sq3'`
+- `TypeError: cmd_daily() missing required keyword arguments`
+- `TypeError: unsupported operand type(s) for /: 'str' and 'str'`
+- `ImportError: cannot import name 'ChinaPolicyObservation' from 'china_policy_track.models'`
+- `AttributeError: 'bool' object has no attribute 'parent'`
+- Missing `yaml` package
+
+### Failed Fixes
+- Multiple full `cat > core.py` and `run_csv_download.py` overwrites
+- PYTHONPATH hacks in subprocess
+- `pip install -e whinfell_pipeline` (no setup.py)
+- Simple `__init__.py` shims
+
+### Successful Fixes
+- Copied `china_ladder.py` from archive
+- Copied `models.py` + other files from `global_track` into `china_policy_track`
+- Added proper proxy `__init__.py` in `china_policy_track`
+- Added `sys.path` fix in `run_csv_download.py`
+- Used `Path` objects for arguments to `cmd_daily`
+- Installed `pyyaml`
+
+### Current Status
+- `run_csv_download.py daily` now runs without import errors
+- Pipeline executes but finds no local data files (file-only mode)
+- LLM calls are working with `grok-4.3`
+
+### TODO
+- Make `_collect_data()` in `core.py` read the generated CSV/manifest and pass real data to Sovereign/panels
+- Wire UI Refresh button to trigger full cycle
+- Handle "no local CSV supplement" errors (add initial data fetch or fallback)
+- Clean up duplicate/shim files in `china_policy_track` / `global_track`
+- Commit and push to GitHub
+
+**Next Action**: Update `core.py` to consume real CSV output.

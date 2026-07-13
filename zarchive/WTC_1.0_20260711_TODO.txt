@@ -1,0 +1,31 @@
+# BUILD TODO List — Whinfell Transmission Control
+
+**Maintained by:** BUILD Cousins  
+**Last updated:** July 11, 2026  
+
+### Current Gate
+- RCV hydrated with Ark data
+- CSV download UI trigger
+- Hover commentary + quartiles
+
+### Next
+- Drone Wars module (triggered by RCV)
+- ART integration with local LLM
+- Deep dive popout for each node
+- Directory structure for Drone Wars
+
+### Directory Structure Adjustment for Drone Wars
+~/Desktop/wtc_1.0/
+├── drone_wars/
+│   ├── core.py                 # Main orchestrator
+│   ├── models/
+│   │   ├── grok_client.py
+│   │   └── deepseek_client.py
+│   └── agents/
+│       ├── captain_prompts.py
+│       └── orchestrator_prompt.py
+├── js/
+│   └── drone_wars.js           # UI integration
+├── data/                       # Ark data
+├── scripts/                    # Pipeline
+└── wtc_1.0.html                # Main UI

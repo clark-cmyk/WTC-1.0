@@ -1,0 +1,21 @@
+China policy read for the session — credit impulse mixed, state guidance firm.
+
+--- CHINA POLICY EXPORT v1.0 ---
+Observation ID: china-2026-06-27-perplexity-01
+Timestamp: 2026-06-27T10:15:00
+Source: perplexity
+Policy Hierarchy Level: central
+Policy Strength: 74
+Dominant Policy Theme: targeted fiscal support with selective tightening
+Policy Supporting Signals: PBoC guidance, State Council consumption measures, property stabilization language
+Policy Notes: Central directives emphasize quality growth over broad stimulus.
+State Control Impulse Score: 38
+Regulatory Direction: tightening
+State Intervention Level: high
+Key State Controls: SOE credit guidance, platform oversight, local debt discipline
+State Control Notes: State control impulse elevated in financial and tech sectors.
+Growth Impulse Score: 61
+Market Sentiment: mixed
+Liquidity Impulse: stable
+Key Growth Indicators: credit impulse, PMI new orders, equity turnover
+Growth Notes: Growth impulse constructive in consumption, impaired in property chain.

@@ -1,0 +1,15 @@
+{
+  "manifest_version": "1.0.0",
+  "runbook_version": "1.0.0",
+  "manifest_type": "stage",
+  "created_at": "2026-07-13T13:46:25.383344+00:00",
+  "operator": "desk",
+  "staged_root": "/Users/clarksonwthornburgh/Desktop/wtc_1.0/staged_raw",
+  "downloads_dir": "/Users/clarksonwthornburgh/Downloads",
+  "window": "24h",
+  "files_scanned": 0,
+  "files_staged": 0,
+  "files_quarantined": 0,
+  "files_skipped": 0,
+  "entries": []
+}

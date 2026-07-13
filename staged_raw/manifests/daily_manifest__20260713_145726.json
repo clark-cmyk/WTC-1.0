@@ -1,0 +1,26 @@
+{
+  "manifest_version": "1.0.0",
+  "runbook_version": "1.0.0",
+  "manifest_type": "daily",
+  "created_at": "2026-07-13T14:57:26.177010+00:00",
+  "operator": "default",
+  "staged_root": "/Users/clarksonwthornburgh/Desktop/wtc_1.0/staged_raw",
+  "downloads_dir": "/Users/clarksonwthornburgh/Desktop/wtc_1.0/data/downloads",
+  "window": "1d",
+  "stage_manifest": "/Users/clarksonwthornburgh/Desktop/wtc_1.0/staged_raw/manifests/stage_manifest__20260713_145724.json",
+  "stage": {
+    "files_scanned": 0,
+    "files_staged": 0,
+    "files_quarantined": 0,
+    "files_skipped": 0
+  },
+  "collect_exit": 1,
+  "collect_stdout": "pipeline_staged_ingest_ok version=1.0.0\nstaged_root=/Users/clarksonwthornburgh/Desktop/wtc_1.0/staged_raw\nfiles_found=0\nfiles_processed=0\nfiles_failed=0\nglobal_written=0\nchina_written=0\nexecution_records=0\ncrypto_ingested=0\n",
+  "hydrate_exit": 0,
+  "hydrate_output": "/Users/clarksonwthornburgh/Desktop/wtc_1.0/data/hydrated",
+  "export_path": "/Users/clarksonwthornburgh/Desktop/wtc_1.0/data",
+  "errors": [
+    "collect failed"
+  ],
+  "chain_ok": false
+}

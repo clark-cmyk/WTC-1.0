@@ -286,3 +286,67 @@ Cross asset themes and trade recommendations.`;
             }
         };
     </script>
+
+    <script>
+        async function startBackendIfNeeded() {
+            try {
+                const response = await fetch('http://localhost:5001/health');
+                if (response.ok) return true;
+            } catch (e) {
+                // Backend not running
+                alert("Backend not running. Start it manually with: python app.py in terminal");
+                return false;
+            }
+        }
+
+        window.refreshData = async function() {
+            await startBackendIfNeeded();
+            try {
+                const response = await fetch('http://localhost:5001/api/refresh-data', { method: 'POST' });
+                const data = await response.json();
+                if (data.success && data.panel_content) {
+                    updatePanel('liquidity-panel', data.panel_content.liquidity);
+                    updatePanel('credit-panel', data.panel_content.credit);
+                    updatePanel('equity_breadth-panel', data.panel_content.equity_breadth);
+                    updatePanel('high_beta-panel', data.panel_content.high_beta);
+                    updatePanel('bitcoin_basis-panel', data.panel_content.bitcoin_basis);
+                }
+            } catch (e) {
+                alert("Backend not reachable. Start it with: python app.py");
+            }
+        };
+    </script>
+
+    <script>
+        async function ensureBackendRunning() {
+            try {
+                const response = await fetch('http://localhost:5001/health', { method: 'GET' });
+                if (response.ok) return true;
+            } catch (e) {
+                // Backend not running
+                const startResponse = await fetch('http://localhost:5001/start', { method: 'POST' });
+                if (startResponse.ok) {
+                    addDroneLog('Backend started automatically');
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        window.refreshData = async function() {
+            await ensureBackendRunning();
+            try {
+                const response = await fetch('http://localhost:5001/api/refresh-data', { method: 'POST' });
+                const data = await response.json();
+                if (data.success && data.panel_content) {
+                    updatePanel('liquidity-panel', data.panel_content.liquidity);
+                    updatePanel('credit-panel', data.panel_content.credit);
+                    updatePanel('equity_breadth-panel', data.panel_content.equity_breadth);
+                    updatePanel('high_beta-panel', data.panel_content.high_beta);
+                    updatePanel('bitcoin_basis-panel', data.panel_content.bitcoin_basis);
+                }
+            } catch (e) {
+                alert("Backend not reachable.");
+            }
+        };
+    </script>

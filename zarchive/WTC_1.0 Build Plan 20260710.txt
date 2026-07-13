@@ -1,0 +1,39 @@
+Build Plan (Numbered Chunks)
+Chunk 1 – Shell Foundation (Today)
+
+Create wtc_1.0.html
+Create css/01_console.css
+Create js/01_shell.js
+Thin top bar + logo + search + Refresh + A button
+Numbered tabs (1–7)
+Keyboard shortcuts (1–7)
+Basic responsive layout
+
+Chunk 2 – Core Data Layer
+
+Create clean js/02_core.js (new Ark)
+Central data config (no hard-coded paths)
+Load / normalize functions
+
+Chunk 3 – Risk Curve Module
+
+Build modules/01_risk_curve/risk_curve.js
+The 5 nodes with scores, colors, quartiles
+
+Chunk 4 – Basis Module
+
+modules/02_basis/basis.js
+
+Chunk 5 – Bang Bang Da
+
+modules/04_bangbangda/bangbangda.js
+
+Chunk 6 – Articulate
+
+modules/03_articulate/articulate.js + prompt generation + logging
+
+Chunk 7 – Polish & Responsiveness
+
+Zoom testing
+Dark / Nature / Gray themes
+Final readability adjustments
