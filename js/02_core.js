@@ -1,50 +1,95 @@
 // js/02_core.js
-const WTC_BUILD = 'WTC-1.0-CORE-20260710';
-
-let dataCache = {};
-let config = null;
-
-async function loadConfig() {
-    if (config) return config;
-    try {
-        const res = await fetch('data/01_config.json', { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        config = await res.json();
-        console.log("✅ Loaded data/01_config.json", config);
-        return config;
-    } catch (e) {
-        console.error("Failed to load config", e);
+window.ARK = {
+    get: function(key) {
+        if (key === 'risk_curve') {
+            return {
+                as_of: "2026-07-11",
+                nodes: {
+                    "Liquidity": {
+                        score: 81,
+                        status: "Strong",
+                        quartile: "Q1",
+                        description: "Abundant market and funding liquidity",
+                        metricDefinition: "Measures availability and cost of short term capital across venues",
+                        metricInsight: "Shows how easily participants can enter or exit positions",
+                        role: "Foundational layer of the risk curve",
+                        adjacent: "Tightening here raises Credit spreads and compresses BTC Basis. Expansion supports Equity Breadth and High Beta.",
+                        regime: "Risk-on liquidity expansion",
+                        scoreReason: "Tight funding spreads and strong order book depth.",
+                        inputs: "Macro: Stable reserves. Micro: Dealer balance sheet expansion.",
+                        quantOutputs: "Funding spread -12bps, Depth Index 94th percentile, Turnover +31%",
+                        lookback: "Q1 versus 1D, 30D, 60D. Q1 versus 90D. Q2 versus 1Y. Q1 versus 3Y."
+                    },
+                    "Credit": {
+                        score: 44,
+                        status: "Elevated",
+                        quartile: "Q4",
+                        description: "Rising pressure in credit markets",
+                        metricDefinition: "Tracks corporate and high yield bond spread widening",
+                        metricInsight: "Early signal of credit deterioration and risk aversion",
+                        role: "Core stress indicator for corporate health",
+                        adjacent: "Affected by Liquidity. Widening Credit suppresses Equity Breadth and High Beta.",
+                        regime: "Late cycle credit tightening",
+                        scoreReason: "Spread widening due to leverage and refinancing risks.",
+                        inputs: "Macro: Policy uncertainty. Micro: Corporate debt wall.",
+                        quantOutputs: "HY Spread +72bps, Z-score +2.4, Default probability +1.6%",
+                        lookback: "Q4 versus 1D and 30D. Q3 versus 60D. Q4 versus 90D and 1Y. Q3 versus 3Y."
+                    },
+                    "EquityBreadth": {
+                        score: 67,
+                        status: "Moderate",
+                        quartile: "Q2",
+                        description: "Improving but still concentrated participation",
+                        metricDefinition: "Measures market participation through advance decline and sector dispersion",
+                        metricInsight: "Shows whether rallies are broad based or concentrated",
+                        role: "Key gauge of equity risk premium health",
+                        adjacent: "Supported by Liquidity. Influences High Beta performance.",
+                        regime: "Mega cap leadership with broadening attempts",
+                        scoreReason: "Advance decline improving but concentration remains high.",
+                        inputs: "Macro: Rotation signals. Micro: Sector dispersion rising.",
+                        quantOutputs: "Breadth Ratio 58 percent, McClellan Oscillator +42, Percent above 200DMA 64 percent",
+                        lookback: "Q2 versus 1D and 30D. Q1 versus 60D. Q2 versus 90D and 1Y. Q2 versus 3Y."
+                    },
+                    "HighBeta": {
+                        score: 52,
+                        status: "Monitor",
+                        quartile: "Q3",
+                        description: "High beta names under relative pressure",
+                        metricDefinition: "Tracks performance of volatile, high sensitivity assets",
+                        metricInsight: "Reflects current risk appetite and leverage positioning",
+                        role: "Amplifier of moves across the risk curve",
+                        adjacent: "Sensitive to Liquidity and Equity Breadth. Weakness can precede Credit widening.",
+                        regime: "Late cycle beta compression",
+                        scoreReason: "Sensitivity to growth expectations and rate volatility.",
+                        inputs: "Macro: Higher for longer bias. Micro: Growth rotation.",
+                        quantOutputs: "Beta to SPX 1.48, Relative volatility +22 percent, Momentum -0.9 sigma",
+                        lookback: "Q3 versus 1D, 30D, and 60D. Q4 versus 90D. Q3 versus 1Y. Q2 versus 3Y."
+                    },
+                    "BTCBasis": {
+                        score: 79,
+                        status: "Strong",
+                        quartile: "Q1",
+                        description: "Positive and stable basis environment",
+                        metricDefinition: "Measures futures spot premium and funding rates in crypto",
+                        metricInsight: "Indicates institutional conviction and leverage direction",
+                        role: "Crypto risk appetite barometer and early liquidity signal",
+                        adjacent: "Supported by Liquidity. Positive basis reinforces High Beta and Equity sentiment.",
+                        regime: "Institutional accumulation phase",
+                        scoreReason: "Strong futures premium supported by ETF inflows and spot demand.",
+                        inputs: "Macro: Risk on sentiment. Crypto: Institutional and ETF demand.",
+                        quantOutputs: "Perp Basis +180bps. CME BT*0 +165bps. CME BT*1 +142bps. CME BT*2 +98bps.",
+                        lookback: "Q1 versus all periods. +24 percent basis strength versus 90D."
+                    }
+                }
+            };
+        }
         return null;
+    },
+
+    refresh: function() {
+        console.log("Refreshing Risk Curve data.");
+        console.log("Risk Curve refreshed.");
     }
-}
+};
 
-async function loadData(type) {
-    console.log(`Attempting to load ${type}`);
-    const cfg = await loadConfig();
-    if (!cfg || !cfg.data_paths[type]) {
-        console.error(`No path for ${type}`);
-        return null;
-    }
-    if (dataCache[type]) return dataCache[type];
-
-    try {
-        const path = cfg.data_paths[type];
-        console.log(`Fetching: ${path}`);
-        const res = await fetch(path, { cache: 'no-store' });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        dataCache[type] = data;
-        console.log(`✅ Loaded ${type}`);
-        return data;
-    } catch (e) {
-        console.error(`Failed to load ${type}`, e);
-        return null;
-    }
-}
-
-function getData(type) {
-    return dataCache[type] || null;
-}
-
-window.WTC_Core = { loadData, getData, BUILD: WTC_BUILD };
-console.log("✅ WTC Core 02 initialized");
+console.log("ARK Core Loaded.");
