@@ -287,28 +287,19 @@ Cross asset themes and trade recommendations.`;
             const response = await fetch('http://localhost:5001/api/trigger-collection', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    command: "daily",
-                    source: "all"
-                })
+                body: JSON.stringify({ command: "daily" })
             });
-
-            if (!response.ok) throw new Error("Backend error");
 
             const result = await response.json();
 
             if (result.success) {
-                showToast("✅ Collection completed successfully");
-                if (window.ARK && typeof window.ARK.refresh === 'function') {
-                    window.ARK.refresh();
-                }
-                switchModule(currentTabId);
+                showToast("✅ Collection completed");
             } else {
                 showToast("⚠️ Collection completed with issues");
             }
         } catch (err) {
             console.error(err);
-            showToast("❌ Backend not reachable on port 5001. Make sure app.py is running.");
+            showToast("❌ Backend not reachable on port 5001");
         } finally {
             if (btn) btn.innerHTML = originalText;
         }

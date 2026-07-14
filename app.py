@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 import sys
 from pathlib import Path
 
@@ -9,14 +9,18 @@ from whinfell_pipeline.agent_wrapper import run_full_daily
 
 app = Flask(__name__)
 
+# Manual CORS for development
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+    return response
+
 @app.route("/")
 @app.route("/health")
 def health():
     return jsonify({"status": "ok", "message": "WTC 1.0 Backend running on port 5001"})
-
-@app.route("/start", methods=['POST'])
-def start_backend():
-    return jsonify({"status": "ok", "message": "Backend is running"})
 
 @app.route('/api/trigger-collection', methods=['POST', 'OPTIONS'])
 def trigger_collection():
