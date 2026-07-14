@@ -1,9 +1,169 @@
 {
   "version": "1.0.0",
   "bucket": "curve",
-  "as_of": "2026-07-13T23:57:49.443015+00:00",
-  "symbol_count": 45,
+  "as_of": "2026-07-14T00:29:17.463454+00:00",
+  "symbol_count": 50,
   "records": [
+    {
+      "raw_symbol": "DXM26",
+      "canonical_id": "barchart_contract_dxm26",
+      "bucket": "curve",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "futures",
+      "pricing_mode": "exchange_traded",
+      "contract_meta": {
+        "contract_root": "DX",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 99.474,
+          "change": -0.271,
+          "pct_change": -0.27,
+          "high": 99.6,
+          "low": 99.445,
+          "volume": 411.0,
+          "date": "2026-06-24"
+        }
+      ],
+      "latest": {
+        "close": 99.474,
+        "change": -0.271,
+        "pct_change": -0.27,
+        "high": 99.6,
+        "low": 99.445,
+        "volume": 411.0,
+        "date": "2026-06-24"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv"
+    },
+    {
+      "raw_symbol": "E6M26",
+      "canonical_id": "barchart_contract_e6m26",
+      "bucket": "curve",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "futures",
+      "pricing_mode": "exchange_traded",
+      "contract_meta": {
+        "contract_root": "E6",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 1.16145,
+          "change": 0.0039500000000001,
+          "pct_change": 0.34,
+          "high": 1.16205,
+          "low": 1.1595,
+          "volume": 12049.0,
+          "date": "2026-06-24"
+        }
+      ],
+      "latest": {
+        "close": 1.16145,
+        "change": 0.0039500000000001,
+        "pct_change": 0.34,
+        "high": 1.16205,
+        "low": 1.1595,
+        "volume": 12049.0,
+        "date": "2026-06-24"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv"
+    },
+    {
+      "raw_symbol": "J6M26",
+      "canonical_id": "barchart_contract_j6m26",
+      "bucket": "curve",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "futures",
+      "pricing_mode": "exchange_traded",
+      "contract_meta": {
+        "contract_root": "J6",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 0.0062475,
+          "change": 6e-06,
+          "pct_change": 0.1,
+          "high": 0.00626,
+          "low": 0.0062415,
+          "volume": 3315.0,
+          "date": "2026-06-24"
+        }
+      ],
+      "latest": {
+        "close": 0.0062475,
+        "change": 6e-06,
+        "pct_change": 0.1,
+        "high": 0.00626,
+        "low": 0.0062415,
+        "volume": 3315.0,
+        "date": "2026-06-24"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv"
+    },
+    {
+      "raw_symbol": "A6M26",
+      "canonical_id": "barchart_contract_a6m26",
+      "bucket": "curve",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "futures",
+      "pricing_mode": "exchange_traded",
+      "contract_meta": {
+        "contract_root": "A6",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "fx-futures"
+      },
+      "spread_meta": {},
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 0.70745,
+          "change": 0.0027,
+          "pct_change": 0.38,
+          "high": 0.7089,
+          "low": 0.7066,
+          "volume": 1100.0,
+          "date": "2026-06-24"
+        }
+      ],
+      "latest": {
+        "close": 0.70745,
+        "change": 0.0027,
+        "pct_change": 0.38,
+        "high": 0.7089,
+        "low": 0.7066,
+        "volume": 1100.0,
+        "date": "2026-06-24"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv"
+    },
     {
       "raw_symbol": "GCN26",
       "canonical_id": "barchart_contract_gcn26",
@@ -683,6 +843,46 @@
         "date": "2026-07-10"
       },
       "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv"
+    },
+    {
+      "raw_symbol": "BTM26",
+      "canonical_id": "barchart_contract_btm26",
+      "bucket": "curve",
+      "source_system": "barchart",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "vendor_format": "barchart_watchlist",
+      "instrument_class": "futures",
+      "pricing_mode": "exchange_traded",
+      "contract_meta": {
+        "contract_root": "BT",
+        "month_code": "M",
+        "year": "2026",
+        "contract_type_bucket": "btc-futures-curves"
+      },
+      "spread_meta": {},
+      "field_map_version": "1.0.0",
+      "row_count": 1,
+      "points": [
+        {
+          "close": 59685.0,
+          "change": -2680.0,
+          "pct_change": -4.3,
+          "high": 63160.0,
+          "low": 58995.0,
+          "volume": 8744.0,
+          "date": "2026-06-24"
+        }
+      ],
+      "latest": {
+        "close": 59685.0,
+        "change": -2680.0,
+        "pct_change": -4.3,
+        "high": 63160.0,
+        "low": 58995.0,
+        "volume": 8744.0,
+        "date": "2026-06-24"
+      },
+      "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv"
     },
     {
       "raw_symbol": "BTN26",
