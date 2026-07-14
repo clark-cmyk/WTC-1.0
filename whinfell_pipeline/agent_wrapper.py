@@ -1,81 +1,56 @@
-#!/usr/bin/env python3
-"""
-agent_wrapper.py
-Clean interface for Orchestrator and Captains to control the data pipeline.
-"""
-
+from pathlib import Path
 import subprocess
 import sys
-from pathlib import Path
-from typing import Dict, Any, Optional
+import json
 
-# Path to your existing pipeline
-PIPELINE = Path(__file__).parent.parent / "run_csv_download.py"
+# Determine repository root robustly
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR if (SCRIPT_DIR / "run_csv_download.py").exists() else SCRIPT_DIR.parent
+PIPELINE = REPO_ROOT / "run_csv_download.py"
 
-
-def run_pipeline(command: str, **kwargs) -> Dict[str, Any]:
-    """
-    Main function the agents will use to control the pipeline.
-
-    Examples:
-        run_pipeline("daily")
-        run_pipeline("collect", source="koyfin")
-        run_pipeline("hydrate")
-        run_pipeline("collect", source="barchart", mode="incremental")
-    """
-    allowed = ["init", "stage", "collect", "hydrate", "daily"]
-
-    if command not in allowed:
-        return {"success": False, "error": f"Invalid command: {command}"}
-
-    cmd = [sys.executable, str(PIPELINE), command]
-
-    # Add any extra arguments
-    for key, value in kwargs.items():
-        cmd.extend([f"--{key}", str(value)])
-
-    print(f"[AgentWrapper] Executing: {' '.join(cmd)}")
-
+def run_full_daily():
+    if not PIPELINE.exists():
+        return {
+            "success": False,
+            "error": f"Pipeline script not found: {PIPELINE}",
+            "repo_root": str(REPO_ROOT),
+            "searched_locations": [str(SCRIPT_DIR), str(REPO_ROOT)]
+        }
+    
+    cmd = [sys.executable, str(PIPELINE), "daily"]
     try:
         result = subprocess.run(
             cmd,
+            cwd=REPO_ROOT,
             capture_output=True,
             text=True,
-            cwd=PIPELINE.parent
+            timeout=300
         )
-
-        return {
-            "success": result.returncode == 0,
-            "command": command,
-            "stdout": result.stdout.strip(),
-            "stderr": result.stderr.strip(),
-            "returncode": result.returncode
-        }
-
+        
+        # Try to parse JSON output from pipeline
+        try:
+            output = json.loads(result.stdout.strip())
+            if isinstance(output, dict):
+                return output
+            else:
+                return {
+                    "success": result.returncode == 0,
+                    "data": output,
+                    "returncode": result.returncode
+                }
+        except (json.JSONDecodeError, TypeError):
+            # Fallback to structured response
+            return {
+                "success": result.returncode == 0,
+                "stdout": result.stdout.strip(),
+                "stderr": result.stderr.strip(),
+                "returncode": result.returncode,
+                "pipeline": str(PIPELINE)
+            }
+    except subprocess.TimeoutExpired:
+        return {"success": False, "error": "Pipeline execution timed out after 300 seconds"}
     except Exception as e:
-        return {
-            "success": False,
-            "error": str(e)
-        }
-
-
-# ====================== CONVENIENCE FUNCTIONS ======================
-
-def run_full_daily():
-    """Full daily refresh (recommended for scheduled runs)"""
-    return run_pipeline("daily")
-
-
-def collect_data(source: str = "all"):
-    """Collect data only (no hydration)"""
-    return run_pipeline("collect", source=source)
-
-
-def hydrate_data():
-    """Process existing raw data into Blackboard"""
-    return run_pipeline("hydrate")
-
+        return {"success": False, "error": str(e), "pipeline": str(PIPELINE)}
 
 if __name__ == "__main__":
-    # Quick test
-    print(run_full_daily())
+    print(json.dumps(run_full_daily(), indent=2))

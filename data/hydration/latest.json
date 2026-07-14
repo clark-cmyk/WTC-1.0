@@ -15,8 +15,8 @@
     "regime_tag": "Fragile Risk-On",
     "key_observation": "USHYBOAS -; USHGCORPOAS +; MIN -; MAX +",
     "gate_status": "",
-    "sq3_score": 35,
-    "sq3_band": "Impaired",
+    "sq3_score": null,
+    "sq3_band": "",
     "near_month": "Jun",
     "far_month": "Back",
     "basis_spread": "65525.00",
@@ -25,52 +25,8 @@
     "ref_high": "78630.00",
     "btc_bias": "Neutral"
   },
-  "china": {
-    "policy_strength": 50,
-    "state_impulse_score": 0,
-    "growth_impulse_score": 0,
-    "sq3_score": 35,
-    "sq3_band": "Impaired",
-    "regime_tag": "desk-auto",
-    "observation_id": "china-2026-07-09-raw2wtm-01",
-    "as_of": "2026-07-09T14:37:30+00:00",
-    "source": "manual"
-  },
-  "china_ladder": {
-    "sq3_score": 35,
-    "horizons": {
-      "liquidity": {
-        "d1": "flat",
-        "d5": "flat",
-        "d20": "down",
-        "d60": "flat"
-      },
-      "credit": {
-        "d1": "down",
-        "d5": "down",
-        "d20": "flat",
-        "d60": "down"
-      },
-      "breadth": {
-        "d1": "up",
-        "d5": "flat",
-        "d20": "flat",
-        "d60": "flat"
-      },
-      "highbeta": {
-        "d1": "flat",
-        "d5": "down",
-        "d20": "flat",
-        "d60": "flat"
-      },
-      "basis": {
-        "d1": "flat",
-        "d5": "flat",
-        "d20": "down",
-        "d60": "flat"
-      }
-    }
-  },
+  "china": {},
+  "china_ladder": {},
   "crypto_sleeve": {
     "version": "1.0.0",
     "as_of": "2026-07-09T14:37:30.577964+00:00",
@@ -293,10 +249,10 @@
     "ref_low": "52420.00",
     "ref_mid": "65525.00",
     "ref_high": "78630.00",
-    "policy_strength": 50,
-    "state_impulse_score": 0,
-    "growth_impulse_score": 0,
-    "source": "manual"
+    "policy_strength": null,
+    "state_impulse_score": null,
+    "growth_impulse_score": null,
+    "source": "parquet"
   },
   "suggested_tracer": {
     "liquidity": {
@@ -592,20 +548,6 @@
           }
         }
       },
-      "china_parallel": {
-        "present": true,
-        "stage_id": "liquidity",
-        "stage_name": "Liquidity & Rates",
-        "horizon_marks": {
-          "d1": "flat",
-          "d5": "flat",
-          "d20": "down",
-          "d60": "flat"
-        },
-        "horizon_net": -1,
-        "composite_score": 40,
-        "note": "China liquidity & rates stage horizon_net -1 (informational)"
-      },
       "funds_flows": {
         "enabled": false,
         "source": "derived",
@@ -841,20 +783,6 @@
             }
           }
         }
-      },
-      "china_parallel": {
-        "present": true,
-        "stage_id": "credit",
-        "stage_name": "Credit Confirmation",
-        "horizon_marks": {
-          "d1": "down",
-          "d5": "down",
-          "d20": "flat",
-          "d60": "down"
-        },
-        "horizon_net": -3,
-        "composite_score": 32,
-        "note": "China credit confirmation stage horizon_net -3 (informational)"
       },
       "weakest_context": {
         "global_health_score": 50,
@@ -1216,20 +1144,6 @@
           }
         }
       },
-      "china_parallel": {
-        "present": true,
-        "stage_id": "breadth",
-        "stage_name": "Equity Breadth",
-        "horizon_marks": {
-          "d1": "up",
-          "d5": "flat",
-          "d20": "flat",
-          "d60": "flat"
-        },
-        "horizon_net": 1,
-        "composite_score": 56,
-        "note": "China equity breadth stage horizon_net +1 (informational)"
-      },
       "funds_flows": {
         "enabled": false,
         "source": "derived",
@@ -1521,20 +1435,6 @@
             }
           }
         }
-      },
-      "china_parallel": {
-        "present": true,
-        "stage_id": "highbeta",
-        "stage_name": "High-Beta / China Cyclical Transmission",
-        "horizon_marks": {
-          "d1": "flat",
-          "d5": "down",
-          "d20": "flat",
-          "d60": "flat"
-        },
-        "horizon_net": -1,
-        "composite_score": 44,
-        "note": "China high-beta / china cyclical transmission stage horizon_net -1 (informational)"
       },
       "funds_flows": {
         "enabled": false,
@@ -1844,20 +1744,6 @@
           }
         }
       },
-      "china_parallel": {
-        "present": true,
-        "stage_id": "basis",
-        "stage_name": "Basis & Term Structure",
-        "horizon_marks": {
-          "d1": "flat",
-          "d5": "flat",
-          "d20": "down",
-          "d60": "flat"
-        },
-        "horizon_net": -1,
-        "composite_score": 41,
-        "note": "China basis & term structure stage horizon_net -1 (informational)"
-      },
       "funds_flows": {
         "enabled": false,
         "source": "derived",
@@ -1898,9 +1784,10 @@
     "gate_zone": "amber",
     "whinfell_score": 50
   },
-  "wtm_export_v21": "--- WTM EXPORT v2.1 ---\nWhinfell Score: 50\nTransmission State: Stressed\nRegime Tag: Fragile Risk-On\nKey Observation: USHYBOAS -; USHGCORPOAS +; MIN -; MAX +\nGross Risk Recommendation: \u2014\nBTC Bias: Neutral\nTimestamp: 2026-07-09T14:37:30\nSQ3 Score: 35\nSQ3 Band: Impaired\nPolicy Strength: 50\nState Impulse Score: 0\nGrowth Impulse Score: 0\nChina Regime Tag: desk-auto\nSnapshot ID: global-2026-07-09-raw2wtm-01\nLineage Hash: sha256:28266c7ed32c867b0a723a387738c34473e1fb08663aae721ca2ed90ede8283e\nValidation Status: parsed\nData As Of: 2026-07-09T14:37:30Z\nSource Channel: koyfin\nFreshness Status: stale\nOutput Kind: unknown\n--- CHINA LADDER EXPORT v1.1 ---\nChina Raw Score: 43\nChina Final Score: 26\nChina Final Band: Impaired\nSQ3 Policy Score: 35\nWeakest China Stage: Credit Confirmation\nKey China Observation: Weakest stage Credit Confirmation at 32/100 \u2014 avoid new China-linked exposure until composite clears 50.",
-  "wtm_export_v22": "--- WTM EXPORT v2.2 ---\nWhinfell Score: 50\nTransmission State: Stressed\nRegime Tag: Fragile Risk-On\nKey Observation: USHYBOAS -; USHGCORPOAS +; MIN -; MAX +\nGross Risk Recommendation: \u2014\nBTC Bias: Neutral\nTimestamp: 2026-07-09T14:37:30\nSQ3 Score: 35\nSQ3 Band: Impaired\nPolicy Strength: 50\nState Impulse Score: 0\nGrowth Impulse Score: 0\nChina Regime Tag: desk-auto\nSnapshot ID: global-2026-07-09-raw2wtm-01\nLineage Hash: sha256:28266c7ed32c867b0a723a387738c34473e1fb08663aae721ca2ed90ede8283e\nValidation Status: parsed\nData As Of: 2026-07-09T14:37:30Z\nSource Channel: koyfin\nFreshness Status: stale\nOutput Kind: unknown\n--- CHINA LADDER EXPORT v1.1 ---\nChina Raw Score: 43\nChina Final Score: 26\nChina Final Band: Impaired\nSQ3 Policy Score: 35\nWeakest China Stage: Credit Confirmation\nKey China Observation: Weakest stage Credit Confirmation at 32/100 \u2014 avoid new China-linked exposure until composite clears 50.\n\n--- NODE COCKPIT: Liquidity & Rates ---\nNode ID: liquidity\nComposite Score: 100\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: -1\nHorizon Marks: d1\u2192 d5\u2192 d20\u2193 d60\u2192\nDirectional: neutral (low) \u2014 Liquidity & Rates mixed marks \u2014 prefer RV or reduced size.\nRelative Value: neutral \u2014 2s10s curve trade / SOFR spread (low)\nSelected Implementation: \u2014\nRV Series: usgg2y10y\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q2\nRV Percentile: 44.4\nRV Richness: fair\nChina Parallel: present \u2014 horizon_net -1\nChina Parallel Note: China liquidity & rates stage horizon_net -1 (informational)\nKey Observation: Liquidity & Rates horizon_net -1 from suggested tracer marks.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014\n\n--- NODE COCKPIT: Credit Confirmation ---\nNode ID: credit\nComposite Score: 38\nComposite Score Source: horizon_net_fallback\nBand: Blocked\nBand Key: blocked\nFreshness Status: stale\nHorizon Net: -1\nHorizon Marks: d1\u2192 d5\u2193 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 Credit Confirmation mixed marks \u2014 prefer RV or reduced size. (Flows: 1D fallback only \u2014 treat as indicative.)\nRelative Value: long_spread \u2014 HYG vs LQD (or HY\u2212IG OAS proxy) (medium)\nSelected Implementation: \u2014\nRV Series: hy_oas_proxy\nRV Direction: higher_is_cheaper\nRV Horizon: 3m\nRV Quartile: Q4\nRV Percentile: 90.5\nRV Richness: cheap\nChina Parallel: present \u2014 horizon_net -3\nChina Parallel Note: China credit confirmation stage horizon_net -3 (informational)\nKey Observation: Credit Confirmation horizon_net -1 from suggested tracer marks.\nFunds Flow Enabled: true\nFunds Flow Status: fallback_1d\nFunds Flow Source: credit_cross_section\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: credit_cross_section_1d_only\nFunds Flow Verdict: mixed\nFunds Flow 1D: -0.54% AUM\nFunds Flow Breadth: 1/4\nFunds Flow Confidence Penalty: 1\nFunds Flow Summary: 1D credit flows mildly negative \u2014 5D unavailable.\n\n--- NODE COCKPIT: Equity Breadth ---\nNode ID: breadth\nComposite Score: 72\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: 0\nHorizon Marks: d1\u2192 d5\u2192 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 Equity Breadth mixed marks \u2014 prefer RV or reduced size.\nRelative Value: neutral \u2014 IWM/SPY participation pair (low)\nSelected Implementation: \u2014\nRV Series: iwm_spy_ratio\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q2\nRV Percentile: 44.4\nRV Richness: fair\nChina Parallel: present \u2014 horizon_net 1\nChina Parallel Note: China equity breadth stage horizon_net +1 (informational)\nKey Observation: Equity Breadth horizon_net +0 from suggested tracer marks.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014\n\n--- NODE COCKPIT: High-Beta / BTC ---\nNode ID: highbeta\nComposite Score: 72\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: 0\nHorizon Marks: d1\u2192 d5\u2192 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 High-Beta / BTC mixed marks \u2014 prefer RV or reduced size.\nRelative Value: neutral \u2014 IBIT vs QQQ beta spread (low)\nSelected Implementation: \u2014\nRV Series: ibit_qqq_beta_spread\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q2\nRV Percentile: 38.1\nRV Richness: fair\nChina Parallel: present \u2014 horizon_net -1\nChina Parallel Note: China high-beta / china cyclical transmission stage horizon_net -1 (informational)\nKey Observation: BTC bias Neutral; horizon_net +0.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014\n\n--- NODE COCKPIT: Basis & Term Structure ---\nNode ID: basis\nComposite Score: 100\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: 0\nHorizon Marks: d1\u2192 d5\u2192 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 Basis & Term Structure mixed marks \u2014 prefer RV or reduced size.\nRelative Value: short_spread \u2014 BT near vs deferred calendar (medium)\nSelected Implementation: \u2014\nRV Series: btc_calendar_bt_near_deferred\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q3\nRV Percentile: 57.1\nRV Richness: rich\nChina Parallel: present \u2014 horizon_net -1\nChina Parallel Note: China basis & term structure stage horizon_net -1 (informational)\nKey Observation: Calendar at 65525.00% (Jun/Back); horizon_net +0.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014",
+  "wtm_export_v21": "--- WTM EXPORT v2.1 ---\nWhinfell Score: 50\nTransmission State: Stressed\nRegime Tag: Fragile Risk-On\nKey Observation: USHYBOAS -; USHGCORPOAS +; MIN -; MAX +\nGross Risk Recommendation: \u2014\nBTC Bias: Neutral\nTimestamp: 2026-07-09T14:37:30\nSnapshot ID: global-2026-07-09-raw2wtm-01\nLineage Hash: sha256:28266c7ed32c867b0a723a387738c34473e1fb08663aae721ca2ed90ede8283e\nValidation Status: parsed\nData As Of: 2026-07-09T14:37:30Z\nSource Channel: koyfin\nFreshness Status: stale\nOutput Kind: derived_signals",
+  "wtm_export_v22": "--- WTM EXPORT v2.2 ---\nWhinfell Score: 50\nTransmission State: Stressed\nRegime Tag: Fragile Risk-On\nKey Observation: USHYBOAS -; USHGCORPOAS +; MIN -; MAX +\nGross Risk Recommendation: \u2014\nBTC Bias: Neutral\nTimestamp: 2026-07-09T14:37:30\nSnapshot ID: global-2026-07-09-raw2wtm-01\nLineage Hash: sha256:28266c7ed32c867b0a723a387738c34473e1fb08663aae721ca2ed90ede8283e\nValidation Status: parsed\nData As Of: 2026-07-09T14:37:30Z\nSource Channel: koyfin\nFreshness Status: stale\nOutput Kind: derived_signals\n\n--- NODE COCKPIT: Liquidity & Rates ---\nNode ID: liquidity\nComposite Score: 100\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: -1\nHorizon Marks: d1\u2192 d5\u2192 d20\u2193 d60\u2192\nDirectional: neutral (low) \u2014 Liquidity & Rates mixed marks \u2014 prefer RV or reduced size.\nRelative Value: neutral \u2014 2s10s curve trade / SOFR spread (low)\nSelected Implementation: \u2014\nRV Series: usgg2y10y\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q2\nRV Percentile: 44.4\nRV Richness: fair\nKey Observation: Liquidity & Rates horizon_net -1 from suggested tracer marks.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014\n\n--- NODE COCKPIT: Credit Confirmation ---\nNode ID: credit\nComposite Score: 38\nComposite Score Source: horizon_net_fallback\nBand: Blocked\nBand Key: blocked\nFreshness Status: stale\nHorizon Net: -1\nHorizon Marks: d1\u2192 d5\u2193 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 Credit Confirmation mixed marks \u2014 prefer RV or reduced size. (Flows: 1D fallback only \u2014 treat as indicative.)\nRelative Value: long_spread \u2014 HYG vs LQD (or HY\u2212IG OAS proxy) (medium)\nSelected Implementation: \u2014\nRV Series: hy_oas_proxy\nRV Direction: higher_is_cheaper\nRV Horizon: 3m\nRV Quartile: Q4\nRV Percentile: 90.5\nRV Richness: cheap\nKey Observation: Credit Confirmation horizon_net -1 from suggested tracer marks.\nFunds Flow Enabled: true\nFunds Flow Status: fallback_1d\nFunds Flow Source: credit_cross_section\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: credit_cross_section_1d_only\nFunds Flow Verdict: mixed\nFunds Flow 1D: -0.54% AUM\nFunds Flow Breadth: 1/4\nFunds Flow Confidence Penalty: 1\nFunds Flow Summary: 1D credit flows mildly negative \u2014 5D unavailable.\n\n--- NODE COCKPIT: Equity Breadth ---\nNode ID: breadth\nComposite Score: 72\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: 0\nHorizon Marks: d1\u2192 d5\u2192 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 Equity Breadth mixed marks \u2014 prefer RV or reduced size.\nRelative Value: neutral \u2014 IWM/SPY participation pair (low)\nSelected Implementation: \u2014\nRV Series: iwm_spy_ratio\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q2\nRV Percentile: 44.4\nRV Richness: fair\nKey Observation: Equity Breadth horizon_net +0 from suggested tracer marks.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014\n\n--- NODE COCKPIT: High-Beta / BTC ---\nNode ID: highbeta\nComposite Score: 72\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: 0\nHorizon Marks: d1\u2192 d5\u2192 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 High-Beta / BTC mixed marks \u2014 prefer RV or reduced size.\nRelative Value: neutral \u2014 IBIT vs QQQ beta spread (low)\nSelected Implementation: \u2014\nRV Series: ibit_qqq_beta_spread\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q2\nRV Percentile: 38.1\nRV Richness: fair\nKey Observation: BTC bias Neutral; horizon_net +0.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014\n\n--- NODE COCKPIT: Basis & Term Structure ---\nNode ID: basis\nComposite Score: 100\nComposite Score Source: weighted_components\nBand: Supportive\nBand Key: supportive\nFreshness Status: stale\nHorizon Net: 0\nHorizon Marks: d1\u2192 d5\u2192 d20\u2192 d60\u2192\nDirectional: neutral (low) \u2014 Basis & Term Structure mixed marks \u2014 prefer RV or reduced size.\nRelative Value: short_spread \u2014 BT near vs deferred calendar (medium)\nSelected Implementation: \u2014\nRV Series: btc_calendar_bt_near_deferred\nRV Direction: higher_is_richer\nRV Horizon: 3m\nRV Quartile: Q3\nRV Percentile: 57.1\nRV Richness: rich\nKey Observation: Calendar at 65525.00% (Jun/Back); horizon_net +0.\nFunds Flow Enabled: false\nFunds Flow Status: unavailable\nFunds Flow Source: none\nFunds Flow Degraded: true\nFunds Flow Fallback Reason: non_credit_node_no_fallback\nFunds Flow Verdict: neutral\nFunds Flow Confidence Penalty: 0\nFunds Flow Summary: \u2014",
   "warnings": [
+    "Partial hydration \u2014 single track only",
     "ornn_h200: stub data (live fetch not configured)",
     "miso_indiana_hub: stub data (live fetch not configured)"
   ],
@@ -1942,1227 +1829,11 @@
   },
   "ingest_provenance": {
     "window_hours": 48,
-    "staged_count": 85,
-    "entries": [
-      {
-        "filename": "futures_intraday_20260707_0718.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.620534+00:00",
-        "sha256": "72114793b9a67c69ad99a4f360e0115630702e95cd06229201e0ebecafeed562"
-      },
-      {
-        "filename": "futures_intraday_20260707_0741.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.622542+00:00",
-        "sha256": "719d00591710eff447a7f01327c05b92151a2a1d788f5a2233f4d83f5d373a0b"
-      },
-      {
-        "filename": "futures_intraday_20260707_0743.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.624410+00:00",
-        "sha256": "5060f6df32320a0ad6c5fe65c1dc5acd0123feca0925fbf5357b5482c251be9e"
-      },
-      {
-        "filename": "futures_intraday_20260707_1356.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.625503+00:00",
-        "sha256": "d8d41c152e4d26f53fa3823aaa874db5a4ae0d9d38bbe1365ef5ad6eb00a8a23"
-      },
-      {
-        "filename": "futures_intraday_20260707_1526.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.628206+00:00",
-        "sha256": "c429067e1d5983d637e6f8cb06067debcf86780b6dcd2578ee1b3dfd52e365ae"
-      },
-      {
-        "filename": "futures_intraday_20260707_1622.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.629919+00:00",
-        "sha256": "36a9a011eab25796c9cd594c1b89e3c7c68b69c207fc3e4d93fdd5851221d276"
-      },
-      {
-        "filename": "futures_intraday_20260707_1629.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.631670+00:00",
-        "sha256": "c441e52e7b79796796fbef0123cfe0ad718b6a594d4ce80ed6c3634c98baf710"
-      },
-      {
-        "filename": "futures_intraday_20260707_1652.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.633379+00:00",
-        "sha256": "d515c24d4beda5a0dff45b1e15149d054eba2d668904d45d728f73ebc7612ba0"
-      },
-      {
-        "filename": "futures_intraday_20260707_2019.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.636071+00:00",
-        "sha256": "c429067e1d5983d637e6f8cb06067debcf86780b6dcd2578ee1b3dfd52e365ae"
-      },
-      {
-        "filename": "futures_intraday_20260707_2024.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.637777+00:00",
-        "sha256": "6ede7fd838859b5881547bcd33daf4203a8d02d9372989486ae6c72f4a76593f"
-      },
-      {
-        "filename": "futures_intraday_20260707_2241.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.639600+00:00",
-        "sha256": "b721008605f462d2a71c703aa1bf44d93b308de7b156eafcb92da647d5a99d1b"
-      },
-      {
-        "filename": "futures_intraday_20260707_2243.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.641342+00:00",
-        "sha256": "c92d77257a5d419665aa6a521bba0da597a77b27e807b4728c52706da153cb53"
-      },
-      {
-        "filename": "futures_intraday_20260707_2245.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.642944+00:00",
-        "sha256": "d47e07d4daf84d0e2b3ebbc2e554f793847c4031d431cb6fb57a2293a71bee37"
-      },
-      {
-        "filename": "futures_intraday_20260707_2246.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.644686+00:00",
-        "sha256": "48a79a17d2c542ac5616d17e79cd53520965d659d2232a8955fea505f5ad517a"
-      },
-      {
-        "filename": "futures_intraday_20260707_2250.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.646417+00:00",
-        "sha256": "7a5108dbcafcbfcb20c825fe7da6df54b91ab80c3fe4e9e20b183c03e2b8b410"
-      },
-      {
-        "filename": "futures_intraday_20260707_2256.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.648446+00:00",
-        "sha256": "6bec94961d6eaec2b4987f9f4424be5a2a7a0f6fca5c9bce6cda3ca8982cd484"
-      },
-      {
-        "filename": "futures_intraday_20260709_0936.csv",
-        "dataset": "futures_intraday",
-        "source": "barchart",
-        "source_class": "barchart_quote_snapshot",
-        "output_kind": "quote_snapshot",
-        "output_kinds": [
-          "quote_snapshot",
-          "execution_l3"
-        ],
-        "vendor": "barchart",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-09T14:37:30.608723+00:00",
-        "sha256": "ba7a6d56e5665629f30b1e927160d5e667031954fbd0b4ba393169a074943868"
-      },
-      {
-        "filename": "credit_20260707_0718.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.304157+00:00",
-        "sha256": "264f84edcc72f0086848d9a3c4921c920de862d798d6735df06300a2db94e163"
-      },
-      {
-        "filename": "credit_20260707_0741.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.321389+00:00",
-        "sha256": "fa4736d5a03d4aa3a54914f42e00b0f812ebb11ae0a91627a46754848f1c7fb0"
-      },
-      {
-        "filename": "credit_20260707_0743.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.337976+00:00",
-        "sha256": "fa4736d5a03d4aa3a54914f42e00b0f812ebb11ae0a91627a46754848f1c7fb0"
-      },
-      {
-        "filename": "credit_20260707_1356.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.354919+00:00",
-        "sha256": "ece0bf24ae9cb78f993beb713edd7f1153311cc34aebc8ef9cea884fc3dcc7ca"
-      },
-      {
-        "filename": "credit_20260707_1526.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.371587+00:00",
-        "sha256": "c4f4ea0a479e5a48a5486dab50a11f5d8f116155300192bd1969ec5a206a53ab"
-      },
-      {
-        "filename": "credit_20260707_1622.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.389581+00:00",
-        "sha256": "193e16f5ca98674d02748f17db249e2681e30779a0c00f1675a236c4fa914445"
-      },
-      {
-        "filename": "credit_20260707_1629.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.407951+00:00",
-        "sha256": "193e16f5ca98674d02748f17db249e2681e30779a0c00f1675a236c4fa914445"
-      },
-      {
-        "filename": "credit_20260707_1652.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.424830+00:00",
-        "sha256": "193e16f5ca98674d02748f17db249e2681e30779a0c00f1675a236c4fa914445"
-      },
-      {
-        "filename": "credit_20260707_2019.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.443360+00:00",
-        "sha256": "365d5f8656682089b49b64b90072eea4859bf9a8940d74a35c040e9555dfdc06"
-      },
-      {
-        "filename": "credit_20260707_2024.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.460347+00:00",
-        "sha256": "365d5f8656682089b49b64b90072eea4859bf9a8940d74a35c040e9555dfdc06"
-      },
-      {
-        "filename": "credit_20260707_2241.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.477224+00:00",
-        "sha256": "6861b970f1a80dc57f0aaa5b62126670e686d8cafad2cb5bcb01c71abaad665c"
-      },
-      {
-        "filename": "credit_20260707_2243.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.493642+00:00",
-        "sha256": "6861b970f1a80dc57f0aaa5b62126670e686d8cafad2cb5bcb01c71abaad665c"
-      },
-      {
-        "filename": "credit_20260707_2245.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.510238+00:00",
-        "sha256": "6861b970f1a80dc57f0aaa5b62126670e686d8cafad2cb5bcb01c71abaad665c"
-      },
-      {
-        "filename": "credit_20260707_2247.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.526594+00:00",
-        "sha256": "6861b970f1a80dc57f0aaa5b62126670e686d8cafad2cb5bcb01c71abaad665c"
-      },
-      {
-        "filename": "credit_20260707_2250.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.543550+00:00",
-        "sha256": "6861b970f1a80dc57f0aaa5b62126670e686d8cafad2cb5bcb01c71abaad665c"
-      },
-      {
-        "filename": "credit_20260707_2256.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.560676+00:00",
-        "sha256": "6861b970f1a80dc57f0aaa5b62126670e686d8cafad2cb5bcb01c71abaad665c"
-      },
-      {
-        "filename": "credit_20260709_0937.csv",
-        "dataset": "credit",
-        "source": "koyfin",
-        "source_class": "koyfin_snapshot_csv",
-        "output_kind": "snapshot",
-        "output_kinds": [
-          "snapshot_validation",
-          "universe_membership"
-        ],
-        "vendor": "koyfin",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-09T14:37:30.575105+00:00",
-        "sha256": "0e3dc8d81da4b2767aa9f6e9d950cd31040d8703224de8d6bd6d59128a0de248"
-      },
-      {
-        "filename": "equities_20260707_0718.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.576891+00:00",
-        "sha256": "88fea3198d8f51bebf160afb428d6ec3cc997616c6aaf540db8c461e8d3b5604"
-      },
-      {
-        "filename": "equities_20260707_0742.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.578252+00:00",
-        "sha256": "88fea3198d8f51bebf160afb428d6ec3cc997616c6aaf540db8c461e8d3b5604"
-      },
-      {
-        "filename": "equities_20260707_0743.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.579506+00:00",
-        "sha256": "88fea3198d8f51bebf160afb428d6ec3cc997616c6aaf540db8c461e8d3b5604"
-      },
-      {
-        "filename": "equities_20260707_1356.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.580675+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_1526.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.581764+00:00",
-        "sha256": "a232b9438a6a64bc445bd5ef528c59018aa58f5a62e759fa7f672ed9982350a4"
-      },
-      {
-        "filename": "equities_20260707_1622.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.582873+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_1630.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.584402+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_1652.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.585975+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2020.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.587377+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2024.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.588757+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2242.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.591336+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2243.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.593591+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2245.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.595133+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2247.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.596359+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2250.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.597549+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260707_2256.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.600099+00:00",
-        "sha256": "6ab2bed5efa12dea37c1d8e32822ab2a19b48776591616ee0f592cd4c996fd45"
-      },
-      {
-        "filename": "equities_20260709_0937.csv",
-        "dataset": "equities",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-09T14:37:30.597213+00:00",
-        "sha256": "1a87c3fee7f778505ade5a48a75838fc39443c75fcd9e6617849e489d23828b1"
-      },
-      {
-        "filename": "flows_20260707_0718.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.601067+00:00",
-        "sha256": "a1b652c1fc0b0d0f6738d16bbb49fd507886a6f0e13a85687567d614fc9e7271"
-      },
-      {
-        "filename": "flows_20260707_0741.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.601768+00:00",
-        "sha256": "a1b652c1fc0b0d0f6738d16bbb49fd507886a6f0e13a85687567d614fc9e7271"
-      },
-      {
-        "filename": "flows_20260707_0743.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.603149+00:00",
-        "sha256": "a1b652c1fc0b0d0f6738d16bbb49fd507886a6f0e13a85687567d614fc9e7271"
-      },
-      {
-        "filename": "flows_20260707_1356.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.603875+00:00",
-        "sha256": "00b1653dcde959221d08cb10723c97c8d2c49e5fb9f00747e071006ccc878bfe"
-      },
-      {
-        "filename": "flows_20260707_1526.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.604509+00:00",
-        "sha256": "980d6c06c8c403f23daf8f010f4ce52c1adb4afc3c08e89c1223a350c8a607a4"
-      },
-      {
-        "filename": "flows_20260707_1622.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.607010+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_1629.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.608572+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_1652.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.609357+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2019.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.610083+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2024.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.610712+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2241.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.611458+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2243.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.612676+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2245.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.613343+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2247.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.615256+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2250.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.617596+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260707_2256.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.618838+00:00",
-        "sha256": "77c0c17de0ab93e6539fc396214a4ebe74ac4dece6fc565b079269f519fddebc"
-      },
-      {
-        "filename": "flows_20260709_0937.csv",
-        "dataset": "flows",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-09T14:37:30.605569+00:00",
-        "sha256": "3f6cd2268aaadea49499370db822a847573562be46d22f212b3b8760bd6002f9"
-      },
-      {
-        "filename": "rates_20260707_0718.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.649795+00:00",
-        "sha256": "017cd71b4d36cfb611c8a5d41fced7b450e8e17afe9b58b6f51cc3db38c4cc97"
-      },
-      {
-        "filename": "rates_20260707_0741.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.651371+00:00",
-        "sha256": "899a593eb70bc641e9d02507e6ea938e45086ef90a12bd2aa898c4c8a62b603d"
-      },
-      {
-        "filename": "rates_20260707_0743.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.652727+00:00",
-        "sha256": "899a593eb70bc641e9d02507e6ea938e45086ef90a12bd2aa898c4c8a62b603d"
-      },
-      {
-        "filename": "rates_20260707_1356.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.654259+00:00",
-        "sha256": "fc87c554ab2052281f5f2903f669875302ccd5eefc7afe92f2eeee9e83558290"
-      },
-      {
-        "filename": "rates_20260707_1526.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.656399+00:00",
-        "sha256": "fc87c554ab2052281f5f2903f669875302ccd5eefc7afe92f2eeee9e83558290"
-      },
-      {
-        "filename": "rates_20260707_1622.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.657956+00:00",
-        "sha256": "fc87c554ab2052281f5f2903f669875302ccd5eefc7afe92f2eeee9e83558290"
-      },
-      {
-        "filename": "rates_20260707_1629.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.659296+00:00",
-        "sha256": "fc87c554ab2052281f5f2903f669875302ccd5eefc7afe92f2eeee9e83558290"
-      },
-      {
-        "filename": "rates_20260707_1652.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.661986+00:00",
-        "sha256": "fc87c554ab2052281f5f2903f669875302ccd5eefc7afe92f2eeee9e83558290"
-      },
-      {
-        "filename": "rates_20260707_2019.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.663299+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2024.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.664770+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2241.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.666409+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2243.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.668097+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2245.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.669472+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2247.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.671188+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2250.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.672617+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260707_2256.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-08T03:56:43.674139+00:00",
-        "sha256": "2a7479d4d32dcec5e27552b61fc62d9405f1c7a4058b1266763e964a049722d9"
-      },
-      {
-        "filename": "rates_20260709_0937.csv",
-        "dataset": "rates",
-        "source": "koyfin",
-        "source_class": "unknown",
-        "output_kind": "unknown",
-        "output_kinds": [],
-        "vendor": "",
-        "priority": "",
-        "canonical_assets": [],
-        "staged_at": "2026-07-09T14:37:30.610532+00:00",
-        "sha256": "ae6e29d1ba4fce20d0281375f1feea28b16519f02113c22af046c0663f52bebf"
-      }
-    ],
-    "output_kinds": {
-      "quote_snapshot": 17,
-      "snapshot": 17,
-      "unknown": 51
-    },
-    "primary_output_kind": "unknown",
-    "source_classes": [
-      "barchart_quote_snapshot",
-      "koyfin_snapshot_csv",
-      "unknown"
-    ]
+    "staged_count": 0,
+    "entries": [],
+    "output_kinds": {},
+    "primary_output_kind": "derived_signals",
+    "source_classes": []
   },
   "ai_compute": {
     "as_of": "2026-07-09",
@@ -3386,21 +2057,22 @@
   },
   "hydration_audit": {
     "audit_version": "1.0.0",
-    "generated_at": "2026-07-11T17:49:50.382644+00:00",
+    "generated_at": "2026-07-13T23:57:48.083632+00:00",
     "snapshot_id": "global-2026-07-09-raw2wtm-01",
     "lineage_hash": "sha256:28266c7ed32c867b0a723a387738c34473e1fb08663aae721ca2ed90ede8283e",
     "summary": {
       "total_fields": 43,
       "required_fields": 33,
-      "required_ok": 33,
+      "required_ok": 28,
       "status_counts": {
-        "ok": 36,
-        "optional_empty": 1,
+        "ok": 30,
+        "optional_empty": 2,
+        "empty": 5,
         "partial": 6
       },
       "bundle_quality_score": 63,
       "tc_session_level": "ok",
-      "coverage_pct": 100.0
+      "coverage_pct": 84.8
     },
     "fields": [
       {
@@ -3540,10 +2212,10 @@
         "field": "policy_strength",
         "bundle_path": "china.policy_strength",
         "ui_target": "#chinaPolicyStrength",
-        "status": "ok",
+        "status": "empty",
         "required": true,
-        "value": 50,
-        "value_preview": "50",
+        "value": null,
+        "value_preview": "\u2014",
         "notes": ""
       },
       {
@@ -3551,10 +2223,10 @@
         "field": "state_impulse_score",
         "bundle_path": "china.state_impulse_score",
         "ui_target": "#chinaStateImpulse",
-        "status": "ok",
+        "status": "empty",
         "required": true,
-        "value": 0,
-        "value_preview": "0",
+        "value": null,
+        "value_preview": "\u2014",
         "notes": ""
       },
       {
@@ -3562,10 +2234,10 @@
         "field": "growth_impulse_score",
         "bundle_path": "china.growth_impulse_score",
         "ui_target": "#chinaGrowthImpulse",
-        "status": "ok",
+        "status": "empty",
         "required": true,
-        "value": 0,
-        "value_preview": "0",
+        "value": null,
+        "value_preview": "\u2014",
         "notes": ""
       },
       {
@@ -3573,10 +2245,10 @@
         "field": "sq3_score",
         "bundle_path": "china.sq3_score",
         "ui_target": "SQ3 chip \u00b7 command bar",
-        "status": "ok",
+        "status": "empty",
         "required": true,
-        "value": 35,
-        "value_preview": "35",
+        "value": null,
+        "value_preview": "\u2014",
         "notes": ""
       },
       {
@@ -3584,10 +2256,10 @@
         "field": "regime_tag",
         "bundle_path": "china.regime_tag",
         "ui_target": "#chinaRegimeTag",
-        "status": "ok",
+        "status": "empty",
         "required": true,
-        "value": "desk-auto",
-        "value_preview": "desk-auto",
+        "value": null,
+        "value_preview": "\u2014",
         "notes": ""
       },
       {
@@ -3595,10 +2267,10 @@
         "field": "as_of",
         "bundle_path": "china.as_of",
         "ui_target": "China freshness",
-        "status": "ok",
+        "status": "optional_empty",
         "required": false,
-        "value": "2026-07-09T14:37:30+00:00",
-        "value_preview": "2026-07-09T14:37:30+00:00",
+        "value": null,
+        "value_preview": "\u2014",
         "notes": ""
       },
       {
@@ -4100,6 +2772,41 @@
       }
     },
     "remediation": [
+      {
+        "priority": "high",
+        "field": "china_intake.policy_strength",
+        "bundle_path": "china.policy_strength",
+        "ui_target": "#chinaPolicyStrength",
+        "action": "Populate china.policy_strength in pipeline or staged ingest"
+      },
+      {
+        "priority": "high",
+        "field": "china_intake.state_impulse_score",
+        "bundle_path": "china.state_impulse_score",
+        "ui_target": "#chinaStateImpulse",
+        "action": "Populate china.state_impulse_score in pipeline or staged ingest"
+      },
+      {
+        "priority": "high",
+        "field": "china_intake.growth_impulse_score",
+        "bundle_path": "china.growth_impulse_score",
+        "ui_target": "#chinaGrowthImpulse",
+        "action": "Populate china.growth_impulse_score in pipeline or staged ingest"
+      },
+      {
+        "priority": "high",
+        "field": "china_intake.sq3_score",
+        "bundle_path": "china.sq3_score",
+        "ui_target": "SQ3 chip \u00b7 command bar",
+        "action": "Populate china.sq3_score in pipeline or staged ingest"
+      },
+      {
+        "priority": "high",
+        "field": "china_intake.regime_tag",
+        "bundle_path": "china.regime_tag",
+        "ui_target": "#chinaRegimeTag",
+        "action": "Populate china.regime_tag in pipeline or staged ingest"
+      },
       {
         "priority": "medium",
         "field": "node_flows.liquidity.flows_status",

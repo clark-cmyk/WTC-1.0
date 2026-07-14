@@ -1,31 +1,39 @@
+#!/usr/bin/env python3
+"""Real run_csv_download.py - calls the actual pipeline."""
 import sys
-import os
+import json
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
-sys.path.insert(0, str(BASE_DIR))
-sys.path.insert(0, str(BASE_DIR / "whinfell_pipeline"))
+REPO_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(REPO_ROOT))
+sys.path.insert(0, str(REPO_ROOT / "whinfell_pipeline"))
 
 from whinfell_pipeline.csv_download import cmd_daily
 
 def main():
-    import argparse
-    parser = argparse.ArgumentParser()
-    parser.add_argument("mode", choices=["daily"])
-    args = parser.parse_args()
-
-    if args.mode == "daily":
+    mode = sys.argv[1] if len(sys.argv) > 1 else "daily"
+    try:
         result = cmd_daily(
-            downloads_dir=BASE_DIR / "data" / "downloads",
-            staged_root=BASE_DIR / "staged_raw",
+            downloads_dir=REPO_ROOT / "data" / "downloads",
+            staged_root=REPO_ROOT / "staged_raw",
             operator="default",
             window="1d",
-            export_path=BASE_DIR / "data",
-            hydrate_output=BASE_DIR / "data" / "hydrated"  # Use Path instead of bool
+            export_path=REPO_ROOT / "data",
+            hydrate_output=REPO_ROOT / "data" / "hydration" / "latest.json"
         )
-        print(result)
-    else:
-        print("Only 'daily' mode supported right now")
+        print(json.dumps({
+            "success": True,
+            "mode": mode,
+            "message": "Daily pipeline completed",
+            "stage_files": result.stage.files_staged,
+            "hydrate_output": str(result.hydrate_output),
+            "errors": result.errors
+        }, indent=2))
+    except Exception as e:
+        print(json.dumps({
+            "success": False,
+            "error": str(e)
+        }, indent=2))
 
 if __name__ == "__main__":
     main()

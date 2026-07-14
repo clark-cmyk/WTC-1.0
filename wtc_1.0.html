@@ -9,7 +9,7 @@
         .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
         .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
         .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
-        
+
         .panel {
             position: relative;
             transition: all 0.25s ease;
@@ -100,7 +100,7 @@
 
             let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p>
                         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
-            
+
             Object.entries(curveData.nodes).forEach(([key, node]) => {
                 const cleanKey = key.replace(/\s+/g, '-');
                 html += `<div class="panel" onclick="copyPrompt('${key}')"
@@ -122,7 +122,7 @@
         function showScan(el, key) {
             if (!el) return;
             el.classList.add('hover-active');
-            
+
             const scanLayer = document.getElementById(`scan-${key.replace(/\s+/g, '-')}`);
             const node = getNode(key);
             if (!scanLayer || !node) return;
@@ -204,6 +204,14 @@ Cross asset themes and trade recommendations.`;
         }
 
         function refreshAllData() {
+    console.log("Drone init CSV download");
+    // Trigger DeepSeek drone + Grok read
+    if (typeof window.runDroneCSV === "function") window.runDroneCSV();
+
+    console.log("Drone init CSV download");
+    // Trigger DeepSeek drone + Grok read
+    if (typeof window.runDroneCSV === "function") window.runDroneCSV();
+
             if (window.ARK && typeof window.ARK.refresh === 'function') window.ARK.refresh();
             showToast("Data refreshed");
             switchModule(currentTabId);
@@ -262,35 +270,55 @@ Cross asset themes and trade recommendations.`;
         }
     </script>
 
+    # Whinfell Dashboard Refresh - Unified Function
+
+    ## Core Script (Copy & Paste Ready)
+
+    ```html
     <script>
-        // Override refreshAllData to call Drone Wars API
-        window.refreshAllData = async function() {
-            try {
-                const response = await fetch('http://localhost:5001/api/refresh-data', { method: 'POST' });
-                const data = await response.json();
-                if (data.success && data.panel_content) {
-                    // Update panels if they exist
-                    Object.keys(data.panel_content).forEach(key => {
-                        const panelId = key + '-panel';
-                        const panel = document.getElementById(panelId);
-                        if (panel) {
-                            const contentDiv = panel.querySelector('.content');
-                            if (contentDiv) contentDiv.innerHTML = data.panel_content[key];
-                        }
-                    });
+    async function refreshAllData() {
+        const btn = document.querySelector('.top-right button');
+        const originalText = btn ? btn.innerHTML : '🔄';
+
+        try {
+            if (btn) btn.innerHTML = '⏳';
+            showToast("Starting daily collection...");
+
+            const response = await fetch('http://localhost:5001/api/trigger-collection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    command: "daily",
+                    source: "all"
+                })
+            });
+
+            if (!response.ok) throw new Error("Backend error");
+
+            const result = await response.json();
+
+            if (result.success) {
+                showToast("✅ Collection completed successfully");
+                if (window.ARK && typeof window.ARK.refresh === 'function') {
+                    window.ARK.refresh();
                 }
-                showToast("Drone Wars refresh completed");
-            } catch (e) {
-                console.error(e);
-                showToast("Backend not reachable");
+                switchModule(currentTabId);
+            } else {
+                showToast("⚠️ Collection completed with issues");
             }
-        };
+        } catch (err) {
+            console.error(err);
+            showToast("❌ Backend not reachable on port 5001. Make sure app.py is running.");
+        } finally {
+            if (btn) btn.innerHTML = originalText;
+        }
+    }
     </script>
 
     <script>
         async function startBackendIfNeeded() {
             try {
-                const response = await fetch('http://localhost:5001/health');
+                const response = await localLoadJSON('http://localhost:5001/health');
                 if (response.ok) return true;
             } catch (e) {
                 // Backend not running
@@ -302,7 +330,7 @@ Cross asset themes and trade recommendations.`;
         window.refreshData = async function() {
             await startBackendIfNeeded();
             try {
-                const response = await fetch('http://localhost:5001/api/refresh-data', { method: 'POST' });
+                const response = await localLoadJSON('http://localhost:5001/api/refresh-data', { method: 'POST' });
                 const data = await response.json();
                 if (data.success && data.panel_content) {
                     updatePanel('liquidity-panel', data.panel_content.liquidity);
@@ -320,11 +348,11 @@ Cross asset themes and trade recommendations.`;
     <script>
         async function ensureBackendRunning() {
             try {
-                const response = await fetch('http://localhost:5001/health', { method: 'GET' });
+                const response = await localLoadJSON('http://localhost:5001/health', { method: 'GET' });
                 if (response.ok) return true;
             } catch (e) {
                 // Backend not running
-                const startResponse = await fetch('http://localhost:5001/start', { method: 'POST' });
+                const startResponse = await localLoadJSON('http://localhost:5001/start', { method: 'POST' });
                 if (startResponse.ok) {
                     addDroneLog('Backend started automatically');
                     return true;
@@ -336,7 +364,7 @@ Cross asset themes and trade recommendations.`;
         window.refreshData = async function() {
             await ensureBackendRunning();
             try {
-                const response = await fetch('http://localhost:5001/api/refresh-data', { method: 'POST' });
+                const response = await localLoadJSON('http://localhost:5001/api/refresh-data', { method: 'POST' });
                 const data = await response.json();
                 if (data.success && data.panel_content) {
                     updatePanel('liquidity-panel', data.panel_content.liquidity);
@@ -350,3 +378,35 @@ Cross asset themes and trade recommendations.`;
             }
         };
     </script>
+
+    // Update RCV timestamp after refresh
+    function updateTimestamp() {
+        const ts = document.getElementById("rcv-timestamp");
+        if (ts) ts.textContent = new Date().toLocaleString();
+    }
+
+
+    // Update RCV timestamp after successful refresh
+    if (data && data.summary !== undefined) {
+        const ts = document.getElementById("rcv-timestamp") || document.querySelector(".timestamp") || document.querySelector("#last-updated");
+        if (ts) ts.textContent = new Date().toLocaleString();
+    }
+
+
+    // Update RCV timestamp after successful refresh
+    const timestampEl = document.getElementById("rcv-timestamp") || document.querySelector(".timestamp") || document.querySelector("#last-updated");
+    if (timestampEl) timestampEl.textContent = new Date().toLocaleString();
+
+<script>
+function localLoadJSON() {
+  console.log("Loading local Barchart JSON for panels");
+  fetch('data/barchart/v1/barchart_core_history.json')
+    .then(r => r.json())
+    .then(data => {
+      // Bind to ARK panels/hover/summary
+      if (window.ARK) window.ARK.updatePanels(data);
+      console.log("Commentary updated with", data.length, "rows");
+    })
+    .catch(e => console.error("JSON load fail", e));
+}
+</script>

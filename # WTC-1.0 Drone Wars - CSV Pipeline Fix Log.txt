@@ -44,3 +44,56 @@
 - Commit and push to GitHub
 
 **Next Action**: Update `core.py` to consume real CSV output.
+
+
+####
+
+# WTC 1.0 - How to Create Run Environment
+
+**Last Updated**: July 13, 2026
+
+## 1. Setup Venv
+```bash
+cd ~/Desktop/wtc_1.0
+python3 -m venv venv
+source venv/bin/activate
+
+pip install flask httpx python-dotenv pyyaml pandas
+
+GROK_API_KEY=xai-...
+
+4. Path Fixes
+
+Ensure whinfell_pipeline and china_policy_track are in PYTHONPATH
+Run PYTHONPATH=. for tests
+
+5. Run Commands
+
+CSV only: PYTHONPATH=. python run_csv_download.py daily
+Full cycle: PYTHONPATH=. python -m drone_wars.core
+
+Common Issues
+
+Missing yaml → pip install pyyaml
+Key not loaded → load_dotenv()
+Import errors → Check sys.path and archive files
+
+TODO: Add Barchart/Koyfin API keys when ready.
+
+Open it:
+
+```bash
+open WTC_1.0_Run_Environment_Setup.md
+
+
+###
+
+
+cd ~/Desktop/wtc_1.0
+grep -n "refresh\|panel\|drone\|json" wtc_1.0.html | head -10
+
+
+List by code line 
+
+
+

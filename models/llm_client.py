@@ -8,12 +8,8 @@ class LLMClient:
     def __init__(self):
         self.grok_api_key = os.getenv("GROK_API_KEY")
         self.base_url = "https://api.x.ai/v1"
-        self.default_model = "grok-4.3"
 
-    async def call(self, prompt: str, model: str = None) -> Dict[str, Any]:
-        if model is None:
-            model = self.default_model
-
+    async def call(self, prompt: str, model: str = "grok-4.5") -> Dict[str, Any]:
         try:
             headers = {
                 "Authorization": f"Bearer {self.grok_api_key}",
@@ -58,4 +54,4 @@ Respond with ONLY valid JSON. No explanations. No markdown. No extra text.
 
         except Exception as e:
             print(f"LLMClient error: {str(e)}")
-            return {"error": str(e), "model_used": model}
+            return {"error": str(e)}

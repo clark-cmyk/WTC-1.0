@@ -2057,7 +2057,7 @@
   },
   "hydration_audit": {
     "audit_version": "1.0.0",
-    "generated_at": "2026-07-13T15:03:25.731068+00:00",
+    "generated_at": "2026-07-13T16:28:27.250350+00:00",
     "snapshot_id": "global-2026-07-09-raw2wtm-01",
     "lineage_hash": "sha256:28266c7ed32c867b0a723a387738c34473e1fb08663aae721ca2ed90ede8283e",
     "summary": {

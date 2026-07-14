@@ -1,38 +1,48 @@
 from flask import Flask, request, jsonify
-import subprocess
-import os
+import sys
+from pathlib import Path
+
+# Add repo root to path
+REPO_ROOT = Path(__file__).resolve().parent
+sys.path.append(str(REPO_ROOT))
+
+from whinfell_pipeline.agent_wrapper import run_full_daily
 
 app = Flask(__name__)
 
-@app.route('/api/collect-data', methods= )
-def collect_data():
-    try:
-        data = request.get_json() or        source = data.get('source', 'all')
-        
-        print(f"Received collection request for: {source}")
-        
-        # Run your existing Python downloader
-        result = subprocess.run( , capture_output=True, text=True, cwd=os.path.dirname(os.path.dirname(__file__)))
-        
-        if result.returncode == 0:
-            return jsonify({
-                "success": True,
-                "message": "Data collection completed",
-                "source": source,
-                "output": result.stdout.strip()
-            })
-        else:
-            return jsonify({
-                "success": False,
-                "message": "Python script failed",
-                "error": result.stderr.strip()
-            }), 500
-            
-    except Exception as e:
-        return jsonify({
-            "success": False,
-            "message": str(e)
-        }), 500
+@app.route("/")
+def home():
+    return jsonify({"status": "ok", "message": "WTC 1.0 Backend running"})
 
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+@app.route("/health")
+def health():
+    return jsonify({"status": "ok", "message": "WTC 1.0 Backend running"})
+
+@app.route("/start", methods=['POST'])
+def start_backend():
+    return jsonify({"status": "ok", "message": "Backend is running"})
+
+@app.route('/api/trigger-collection', methods=['POST', 'OPTIONS'])
+def trigger_collection():
+    if request.method == 'OPTIONS':
+        return jsonify({}), 200
+
+    try:
+        data = request.get_json() or {}
+        command = data.get('command', 'daily')
+        
+        result = run_full_daily()
+        
+        return jsonify({
+            "success": result.get("success", False),
+            "command": command,
+            "message": result.get("message", ""),
+            "error": result.get("error"),
+            "stdout": result.get("stdout", "")
+        })
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+if __name__ == "__main__":
+    print("🚀 WTC-1.0 Drone Wars Backend started on http://localhost:5001")
+    app.run(host="0.0.0.0", port=5001, debug=True)

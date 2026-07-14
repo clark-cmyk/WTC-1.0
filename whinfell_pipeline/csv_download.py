@@ -623,7 +623,7 @@ def cmd_barchart_history(*, verbose: bool = False) -> tuple[int, str]:
     def _log(msg: str) -> None:
         lines.append(msg)
 
-    result = run_barchart_hydration(file_only=True, verbose=verbose, log_fn=_log)
+    result = run_barchart_hydration(file_only=False, verbose=verbose, log_fn=_log)
     counts = result["counts"]
     m = result["manifest"]
     summary = [
