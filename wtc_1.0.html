@@ -98,11 +98,15 @@
                 return;
             }
 
+            console.log("[UI] Rendering Risk Curve with", Object.keys(curveData.nodes).length, "nodes");
+
             let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p>
                         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
 
             Object.entries(curveData.nodes).forEach(([key, node]) => {
                 const cleanKey = key.replace(/\s+/g, '-');
+                const commentary = node.commentary || "Market conditions evolving...";
+
                 html += `<div class="panel" onclick="copyPrompt('${key}')"
                             onmouseover="showScan(this, '${key}')"
                             onmouseout="hideScan(this)">
@@ -110,6 +114,7 @@
                     <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
                     <div>${node.status} ${node.quartile}</div>
                     <p>${node.description}</p>
+                    <small style="color:#0A4D2E; font-style:italic; display:block; margin:8px 0 12px 0;">${commentary}</small>
                     <button class="a-btn" onclick="event.stopImmediatePropagation(); articulateNode('${key}');">A</button>
                     <div class="scan-layer" id="scan-${cleanKey}"></div>
                     <div class="dig-layer" id="dig-${cleanKey}">DIG Layer active for ${key}...</div>
@@ -131,7 +136,6 @@
             html += `<strong>Metric:</strong> ${node.metricDefinition || 'Core risk indicator'}: ${node.metricInsight || 'Market condition gauge.'}<br><br>`;
             html += `<strong>Role on Risk Curve:</strong> ${node.role || 'N/A'}<br>`;
             html += `<strong>Risk Adjacent Nodes:</strong> ${node.adjacent || 'N/A'}<br><br>`;
-
             html += `<strong>Score:</strong> ${node.score} (${node.quartile})<br><br>`;
             html += `<strong>Regime:</strong> ${node.regime || 'N/A'}<br><br>`;
             html += `<strong>Why:</strong> ${node.scoreReason || 'N/A'}<br><br>`;
@@ -203,18 +207,30 @@ Cross asset themes and trade recommendations.`;
             setTimeout(() => t.remove(), 2500);
         }
 
-        function refreshAllData() {
-    console.log("Drone init CSV download");
-    // Trigger DeepSeek drone + Grok read
-    if (typeof window.runDroneCSV === "function") window.runDroneCSV();
+        async function refreshAllData() {
+            const btn = document.querySelector('.top-right button');
+            const originalText = btn ? btn.innerHTML : '🔄';
 
-    console.log("Drone init CSV download");
-    // Trigger DeepSeek drone + Grok read
-    if (typeof window.runDroneCSV === "function") window.runDroneCSV();
+            try {
+                if (btn) btn.innerHTML = '⏳ Refreshing...';
+                showToast("🚀 Starting full refresh...");
 
-            if (window.ARK && typeof window.ARK.refresh === 'function') window.ARK.refresh();
-            showToast("Data refreshed");
-            switchModule(currentTabId);
+                if (window.ARK && typeof window.ARK.refresh === 'function') {
+                    console.log("[UI] Triggering ARK refresh...");
+                    await window.ARK.refresh();
+                }
+
+                if (typeof switchModule === 'function') {
+                    switchModule(currentTabId);
+                }
+
+                showToast("✅ Risk Curve refreshed");
+            } catch (err) {
+                console.error("[UI] Refresh failed:", err);
+                showToast("❌ Refresh failed");
+            } finally {
+                if (btn) btn.innerHTML = originalText;
+            }
         }
 
         function downloadCSV() {
@@ -239,7 +255,6 @@ Cross asset themes and trade recommendations.`;
             body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
         }
 
-        function downloadCSVFromARK() { downloadCSV(); }
         function triggerDroneWars() { showToast("Drone Wars launched"); }
 
         document.addEventListener('keydown', e => {
@@ -249,179 +264,50 @@ Cross asset themes and trade recommendations.`;
             }
         });
 
+        // === ARK LORD - Risk Curve Reactivity v2 ===
+        let riskCurveUnsubscribe = null;
+
+        function renderRiskCurveUpdate(data) {
+            if (!data || !data.nodes) return;
+            console.log("[ARK Lord] Risk Curve updated → re-rendering");
+            if (currentTabId === 6 && typeof switchModule === 'function') {
+                switchModule(6);
+            }
+        }
+
+        function initRiskCurveLord() {
+            console.log("[Sovereign → ARK Lord] Initializing Risk Curve reactivity");
+
+            if (!window.BLACKBOARD) {
+                console.warn("[ARK Lord] BLACKBOARD not available");
+                return;
+            }
+
+            if (typeof riskCurveUnsubscribe === 'function') riskCurveUnsubscribe();
+
+            riskCurveUnsubscribe = window.BLACKBOARD.subscribe('risk_curve', renderRiskCurveUpdate);
+            console.log("[ARK Lord] Subscriber attached successfully");
+
+            const initialData = window.ARK ? window.ARK.get('risk_curve') : null;
+            if (initialData) renderRiskCurveUpdate(initialData);
+        }
+
+        function bootstrapRiskLord() {
+            if (window.BLACKBOARD && window.ARK) {
+                initRiskCurveLord();
+            } else {
+                setTimeout(bootstrapRiskLord, 400);
+            }
+        }
+
+        bootstrapRiskLord();
+
+        window.addEventListener('beforeunload', () => {
+            if (typeof riskCurveUnsubscribe === 'function') riskCurveUnsubscribe();
+        });
+
         renderTabs();
         switchModule(6);
     </script>
 </body>
 </html>
-    <!-- Live Drone Wars Log (Added to DRONE tab only) -->
-    <h2>Drone Wars Live Log</h2>
-    <div id="drone-logs">Waiting for refresh...</div>
-
-    <script>
-        function addDroneLog(message) {
-            const logEl = document.getElementById('drone-logs');
-            if (logEl) {
-                const entry = document.createElement('div');
-                entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
-                logEl.appendChild(entry);
-                logEl.scrollTop = logEl.scrollHeight;
-            }
-        }
-    </script>
-
-    # Whinfell Dashboard Refresh - Unified Function
-
-    ## Core Script (Copy & Paste Ready)
-
-    ```html
-    <script>
-    async function refreshAllData() {
-        const btn = document.querySelector('.top-right button') ||
-                    document.getElementById('refresh-btn');
-        const originalText = btn ? btn.innerHTML : '🔄 Refresh';
-
-        try {
-            if (btn) btn.innerHTML = '⏳ Refreshing...';
-
-            showToast("🚀 Starting full refresh...");
-
-            // 1. Backend Collection (via Drone Wars) - Optional
-            let collectionSuccess = false;
-            if (window.DRONE_WARS?.captains?.collection) {
-                try {
-                    const result = await DRONE_WARS.captains.collection.execute("daily");
-                    collectionSuccess = result.success === true;
-                    console.log("[UI] Collection result:", result);
-                } catch (e) {
-                    console.warn("[UI] Backend collection failed (continuing anyway):", e.message);
-                }
-            } else {
-                console.warn("[UI] DRONE_WARS not loaded - skipping backend collection");
-            }
-
-            // 2. Always refresh ARK Risk Curve (core priority)
-            if (window.ARK && typeof window.ARK.refresh === 'function') {
-                console.log("[UI] Triggering ARK v1.9 refresh...");
-                await window.ARK.refresh();
-                console.log("[UI] ARK Hydration Status:", window.ARK.getHydrationStatus());
-            } else {
-                console.error("[UI] ARK not available");
-            }
-
-            // 3. Re-render current tab
-            if (typeof switchModule === 'function') {
-                await switchModule(currentTabId);
-            }
-
-            // Final feedback
-            if (collectionSuccess) {
-                showToast("✅ Full refresh completed (Backend + Risk Curve)");
-            } else {
-                showToast("✅ Risk Curve refreshed (Core only)");
-            }
-
-        } catch (err) {
-            console.error("[UI] Refresh failed:", err);
-            showToast("❌ Refresh failed - check console for details");
-        } finally {
-            if (btn) btn.innerHTML = originalText;
-        }
-    }
-    </script>
-
-    <script>
-        async function startBackendIfNeeded() {
-            try {
-                const response = await localLoadJSON('http://localhost:5001/health');
-                if (response.ok) return true;
-            } catch (e) {
-                // Backend not running
-                alert("Backend not running. Start it manually with: python app.py in terminal");
-                return false;
-            }
-        }
-
-        window.refreshData = async function() {
-            await startBackendIfNeeded();
-            try {
-                const response = await localLoadJSON('http://localhost:5001/api/refresh-data', { method: 'POST' });
-                const data = await response.json();
-                if (data.success && data.panel_content) {
-                    updatePanel('liquidity-panel', data.panel_content.liquidity);
-                    updatePanel('credit-panel', data.panel_content.credit);
-                    updatePanel('equity_breadth-panel', data.panel_content.equity_breadth);
-                    updatePanel('high_beta-panel', data.panel_content.high_beta);
-                    updatePanel('bitcoin_basis-panel', data.panel_content.bitcoin_basis);
-                }
-            } catch (e) {
-                alert("Backend not reachable. Start it with: python app.py");
-            }
-        };
-    </script>
-
-    <script>
-        async function ensureBackendRunning() {
-            try {
-                const response = await localLoadJSON('http://localhost:5001/health', { method: 'GET' });
-                if (response.ok) return true;
-            } catch (e) {
-                // Backend not running
-                const startResponse = await localLoadJSON('http://localhost:5001/start', { method: 'POST' });
-                if (startResponse.ok) {
-                    addDroneLog('Backend started automatically');
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        window.refreshData = async function() {
-            await ensureBackendRunning();
-            try {
-                const response = await localLoadJSON('http://localhost:5001/api/refresh-data', { method: 'POST' });
-                const data = await response.json();
-                if (data.success && data.panel_content) {
-                    updatePanel('liquidity-panel', data.panel_content.liquidity);
-                    updatePanel('credit-panel', data.panel_content.credit);
-                    updatePanel('equity_breadth-panel', data.panel_content.equity_breadth);
-                    updatePanel('high_beta-panel', data.panel_content.high_beta);
-                    updatePanel('bitcoin_basis-panel', data.panel_content.bitcoin_basis);
-                }
-            } catch (e) {
-                alert("Backend not reachable.");
-            }
-        };
-    </script>
-
-    // Update RCV timestamp after refresh
-    function updateTimestamp() {
-        const ts = document.getElementById("rcv-timestamp");
-        if (ts) ts.textContent = new Date().toLocaleString();
-    }
-
-
-    // Update RCV timestamp after successful refresh
-    if (data && data.summary !== undefined) {
-        const ts = document.getElementById("rcv-timestamp") || document.querySelector(".timestamp") || document.querySelector("#last-updated");
-        if (ts) ts.textContent = new Date().toLocaleString();
-    }
-
-
-    // Update RCV timestamp after successful refresh
-    const timestampEl = document.getElementById("rcv-timestamp") || document.querySelector(".timestamp") || document.querySelector("#last-updated");
-    if (timestampEl) timestampEl.textContent = new Date().toLocaleString();
-
-<script>
-function localLoadJSON() {
-  console.log("Loading local Barchart JSON for panels");
-  fetch('data/barchart/v1/barchart_core_history.json')
-    .then(r => r.json())
-    .then(data => {
-      // Bind to ARK panels/hover/summary
-      if (window.ARK) window.ARK.updatePanels(data);
-      console.log("Commentary updated with", data.length, "rows");
-    })
-    .catch(e => console.error("JSON load fail", e));
-}
-</script>
