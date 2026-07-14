@@ -277,38 +277,53 @@ Cross asset themes and trade recommendations.`;
     ```html
     <script>
     async function refreshAllData() {
-        const btn = document.querySelector('.top-right button');
-        const originalText = btn ? btn.innerHTML : '🔄';
+        const btn = document.querySelector('.top-right button') ||
+                    document.getElementById('refresh-btn');
+        const originalText = btn ? btn.innerHTML : '🔄 Refresh';
 
         try {
-            if (btn) btn.innerHTML = '⏳';
-            showToast("Starting daily collection...");
+            if (btn) btn.innerHTML = '⏳ Refreshing...';
 
-            const response = await fetch('http://localhost:5001/api/trigger-collection', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    command: "daily",
-                    source: "all"
-                })
-            });
+            showToast("🚀 Starting full refresh...");
 
-            if (!response.ok) throw new Error("Backend error");
-
-            const result = await response.json();
-
-            if (result.success) {
-                showToast("✅ Collection completed successfully");
-                if (window.ARK && typeof window.ARK.refresh === 'function') {
-                    window.ARK.refresh();
+            // 1. Backend Collection (via Drone Wars) - Optional
+            let collectionSuccess = false;
+            if (window.DRONE_WARS?.captains?.collection) {
+                try {
+                    const result = await DRONE_WARS.captains.collection.execute("daily");
+                    collectionSuccess = result.success === true;
+                    console.log("[UI] Collection result:", result);
+                } catch (e) {
+                    console.warn("[UI] Backend collection failed (continuing anyway):", e.message);
                 }
-                switchModule(currentTabId);
             } else {
-                showToast("⚠️ Collection completed with issues");
+                console.warn("[UI] DRONE_WARS not loaded - skipping backend collection");
             }
+
+            // 2. Always refresh ARK Risk Curve (core priority)
+            if (window.ARK && typeof window.ARK.refresh === 'function') {
+                console.log("[UI] Triggering ARK v1.9 refresh...");
+                await window.ARK.refresh();
+                console.log("[UI] ARK Hydration Status:", window.ARK.getHydrationStatus());
+            } else {
+                console.error("[UI] ARK not available");
+            }
+
+            // 3. Re-render current tab
+            if (typeof switchModule === 'function') {
+                await switchModule(currentTabId);
+            }
+
+            // Final feedback
+            if (collectionSuccess) {
+                showToast("✅ Full refresh completed (Backend + Risk Curve)");
+            } else {
+                showToast("✅ Risk Curve refreshed (Core only)");
+            }
+
         } catch (err) {
-            console.error(err);
-            showToast("❌ Backend not reachable on port 5001. Make sure app.py is running.");
+            console.error("[UI] Refresh failed:", err);
+            showToast("❌ Refresh failed - check console for details");
         } finally {
             if (btn) btn.innerHTML = originalText;
         }
