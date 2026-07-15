@@ -57,6 +57,7 @@
     <div class="main-content" id="mainContent"></div>
 
     <script src="js/02_core.js"></script>
+    <script src="js/03_ui.js"></script>
     <script>
         let currentTabId = 6;
 
@@ -90,38 +91,38 @@
             else if (id === 9) content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch</button>`;
             else content.innerHTML = `<h2>Module ${id}</h2>`;
         }
-
         function renderRiskCurve(content) {
-            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
-            if (!curveData || !curveData.nodes) {
-                content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">No data. Check 02_core.js</p>`;
-                return;
-            }
+            content.innerHTML = `<h2>Risk Curve (RCV) — Loading from ARK...</h2>`;
 
-            console.log("[UI] Rendering Risk Curve with", Object.keys(curveData.nodes).length, "nodes");
+            ARK.refresh().then(data => {
+                console.log("[UI] Risk Curve rendered successfully");
 
-            let html = `<h2>Risk Curve (RCV)</h2><p style="color:green;">✅ Loaded • ${curveData.as_of}</p>
-                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
+                let html = `<h2>Risk Curve (RCV) • ${data.as_of}</h2>
+                            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
 
-            Object.entries(curveData.nodes).forEach(([key, node]) => {
-                const cleanKey = key.replace(/\s+/g, '-');
-                const commentary = node.commentary || "Market conditions evolving...";
+                Object.entries(data.nodes).forEach(([key, node]) => {
+                    const cleanKey = key.replace(/\s+/g, '-');
+                    const commentary = node.commentary || "Market conditions evolving...";
 
-                html += `<div class="panel" onclick="copyPrompt('${key}')"
-                            onmouseover="showScan(this, '${key}')"
-                            onmouseout="hideScan(this)">
-                    <h3>${key}</h3>
-                    <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
-                    <div>${node.status} ${node.quartile}</div>
-                    <p>${node.description}</p>
-                    <small style="color:#0A4D2E; font-style:italic; display:block; margin:8px 0 12px 0;">${commentary}</small>
-                    <button class="a-btn" onclick="event.stopImmediatePropagation(); articulateNode('${key}');">A</button>
-                    <div class="scan-layer" id="scan-${cleanKey}"></div>
-                    <div class="dig-layer" id="dig-${cleanKey}">DIG Layer active for ${key}...</div>
-                </div>`;
+                    html += `<div class="panel" onclick="copyPrompt('${key}')"
+                                onmouseover="showScan(this, '${key}')"
+                                onmouseout="hideScan(this)">
+                        <h3>${key}</h3>
+                        <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
+                        <div>${node.status} ${node.quartile}</div>
+                        <p>${node.description}</p>
+                        <small style="color:#0A4D2E; font-style:italic; display:block; margin:8px 0 12px 0;">${commentary}</small>
+                        <button class="a-btn" onclick="event.stopImmediatePropagation(); articulateNode('${key}');">A</button>
+                        <div class="scan-layer" id="scan-${cleanKey}"></div>
+                        <div class="dig-layer" id="dig-${cleanKey}">DIG Layer active for ${key}...</div>
+                    </div>`;
+                });
+                html += `</div>`;
+                content.innerHTML = html;
+            }).catch(err => {
+                console.error("[UI] Render failed:", err);
+                content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:orange;">Using fallback data</p>`;
             });
-            html += `</div>`;
-            content.innerHTML = html;
         }
 
         function showScan(el, key) {
