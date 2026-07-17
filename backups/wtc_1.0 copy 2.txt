@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTC 1.0 — Whinfell Transmission Control</title>
+    <link rel="stylesheet" href="css/01_console.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">WHINFELL</div>
+        
+        <div class="tabs" id="module-tabs"></div>
+
+        <div class="top-right">
+            <button onclick="refreshData()">Refresh Data</button>
+            <button onclick="articulate()">A</button>
+            <button onclick="toggleTheme()">🌗</button>
+        </div>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <h2>Select a module from the top</h2>
+    </div>
+
+    <script src="js/01_shell.js"></script>
+    <script src="js/02_core.js"></script>
+</body>
+</html>

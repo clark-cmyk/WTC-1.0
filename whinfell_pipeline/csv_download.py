@@ -75,5 +75,20 @@ def cmd_daily(downloads_dir=None, staged_root=None, operator="default", window="
     print(f"✅ Wrote risk curve + commentary to {hydrate_path}")
     return PipelineResult(success=True, message="Real data + commentary generated", hydrate_output=str(hydrate_path))
 
+def generate_trader_commentary(key, node):
+    score = node.get("score", 50)
+    if key == "Liquidity":
+        return "Strong liquidity supports risk assets." if score > 75 else "Liquidity adequate but monitor."
+    elif key == "Credit":
+        return "Credit widening — stay defensive." if score < 50 else "Credit stable."
+    elif key == "EquityBreadth":
+        return "Broadening rally — healthy." if score > 65 else "Still concentrated."
+    elif key == "HighBeta":
+        return "High beta under pressure." if score < 60 else "High beta performing."
+    elif key == "BTCBasis":
+        return "Strong positive basis = institutional buying." if score > 75 else "Basis neutral — monitor flows."
+    return "Market conditions evolving."
+
+
 if __name__ == "__main__":
     cmd_daily()

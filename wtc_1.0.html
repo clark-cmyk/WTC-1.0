@@ -91,6 +91,7 @@
             else if (id === 9) content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch</button>`;
             else content.innerHTML = `<h2>Module ${id}</h2>`;
         }
+
         function renderRiskCurve(content) {
             content.innerHTML = `<h2>Risk Curve (RCV) — Loading from ARK...</h2>`;
 
@@ -133,15 +134,13 @@
             const node = getNode(key);
             if (!scanLayer || !node) return;
 
-            let html = `<strong>SCAN: ${key.toUpperCase()}</strong><br>`;
-            html += `<strong>Metric:</strong> ${node.metricDefinition || 'Core risk indicator'}: ${node.metricInsight || 'Market condition gauge.'}<br><br>`;
-            html += `<strong>Role on Risk Curve:</strong> ${node.role || 'N/A'}<br>`;
-            html += `<strong>Risk Adjacent Nodes:</strong> ${node.adjacent || 'N/A'}<br><br>`;
-            html += `<strong>Score:</strong> ${node.score} (${node.quartile})<br><br>`;
-            html += `<strong>Regime:</strong> ${node.regime || 'N/A'}<br><br>`;
-            html += `<strong>Why:</strong> ${node.scoreReason || 'N/A'}<br><br>`;
-            html += `<strong>Inputs:</strong> ${node.inputs || 'N/A'}<br><br>`;
-            html += `<strong>Outputs:</strong> ${node.quantOutputs || 'N/A'}<br><br>`;
+            let html = `<strong>SCAN: ${key.toUpperCase()}</strong><br><br>`;
+            html += `<strong>Score:</strong> ${node.score} (${node.quartile})<br>`;
+            html += `<strong>Status:</strong> ${node.status}<br><br>`;
+            html += `<strong>Commentary:</strong> ${node.commentary || 'N/A'}<br><br>`;
+            html += `<strong>Why:</strong> ${node.scoreReason || 'N/A'}<br>`;
+            html += `<strong>Inputs:</strong> ${node.inputs || 'N/A'}<br>`;
+            html += `<strong>Outputs:</strong> ${node.quantOutputs || 'N/A'}<br>`;
             html += `<strong>Lookback:</strong> ${node.lookback || 'N/A'}`;
 
             scanLayer.innerHTML = html;
@@ -265,48 +264,7 @@ Cross asset themes and trade recommendations.`;
             }
         });
 
-        // === ARK LORD - Risk Curve Reactivity v2 ===
-        let riskCurveUnsubscribe = null;
-
-        function renderRiskCurveUpdate(data) {
-            if (!data || !data.nodes) return;
-            console.log("[ARK Lord] Risk Curve updated → re-rendering");
-            if (currentTabId === 6 && typeof switchModule === 'function') {
-                switchModule(6);
-            }
-        }
-
-        function initRiskCurveLord() {
-            console.log("[Sovereign → ARK Lord] Initializing Risk Curve reactivity");
-
-            if (!window.BLACKBOARD) {
-                console.warn("[ARK Lord] BLACKBOARD not available");
-                return;
-            }
-
-            if (typeof riskCurveUnsubscribe === 'function') riskCurveUnsubscribe();
-
-            riskCurveUnsubscribe = window.BLACKBOARD.subscribe('risk_curve', renderRiskCurveUpdate);
-            console.log("[ARK Lord] Subscriber attached successfully");
-
-            const initialData = window.ARK ? window.ARK.get('risk_curve') : null;
-            if (initialData) renderRiskCurveUpdate(initialData);
-        }
-
-        function bootstrapRiskLord() {
-            if (window.BLACKBOARD && window.ARK) {
-                initRiskCurveLord();
-            } else {
-                setTimeout(bootstrapRiskLord, 400);
-            }
-        }
-
-        bootstrapRiskLord();
-
-        window.addEventListener('beforeunload', () => {
-            if (typeof riskCurveUnsubscribe === 'function') riskCurveUnsubscribe();
-        });
-
+        // Initialize
         renderTabs();
         switchModule(6);
     </script>

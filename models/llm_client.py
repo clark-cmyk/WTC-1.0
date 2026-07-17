@@ -8,8 +8,11 @@ class LLMClient:
     def __init__(self):
         self.grok_api_key = os.getenv("GROK_API_KEY")
         self.base_url = "https://api.x.ai/v1"
+        # Use GROK_MODEL env var or default to fast agentic model
+        self.default_model = os.getenv("GROK_MODEL", "grok-build-0.1")
 
-    async def call(self, prompt: str, model: str = "grok-4.5") -> Dict[str, Any]:
+    async def call(self, prompt: str, model: str = None) -> Dict[str, Any]:
+        model = model or self.default_model
         try:
             headers = {
                 "Authorization": f"Bearer {self.grok_api_key}",

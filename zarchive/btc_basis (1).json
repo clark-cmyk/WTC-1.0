@@ -1,0 +1,162 @@
+{
+  "node": "BTCBasis",
+  "hydration_timestamp": "2026-07-15 20:01:00",
+  "as_of": "2026-07-15",
+  "score": 78,
+  "status": "Strong",
+  "quartile": "Q1",
+  "description": "BTC basis remains constructive. Spot holding above key futures levels with sustained institutional sponsorship visible across CME term structure and perpetual funding equilibrium.",
+  "action_bias": "Maintain long basis / positive carry posture. Prioritize front-month carry + second-month calendar roll-down. De-risk threshold: spot break below $117,800 or front-month basis compression into Q3.",
+  "core_inputs": [
+    {
+      "name": "Front-Month Basis %",
+      "value": 0.14,
+      "unit": "%",
+      "signal": "positive",
+      "weight": 0.25,
+      "source": "barchart_btc_basis + barchart_curve_history"
+    },
+    {
+      "name": "Second-Month Basis %",
+      "value": 0.42,
+      "unit": "%",
+      "signal": "positive",
+      "weight": 0.20,
+      "source": "barchart_btc_basis calendar spreads"
+    },
+    {
+      "name": "Perp Basis %",
+      "value": 0.025,
+      "unit": "%",
+      "signal": "neutral",
+      "weight": 0.15,
+      "source": "koyfin_crypto_price / funding rates"
+    },
+    {
+      "name": "Term Structure Slope (Front vs Second)",
+      "value": 0.28,
+      "unit": "%",
+      "signal": "positive",
+      "weight": 0.20,
+      "source": "rv_series.basis"
+    },
+    {
+      "name": "Quartile Persistence (30d/90d)",
+      "value": "Q1 dominant",
+      "signal": "positive",
+      "weight": 0.20,
+      "source": "node_score_weights.basis"
+    }
+  ],
+  "chart_takeaways": {
+    "cme_front": "Front-month basis in Q1 across short/medium windows with modest contango. Positive roll yield supports core carry. Watch for convergence compression near expiry.",
+    "cme_second": "Second-month basis steepest in structure (+0.42%). Clear roll-down alpha available via calendar spread. Highest conviction segment for term-structure trades.",
+    "perp": "Perp basis near zero equilibrium. Healthy funding; minimal edge but excellent liquidity overlay. Use as hedge or size indicator rather than primary signal."
+  },
+  "cme_front": {
+    "spot": 118450,
+    "futures": 118620,
+    "basis_dollars": 170,
+    "basis_pct": 0.14,
+    "basis_annualized_simple": 0.52,
+    "basis_annualized_industry": 0.48,
+    "history": {
+      "dates": ["2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15"],
+      "spot": [117800, 118100, 118300, 118200, 118400, 118450],
+      "futures": [118000, 118300, 118500, 118400, 118550, 118620],
+      "basis_pct": [0.17, 0.17, 0.17, 0.17, 0.13, 0.14]
+    },
+    "quartiles": {
+      "30d": {"value": 0.14, "percentile": 78, "quartile": "Q1"},
+      "60d": {"value": 0.14, "percentile": 62, "quartile": "Q2"},
+      "90d": {"value": 0.14, "percentile": 81, "quartile": "Q1"},
+      "1y": {"value": 0.14, "percentile": 45, "quartile": "Q3"},
+      "3y": {"value": 0.14, "percentile": 58, "quartile": "Q2"},
+      "since_2020": {"value": 0.14, "percentile": 82, "quartile": "Q1"}
+    }
+  },
+  "cme_second": {
+    "spot": 118450,
+    "futures": 118950,
+    "basis_dollars": 500,
+    "basis_pct": 0.42,
+    "basis_annualized_simple": 1.53,
+    "basis_annualized_industry": 1.41,
+    "history": {
+      "dates": ["2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15"],
+      "spot": [117800, 118100, 118300, 118200, 118400, 118450],
+      "futures": [118350, 118650, 118850, 118750, 118900, 118950],
+      "basis_pct": [0.47, 0.49, 0.47, 0.48, 0.44, 0.42]
+    },
+    "quartiles": {
+      "30d": {"value": 0.42, "percentile": 71, "quartile": "Q2"},
+      "60d": {"value": 0.42, "percentile": 68, "quartile": "Q2"},
+      "90d": {"value": 0.42, "percentile": 65, "quartile": "Q2"},
+      "1y": {"value": 0.42, "percentile": 48, "quartile": "Q3"},
+      "3y": {"value": 0.42, "percentile": 55, "quartile": "Q2"},
+      "since_2020": {"value": 0.42, "percentile": 62, "quartile": "Q2"}
+    }
+  },
+  "perp": {
+    "spot": 118450,
+    "futures": 118480,
+    "basis_dollars": 30,
+    "basis_pct": 0.025,
+    "basis_annualized_simple": 0.09,
+    "basis_annualized_industry": null,
+    "history": {
+      "dates": ["2026-07-10", "2026-07-11", "2026-07-12", "2026-07-13", "2026-07-14", "2026-07-15"],
+      "spot": [117800, 118100, 118300, 118200, 118400, 118450],
+      "futures": [117820, 118120, 118320, 118220, 118420, 118480],
+      "basis_pct": [0.017, 0.018, 0.017, 0.018, 0.022, 0.025]
+    },
+    "quartiles": {
+      "30d": {"value": 0.025, "percentile": 82, "quartile": "Q1"},
+      "60d": {"value": 0.025, "percentile": 79, "quartile": "Q1"},
+      "90d": {"value": 0.025, "percentile": 85, "quartile": "Q1"},
+      "1y": {"value": 0.025, "percentile": 61, "quartile": "Q2"},
+      "3y": {"value": 0.025, "percentile": 78, "quartile": "Q1"},
+      "since_2020": {"value": 0.025, "percentile": 84, "quartile": "Q1"}
+    }
+  },
+  "core_trades": [
+    {
+      "name": "Long Front-Month Basis Carry",
+      "direction": "Long spot / Short CME front futures",
+      "expected_yield": "0.52% annualized (simple)",
+      "conviction": "High",
+      "rationale": "Q1 positioning + positive contango supports roll yield while front basis remains resilient."
+    },
+    {
+      "name": "Second-Month Calendar Roll-Down",
+      "direction": "Long second-month futures / Short front-month",
+      "expected_yield": "0.28% differential capture",
+      "conviction": "High",
+      "rationale": "Steepest segment of term structure; classic roll-down alpha in institutional contango regime."
+    }
+  ],
+  "secondary_trades": [
+    {
+      "name": "Perp Basis Overlay / Hedge",
+      "direction": "Neutral / small long perp basis if CME weakens",
+      "expected_yield": "~0.09% simple",
+      "conviction": "Low",
+      "rationale": "Near-zero equilibrium provides liquidity and funding hedge rather than primary alpha."
+    }
+  ],
+  "outbound_transmission": {
+    "leviathan_liquidity": "Perp basis near zero + healthy depth = low slippage environment. Strong CME basis reduces liquidation cascade risk for levered books.",
+    "cassius_credit": "Q1 CME basis implies contained margin stress. Supports higher notional capacity on basis strategies without immediate credit line pressure.",
+    "ephraim_breadth_hiram_high_beta": "Constructive basis regime historically co-occurs with expanding market breadth and elevated risk appetite. Positive feedback loop to high-beta names."
+  },
+  "inbound_dependencies": {
+    "spot_price": "Primary driver. Break of $117,800 technical support would override basis signal and force re-evaluation of Q1 status.",
+    "funding_rates_perp": "Persistent negative funding would decouple perp from CME curve; monitor for whale-driven squeezes.",
+    "cme_oi_concentration": "Large spec long basis crowding — watch COT for signs of crowded trade unwinds that could compress basis rapidly."
+  },
+  "regime_summary": "Contango regime with institutional sponsorship. Front-month basis resilient; second-month steepening provides clear term-structure alpha. 18 of last 22 sessions in Q1 or better. Classic carry-friendly environment.",
+  "truth_real": "CME term structure slope and multi-horizon quartile dominance are durable, delivery-settled signals. Backed by actual futures positioning and observable roll yields.",
+  "truth_fleeting": "Perp basis equilibrium can flip quickly on funding shocks or large liquidations. Near-zero reading reflects balance, not strong conviction edge. Always cross-validate with CME curve before sizing perp exposure.",
+  "barchart_links": ["https://www.barchart.com/futures/quotes/BTM26/overview", "https://www.barchart.com/futures/spreads/BTM26-BT1"],
+  "koyfin_links": ["https://app.koyfin.com/charts/btcusd", "https://app.koyfin.com/saved/btc_basis_monitor"]
+}

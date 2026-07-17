@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-07-16T06:57:00",
+  "current": {
+    "date": "2026-07-16",
+    "spot": 118500,
+    "futures": 118720,
+    "basis_dollar": 220,
+    "basis_pct": 0.186
+  },
+  "history": [
+    {"date": "2026-07-15", "spot": 118200, "futures": 118450, "basis_pct": 0.21},
+    {"date": "2026-07-14", "spot": 117950, "futures": 118300, "basis_pct": 0.30}
+  ]
+}

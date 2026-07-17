@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTC-1.0 - Risk Curve</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 0; background: #1e1e1e; color: #ddd; }
+        .top-frame { background: #2d2d2d; padding: 10px; display: flex; align-items: center; gap: 15px; }
+        .panel { 
+            border: 1px solid #444; 
+            padding: 12px; 
+            margin: 8px; 
+            border-radius: 6px; 
+            background: #2a2a2a; 
+            cursor: pointer; 
+            min-height: 110px;
+        }
+        .panel h3 { margin: 0 0 6px 0; color: #fff; }
+        .panel .content { font-size: 13px; line-height: 1.4; }
+        #drone-logs { 
+            background: #111; 
+            color: #0f0; 
+            padding: 12px; 
+            height: 420px; 
+            overflow-y: auto; 
+            font-family: monospace; 
+            font-size: 13px; 
+            border: 1px solid #444;
+        }
+        button { background: #444; color: #ddd; border: none; padding: 8px 12px; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #555; }
+    </style>
+</head>
+<body>
+    <div class="top-frame">
+        <h1 style="margin: 0;">Risk Curve (RCV)</h1>
+        <button onclick="refreshData()">Refresh Data (Drone Wars)</button>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
+    </div>
+
+    <!-- RCV Tab -->
+    <div id="rcv-tab">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; padding: 15px;">
+            <div class="panel" id="liquidity-panel" onclick="togglePanel(this)"><h3>Liquidity</h3><div class="content">Loading...</div><button onclick="articulate('liquidity')">A</button></div>
+            <div class="panel" id="credit-panel" onclick="togglePanel(this)"><h3>Credit</h3><div class="content">Loading...</div><button onclick="articulate('credit')">A</button></div>
+            <div class="panel" id="equity_breadth-panel" onclick="togglePanel(this)"><h3>EquityBreadth</h3><div class="content">Loading...</div><button onclick="articulate('equity_breadth')">A</button></div>
+            <div class="panel" id="high_beta-panel" onclick="togglePanel(this)"><h3>HighBeta</h3><div class="content">Loading...</div><button onclick="articulate('high_beta')">A</button></div>
+            <div class="panel" id="bitcoin_basis-panel" onclick="togglePanel(this)"><h3>BTCBasis</h3><div class="content">Loading...</div><button onclick="articulate('bitcoin_basis')">A</button></div>
+        </div>
+    </div>
+
+    <!-- DRONE Tab -->
+    <div id="drone-tab" style="display: none; padding: 15px;">
+        <h2>Drone Wars Live Log</h2>
+        <div id="drone-logs">Waiting for refresh...</div>
+    </div>
+
+    <script>
+        async function refreshData() {
+            try {
+                const response = await fetch('http://localhost:5001/api/refresh-data', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+
+                if (data.success && data.panel_content) {
+                    updatePanel('liquidity-panel', data.panel_content.liquidity);
+                    updatePanel('credit-panel', data.panel_content.credit);
+                    updatePanel('equity_breadth-panel', data.panel_content.equity_breadth);
+                    updatePanel('high_beta-panel', data.panel_content.high_beta);
+                    updatePanel('bitcoin_basis-panel', data.panel_content.bitcoin_basis);
+                }
+
+                if (data.logs) {
+                    const logContainer = document.getElementById('drone-logs');
+                    logContainer.innerHTML = data.logs.map(log => 
+                        `<div>[${log.actor}] ${log.message}</div>`
+                    ).join('');
+                }
+            } catch (e) {
+                console.error(e);
+                alert("Backend not reachable. Make sure python app.py is running.");
+            }
+        }
+
+        function updatePanel(panelId, content) {
+            const panel = document.getElementById(panelId);
+            if (panel) {
+                const contentDiv = panel.querySelector('.content');
+                if (contentDiv) contentDiv.innerHTML = content || 'No analysis available';
+            }
+        }
+
+        function togglePanel(panel) {
+            panel.classList.toggle('expanded');
+        }
+
+        function articulate(panelName) {
+            alert("Articulate prompt for " + panelName + " triggered (placeholder)");
+        }
+
+        function toggleDarkMode() {
+            document.body.style.background = document.body.style.background === '#1e1e1e' ? '#f8f9fa' : '#1e1e1e';
+        }
+
+        // Tab switching (add your original tab logic here if needed)
+    </script>
+</body>
+</html>

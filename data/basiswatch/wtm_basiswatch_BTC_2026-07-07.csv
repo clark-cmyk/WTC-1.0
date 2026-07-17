@@ -1,0 +1,6 @@
+# WTM BasisWatch export
+# Spot curve: futures vs spot
+section,contract,expiry,dte,futures,spot,basis_dollars,basis_pct,basis_pct_rank,basis_quartile,hist_q1,hist_median,hist_q3,spot_curve_pct_ann
+
+# Forward curve: adjacent calendar pairs
+section,near,far,near_dte,far_dte,interval_days,near_price,far_price,calendar_spread_dollars,forward_curve_pct_ann,forward_pct_rank,forward_quartile

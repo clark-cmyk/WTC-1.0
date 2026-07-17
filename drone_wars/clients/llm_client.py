@@ -13,7 +13,7 @@ class LLMClient:
         """Used for the 6 main captains (runs on Grok)"""
         full_prompt = f"You are {captain_name}.\n{system_prompt}"
         response = await self.grok.chat.completions.create(
-            model="grok-beta",
+            model="grok-build-0.1",
             messages=[
                 {"role": "system", "content": full_prompt},
                 {"role": "user", "content": user_message}

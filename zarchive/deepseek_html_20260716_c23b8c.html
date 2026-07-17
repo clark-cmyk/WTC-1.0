@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Basis — DIG Layer (Benaiah)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-page: #0f0f0f;
+            --bg-card: #1a2a22;
+            --border: #0A4D2E;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #0A4D2E;
+            --accent-light: #4ade80;
+            --chart-bg: #111;
+            --sidebar-bg: rgba(255,255,255,0.03);
+        }
+        [data-theme="light"] {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #166534;
+            --accent-light: #22c55e;
+            --chart-bg: #f1f5f9;
+            --sidebar-bg: #f8fafc;
+        }
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 24px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .back-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .back-btn:hover { background: var(--sidebar-bg); }
+        .chart-module {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .chart-header h3 { margin: 0 0 4px 0; font-size: 1.35rem; }
+        .subtitle { margin: 0; color: var(--text-secondary); font-size: 0.95rem; }
+        .chart-controls button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            margin-left: 8px;
+            transition: all 0.2s;
+        }
+        .btn-png, .btn-csv {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
+        }
+        .btn-png:hover, .btn-csv:hover { background: rgba(255,255,255,0.15); }
+        .a-btn {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+        .a-btn:hover { filter: brightness(1.1); }
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 260px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .main-chart {
+            background: var(--chart-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            height: 420px;
+            padding: 12px;
+        }
+        .chart-sidebar {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        .snapshot-grid .value {
+            text-align: right;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+        .legend { display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        .legend .line {
+            display: inline-block;
+            width: 24px;
+            height: 3px;
+            border-radius: 3px;
+        }
+        .quartile-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .quartile-table th, .quartile-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .quartile-table th { color: var(--text-secondary); font-weight: 500; }
+
+        .legend .line.spot { background: var(--accent-light); }
+        .legend .line.futures { background: var(--accent); }
+        .legend .line.basis { background: #ff9800; }
+        
+        /* Loading state */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            z-index: 10;
+        }
+        .loading-spinner {
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--accent-light);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .data-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .data-status.live {
+            background: #22c55e20;
+            color: #22c55e;
+        }
+        .data-status.stale {
+            background: #f59e0b20;
+            color: #f59e0b;
+        }
+        .data-status.error {
+            background: #ef444420;
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <button class="back-btn" onclick="window.location.href='wtc_1.0.html'">← Back to Risk Curve</button>
+                <h1 style="margin: 8px 0 0 0;">BTC Basis — DIG Layer (Benaiah)</h1>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span id="data-status" class="data-status live">● Live</span>
+                <button onclick="globalArticulate()" class="a-btn">A</button>
+                <button onclick="toggleTheme()" style="padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); background: none; color: var(--text-primary);" title="Toggle dark/light mode">🌗</button>
+            </div>
+        </div>
+
+        <!-- Hero Summary -->
+        <div class="chart-module" id="hero-summary">
+            <h2 style="margin-top:0;">Bitcoin Basis Overview</h2>
+            <div style="display:flex; gap:40px; align-items:center; flex-wrap: wrap;">
+                <div>
+                    <div id="hero-score" style="font-size:42px; font-weight:700; color: var(--accent-light);">--</div>
+                    <div id="hero-label" style="color: var(--accent-light); font-weight:600;">Loading...</div>
+                </div>
+                <div id="hero-description" style="max-width:520px; color: var(--text-secondary);">
+                    Loading basis data...
+                </div>
+                <div style="margin-left: auto; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; max-width: 320px;">
+                    <strong style="color: var(--accent-light);">Action Bias:</strong><br>
+                    <span id="hero-action" style="font-size: 0.95rem;">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart 1: CME Front Month -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>CME Front Month Basis</h3>
+                    <p class="subtitle">BTC Spot vs Current Month Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('chart-cme-front')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('cme-front')">CSV</button>
+                    <button class="a-btn" onclick="chartArticulate('cme-front')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart" style="position: relative;">
+                    <canvas id="chart-cme-front"></canvas>
+                    <div id="loading-cme-front" class="loading-overlay" style="display: none;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-cme-front">
+                        <div>Loading...</div>
+                    </div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> CME Front Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-cme-front">
+                    <tr><td colspan="2">Loading...</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Chart 2: CME Second Month -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>CME Second Month Basis</h3>
+                    <p class="subtitle">BTC Spot vs Next Month Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('chart-cme-second')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('cme-second')">CSV</button>
+                    <button class="a-btn" onclick="chartArticulate('cme-second')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart" style="position: relative;">
+                    <canvas id="chart-cme-second"></canvas>
+                    <div id="loading-cme-second" class="loading-overlay" style="display: none;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-cme-second">
+                        <div>Loading...</div>
+                    </div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> CME Second Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-cme-second">
+                    <tr><td colspan="2">Loading...</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Chart 3: Perpetual -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>Perpetual Futures Basis</h3>
+                    <p class="subtitle">BTC Spot vs Perpetual Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('chart-perp')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('perp')">CSV</button>
+                    <button class="a-btn" onclick="chartArticulate('perp')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart" style="position: relative;">
+                    <canvas id="chart-perp"></canvas>
+                    <div id="loading-perp" class="loading-overlay" style="display: none;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-perp">
+                        <div>Loading...</div>
+                    </div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> Perpetual Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-perp">
+                    <tr><td colspan="2">Loading...</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Additional Sections (kept as before) -->
+        <div class="chart-module">
+            <h3>Core Inputs / Signals</h3>
+            <div id="core-inputs" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; font-size: 0.95rem;">
+                <div style="background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Loading...</strong><br>
+                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Data pending</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Score Methodology (Benaiah BTC Basis)</h3>
+            <p style="color: var(--text-secondary); max-width: 900px;">
+                Composite 0-100 score derived from: (1) Quartile rank aggregation across 6 lookbacks (30% weight), (2) Basis magnitude &amp; sign normalized to 3y history (25%), (3) Term structure slope (front vs second month differential, 20%), (4) Cross-market consistency (CME vs Perp alignment, 15%), (5) Regime persistence (days in current quartile, 10%).
+                <strong id="score-method">Loading...</strong>
+            </p>
+        </div>
+
+        <div class="chart-module">
+            <h3>Core Trades + Secondary Trades</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4 style="margin: 0 0 8px 0; color: var(--accent-light);">Core Carry / Roll (Primary)</h4>
+                    <ul id="core-trades" style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">
+                        <li>Loading trade recommendations...</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin: 0 0 8px 0; color: var(--accent-light);">Secondary / Hedge</h4>
+                    <ul id="secondary-trades" style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">
+                        <li>Loading hedge strategies...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Cross-Node Transmission</h3>
+            <div id="cross-node" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.95rem;">
+                <div style="border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Loading...</strong><br>
+                    <span style="color: var(--text-secondary);">Data pending</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Dig Deeper</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">Barchart BTC Futures Curve</a>
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">Koyfin BTC Basis Monitor</a>
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">CME BTC OI &amp; Volume</a>
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">Funding Rate Heatmap (perp)</a>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Regime &amp; Truth from Fact</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4 style="margin-top:0; color: var(--accent-light);">Current Regime</h4>
+                    <p id="current-regime" style="color: var(--text-secondary); font-size: 0.95rem;">Loading regime data...</p>
+                </div>
+                <div>
+                    <h4 style="margin-top:0; color: var(--accent-light);">Truth from Fact (Real vs Fleeting)</h4>
+                    <p id="truth-from-fact" style="color: var(--text-secondary); font-size: 0.95rem;">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="data-as-of" style="position:fixed;bottom:4px;right:6px;font-size:9px;line-height:1;opacity:0.6;color:#888;background:rgba(0,0,0,0.2);padding:1px 4px;border-radius:2px;pointer-events:none;z-index:9999;font-family:monospace;">Data as of --</div>
+
+    <script>
+        // ============================================================
+        // GLOBAL STATE
+        // ============================================================
+        let btcBasisData = null;  // Will hold the real data from backend
+        let chartInstances = {};  // Store chart instances for updates
+
+        // ============================================================
+        // DATA FETCHING
+        // ============================================================
+        async function loadRealDataFromNodes() {
+            const statusEl = document.getElementById('data-status');
+            const asOfEl = document.getElementById('data-as-of');
+            
+            try {
+                // Option 1: Fetch from Flask backend endpoint
+                const res = await fetch('/api/btc-basis');
+                
+                if (!res.ok) {
+                    throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                }
+                
+                const data = await res.json();
+                
+                // Validate the data structure
+                if (!data.cme_front || !data.cme_second || !data.perp) {
+                    throw new Error('Invalid data structure from backend');
+                }
+                
+                btcBasisData = data;
+                
+                // Update status
+                statusEl.className = 'data-status live';
+                statusEl.textContent = '● Live';
+                
+                if (data.as_of) {
+                    asOfEl.textContent = `Data as of ${data.as_of}`;
+                }
+                
+                console.log('[BTC Basis] Data loaded from Flask backend:', data);
+                return true;
+                
+            } catch (error) {
+                console.warn('[BTC Basis] Backend fetch failed, trying static file:', error);
+                
+                // Option 2: Fallback to static JSON file
+                try {
+                    const res = await fetch('data/nodes/btc_basis.json');
+                    
+                    if (!res.ok) {
+                        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+                    }
+                    
+                    const data = await res.json();
+                    
+                    if (!data.cme_front || !data.cme_second || !data.perp) {
+                        throw new Error('Invalid data structure from static file');
+                    }
+                    
+                    btcBasisData = data;
+                    
+                    // Update status
+                    statusEl.className = 'data-status stale';
+                    statusEl.textContent = '● Stale (static)';
+                    
+                    if (data.as_of) {
+                        asOfEl.textContent = `Data as of ${data.as_of}`;
+                    }
+                    
+                    console.log('[BTC Basis] Data loaded from static fallback:', data);
+                    return true;
+                    
+                } catch (fallbackError) {
+                    console.error('[BTC Basis] All data sources failed:', fallbackError);
+                    
+                    // Option 3: Use embedded fallback data
+                    btcBasisData = getFallbackData();
+                    
+                    statusEl.className = 'data-status error';
+                    statusEl.textContent = '● Error (fallback)';
+                    asOfEl.textContent = 'Data as of fallback (stale)';
+                    
+                    console.warn('[BTC Basis] Using embedded fallback data');
+                    return true; // Still return true so page renders
+                }
+            }
+        }
+
+        // ============================================================
+        // FALLBACK DATA (only if backend and static file both fail)
+        // ============================================================
+        function getFallbackData() {
+            const now = new Date().toISOString().split('T')[0];
+            const baseSpot = 125000;
+            const date = now;
+            
+            // Generate realistic-looking historical data
+            const history = [];
+            for (let i = 0; i < 30; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - (30 - i));
+                const spot = baseSpot + (Math.random() - 0.5) * 2000;
+                const basisPct = 0.1 + Math.random() * 0.6;
+                history.push({
+                    date: d.toISOString().split('T')[0],
+                    spot: Math.round(spot),
+                    futures: Math.round(spot * (1 + basisPct / 100)),
+                    basis_pct: parseFloat(basisPct.toFixed(2))
+                });
+            }
+            
+            return {
+                as_of: now,
+                cme_front: {
+                    spot: baseSpot,
+                    futures: baseSpot + 175,
+                    basis_dollars: 175,
+                    basis_pct: 0.14,
+                    basis_annualized_simple: '0.52%',
+                    basis_annualized_industry: '0.48%',
+                    quartiles: { '30d': 'Q1', '90d': 'Q1', '180d': 'Q2', '1y': 'Q1', '2y': 'Q2', '3y': 'Q1' }
+                },
+                cme_second: {
+                    spot: baseSpot,
+                    futures: baseSpot + 525,
+                    basis_dollars: 525,
+                    basis_pct: 0.42,
+                    basis_annualized_simple: '1.53%',
+                    basis_annualized_industry: '1.41%',
+                    quartiles: { '30d': 'Q1', '90d': 'Q1', '180d': 'Q1', '1y': 'Q1', '2y': 'Q2', '3y': 'Q1' }
+                },
+                perp: {
+                    spot: baseSpot,
+                    futures: baseSpot + 31,
+                    basis_dollars: 31,
+                    basis_pct: 0.025,
+                    basis_annualized_simple: '0.10%',
+                    quartiles: { '30d': 'Q2', '90d': 'Q2', '180d': 'Q1', '1y': 'Q3', '2y': 'Q2', '3y': 'Q2' }
+                },
+                score: 78,
+                score_label: 'Strong • Q1',
+                history: history
+            };
+        }
+
+        // ============================================================
+        // CHART INITIALIZATION
+        // ============================================================
+        function initCharts() {
+            if (!btcBasisData) {
+                console.error('[BTC Basis] No data available for charts');
+                return;
+            }
+            
+            // Load historical data for charts
+            const history = btcBasisData.history || generateHistory();
+            
+            // Initialize each chart
+            initChart('chart-cme-front', 'cme-front', btcBasisData.cme_front, history);
+            initChart('chart-cme-second', 'cme-second', btcBasisData.cme_second, history);
+            initChart('chart-perp', 'perp', btcBasisData.perp, history);
+            
+            // Populate sidebars and tables
+            populateSnapshot('snapshot-cme-front', btcBasisData.cme_front);
+            populateSnapshot('snapshot-cme-second', btcBasisData.cme_second);
+            populateSnapshot('snapshot-perp', btcBasisData.perp);
+            
+            populateQuartileTable('table-cme-front', btcBasisData.cme_front.quartiles);
+            populateQuartileTable('table-cme-second', btcBasisData.cme_second.quartiles);
+            populateQuartileTable('table-perp', btcBasisData.perp.quartiles);
+            
+            // Update hero section
+            updateHero(btcBasisData);
+            
+            // Update additional sections
+            updateAdditionalSections(btcBasisData);
+        }
+
+        function generateHistory() {
+            const history = [];
+            const baseSpot = 125000;
+            for (let i = 0; i < 30; i++) {
+                const d = new Date();
+                d.setDate(d.getDate() - (30 - i));
+                const spot = baseSpot + (Math.random() - 0.5) * 3000;
+                const basisPct = 0.1 + Math.random() * 0.5;
+                history.push({
+                    date: d.toISOString().split('T')[0],
+                    spot: Math.round(spot),
+                    futures: Math.round(spot * (1 + basisPct / 100)),
+                    basis_pct: parseFloat(basisPct.toFixed(2))
+                });
+            }
+            return history;
+        }
+
+        function initChart(canvasId, key, data, history) {
+            const ctx = document.getElementById(canvasId);
+            if (!ctx) return;
+            
+            // Hide loading overlay
+            const loadingEl = document.getElementById(`loading-${canvasId}`);
+            if (loadingEl) loadingEl.style.display = 'none';
+            
+            const labels = history.map(h => h.date);
+            const spotData = history.map(h => h.spot);
+            const futData = history.map(h => h.futures || h.spot * (1 + (data.basis_pct || 0.1) / 100));
+            const bpData = history.map(h => h.basis_pct || 0.1);
+            
+            const labelMap = {
+                'cme-front': 'CME Front Futures',
+                'cme-second': 'CME Second Futures',
+                'perp': 'Perpetual Futures'
+            };
+            
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        { 
+                            label: 'Spot Price', 
+                            data: spotData, 
+                            borderColor: '#4ade80', 
+                            backgroundColor: 'rgba(74, 222, 128, 0.1)',
+                            yAxisID: 'y', 
+                            tension: 0.3,
+                            fill: false
+                        },
+                        { 
+                            label: labelMap[key] || 'Futures', 
+                            data: futData, 
+                            borderColor: '#0A4D2E', 
+                            backgroundColor: 'rgba(10, 77, 46, 0.1)',
+                            yAxisID: 'y', 
+                            tension: 0.3,
+                            fill: false
+                        },
+                        { 
+                            label: 'Basis %', 
+                            data: bpData, 
+                            borderColor: '#ff9800', 
+                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                            yAxisID: 'y1', 
+                            tension: 0.3,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    scales: {
+                        y: { 
+                            type: 'linear', 
+                            position: 'left', 
+                            title: { display: true, text: 'Price (USD)', color: 'var(--text-secondary)' },
+                            grid: { color: 'var(--border)' },
+                            ticks: { 
+                                callback: function(value) { return '$' + value.toLocaleString(); },
+                                color: 'var(--text-secondary)'
+                            }
+                        },
+                        y1: { 
+                            type: 'linear', 
+                            position: 'right', 
+                            title: { display: true, text: 'Basis %', color: 'var(--text-secondary)' },
+                            grid: { drawOnChartArea: false },
+                            ticks: { 
+                                callback: function(value) { return value.toFixed(2) + '%'; },
+                                color: 'var(--text-secondary)'
+                            }
+                        },
+                        x: {
+                            grid: { color: 'var(--border)' },
+                            ticks: { 
+                                maxTicksLimit: 15,
+                                color: 'var(--text-secondary)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: 'var(--text-primary)'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'var(--bg-card)',
+                            titleColor: 'var(--text-primary)',
+                            bodyColor: 'var(--text-secondary)',
+                            borderColor: 'var(--border)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.dataset.label === 'Basis %') {
+                                        return `${context.dataset.label}: ${context.raw.toFixed(2)}%`;
+                                    }
+                                    return `${context.dataset.label}: $${context.raw.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            chartInstances[canvasId] = chart;
+        }
+
+        // ============================================================
+        // UI UPDATE FUNCTIONS
+        // ============================================================
+        function populateSnapshot(elementId, data) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            
+            el.innerHTML = `
+                <div>Spot:</div><div class="value">$${data.spot.toLocaleString()}</div>
+                <div>Futures:</div><div class="value">$${data.futures.toLocaleString()}</div>
+                <div>Basis $:</div><div class="value">$${data.basis_dollars}</div>
+                <div>Basis %:</div><div class="value">${data.basis_pct}%</div>
+            `;
+        }
+
+        function populateQuartileTable(elementId, quartiles) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            
+            let html = `<tr><th>Lookback</th><th>Quartile</th></tr>`;
+            for (const [period, q] of Object.entries(quartiles)) {
+                const color = q === 'Q1' ? 'var(--accent-light)' : q === 'Q4' ? '#ef4444' : 'var(--text-secondary)';
+                html += `<tr><td>${period}</td><td style="color: ${color}; font-weight: 600;">${q}</td></tr>`;
+            }
+            el.innerHTML = html;
+        }
+
+        function updateHero(data) {
+            const scoreEl = document.getElementById('hero-score');
+            const labelEl = document.getElementById('hero-label');
+            const descEl = document.getElementById('hero-description');
+            const actionEl = document.getElementById('hero-action');
+            
+            if (data.score) {
+                scoreEl.textContent = data.score;
+                labelEl.textContent = data.score_label || (data.score > 75 ? 'Strong • Q1' : data.score > 55 ? 'Neutral • Q2' : 'Weak • Q3');
+            }
+            
+            // Update description based on data
+            const front = data.cme_front;
+            const second = data.cme_second;
+            const perp = data.perp;
+            
+            if (front && second && perp) {
+                descEl.textContent = `BTC basis remains constructive. Spot holding above key futures with institutional sponsorship across CME and perps. Term structure offers roll alpha in second month (${second.basis_pct}% vs ${front.basis_pct}% front).`;
+                
+                const isPositive = front.basis_pct > 0;
+                const isStrong = front.basis_pct > 0.1;
+                actionEl.textContent = isStrong 
+                    ? `Maintain long basis / positive carry. Prioritize front-month carry + second-month roll-down. De-risk on spot < $${Math.round(front.spot * 0.95).toLocaleString()} or front basis → Q3.`
+                    : isPositive
+                    ? `Neutral carry available. Monitor for steepening before adding size.`
+                    : `Negative carry — consider short basis or wait for regime shift.`;
+            }
+        }
+
+        function updateAdditionalSections(data) {
+            // Core Inputs
+            const inputsEl = document.getElementById('core-inputs');
+            if (inputsEl && data.cme_front && data.cme_second

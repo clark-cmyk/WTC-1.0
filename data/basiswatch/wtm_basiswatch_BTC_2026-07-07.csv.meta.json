@@ -1,0 +1,9 @@
+{
+  "meta_version": "1.0.0",
+  "status": "quarantined",
+  "operator": "desk",
+  "source_file": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/wtm_basiswatch_BTC_2026-07-07.csv",
+  "quarantined_at": "2026-07-08T01:20:03.225456+00:00",
+  "reason": "filename must match {dataset}_{YYYYMMDD}_{HHMM}.csv or {product}_{flavor}_{YYYYMMDD}.csv: wtm_basiswatch_BTC_2026-07-07.csv",
+  "sha256": "19050f9d60c1749a21649ed90bb0ed18460b9f38aed4d287ae8ef28054391ab6"
+}

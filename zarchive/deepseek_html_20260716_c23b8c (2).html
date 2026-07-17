@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Basis — DIG Layer (Benaiah)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-page: #0f0f0f;
+            --bg-card: #1a2a22;
+            --border: #0A4D2E;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #0A4D2E;
+            --accent-light: #4ade80;
+            --chart-bg: #111;
+            --sidebar-bg: rgba(255,255,255,0.03);
+        }
+        [data-theme="light"] {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #166534;
+            --accent-light: #22c55e;
+            --chart-bg: #f1f5f9;
+            --sidebar-bg: #f8fafc;
+        }
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 24px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .back-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .back-btn:hover { background: var(--sidebar-bg); }
+        .chart-module {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .chart-header h3 { margin: 0 0 4px 0; font-size: 1.35rem; }
+        .subtitle { margin: 0; color: var(--text-secondary); font-size: 0.95rem; }
+        .chart-controls button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            margin-left: 8px;
+            transition: all 0.2s;
+        }
+        .btn-png, .btn-csv {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
+        }
+        .btn-png:hover, .btn-csv:hover { background: rgba(255,255,255,0.15); }
+        .a-btn {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+        .a-btn:hover { filter: brightness(1.1); }
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 260px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .main-chart {
+            background: var(--chart-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            height: 420px;
+            padding: 12px;
+        }
+        .chart-sidebar {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        .snapshot-grid .value {
+            text-align: right;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+        .legend { display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        .legend .line {
+            display: inline-block;
+            width: 24px;
+            height: 3px;
+            border-radius: 3px;
+        }
+        .quartile-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .quartile-table th, .quartile-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .quartile-table th { color: var(--text-secondary); font-weight: 500; }
+        .legend .line.spot { background: var(--accent-light); }
+        .legend .line.futures { background: var(--accent); }
+        .legend .line.basis { background: #ff9800; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <button class="back-btn" onclick="window.location.href='wtc_1.0.html'">← Back to Risk Curve</button>
+                <h1 style="margin: 8px 0 0 0;">BTC Basis — DIG Layer (Benaiah)</h1>
+            </div>
+            <div>
+                <button onclick="askPage()" class="a-btn">A</button>
+                <button onclick="toggleTheme()" style="margin-left: 8px; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); background: none; color: var(--text-primary);" title="Toggle dark/light mode">🌗</button>
+            </div>
+        </div>
+
+        <!-- Hero Summary -->
+        <div class="chart-module">
+            <h2 style="margin-top:0;">Bitcoin Basis Overview</h2>
+            <div style="display:flex; gap:40px; align-items:center; flex-wrap: wrap;">
+                <div>
+                    <div id="hero-score" style="font-size:42px; font-weight:700; color: var(--accent-light);">78</div>
+                    <div id="hero-label" style="color: var(--accent-light); font-weight:600;">Strong • Q1</div>
+                </div>
+                <div id="hero-description" style="max-width:520px; color: var(--text-secondary);">
+                    BTC basis remains constructive. Spot holding above key futures with institutional sponsorship across CME and perps. Term structure offers roll alpha in second month.
+                </div>
+                <div style="margin-left: auto; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; max-width: 320px;">
+                    <strong style="color: var(--accent-light);">Action Bias:</strong><br>
+                    <span id="hero-action" style="font-size: 0.95rem;">Maintain long basis / positive carry. Prioritize front-month carry + second-month roll-down. De-risk on spot &lt; $117.8k or front basis → Q3.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart 1: CME Front Month -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>CME Front Month Basis</h3>
+                    <p class="subtitle">BTC Spot vs Current Month Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('cme-front')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('cme-front')">CSV</button>
+                    <button class="a-btn" onclick="askChart('cme-front')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart"><canvas id="chart-cme-front"></canvas></div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-cme-front"></div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> CME Front Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-cme-front"></table>
+            </div>
+        </div>
+
+        <!-- Chart 2: CME Second Month -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>CME Second Month Basis</h3>
+                    <p class="subtitle">BTC Spot vs Next Month Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('cme-second')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('cme-second')">CSV</button>
+                    <button class="a-btn" onclick="askChart('cme-second')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart"><canvas id="chart-cme-second"></canvas></div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-cme-second"></div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> CME Second Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-cme-second"></table>
+            </div>
+        </div>
+
+        <!-- Chart 3: Perpetual -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>Perpetual Futures Basis</h3>
+                    <p class="subtitle">BTC Spot vs Perpetual Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('perp')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('perp')">CSV</button>
+                    <button class="a-btn" onclick="askChart('perp')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart"><canvas id="chart-perp"></canvas></div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-perp"></div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> Perpetual Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-perp"></table>
+            </div>
+        </div>
+
+        <!-- Additional Sections -->
+        <div class="chart-module">
+            <h3>Core Inputs / Signals</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; font-size: 0.95rem;">
+                <div style="background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Spot vs Futures Term Structure</strong><br>
+                    Front: +0.14% | Second: +0.42% | Perp: +0.025%<br>
+                    <span style="color: var(--text-secondary); font-size: 0.85rem;">Steepening in second month creates roll-down alpha; front-month compression signals near-term convergence.</span>
+                </div>
+                <div style="background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Institutional Flow Proxy (CME)</strong><br>
+                    Basis holding Q1 across 30d/90d/since-2020 windows indicates sustained long institutional demand. Perp near-zero basis confirms funding rate equilibrium (no extreme leverage skew).
+                </div>
+                <div style="background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Annualization Differential</strong><br>
+                    Simple vs Industry: Front 0.52% vs 0.48% | Second 1.53% vs 1.41%. Differential &lt;10bps validates model robustness for carry calculations.
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Score Methodology (Benaiah BTC Basis)</h3>
+            <p style="color: var(--text-secondary); max-width: 900px;">
+                Composite 0-100 score derived from: (1) Quartile rank aggregation across 6 lookbacks (30% weight), (2) Basis magnitude &amp; sign normalized to 3y history (25%), (3) Term structure slope (front vs second month differential, 20%), (4) Cross-market consistency (CME vs Perp alignment, 15%), (5) Regime persistence (days in current quartile, 10%).
+                <strong id="score-method">Current 78 (Strong Q1)</strong> reflects dominant Q1 positioning on short/medium windows + constructive contango slope. Thresholds: &gt;75 = Strong, 55-75 = Neutral, &lt;55 = Weak.
+            </p>
+        </div>
+
+        <div class="chart-module">
+            <h3>Core Trades + Secondary Trades</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4 style="margin: 0 0 8px 0; color: var(--accent-light);">Core Carry / Roll (Primary)</h4>
+                    <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">
+                        <li><strong>Long Basis (Front):</strong> Long spot / short CME front futures. Expected roll yield ~0.52% ann. High conviction while front remains Q1 and contango persists.</li>
+                        <li><strong>Roll-Down (Second):</strong> Calendar spread: long second-month futures vs short front. Captures 0.28% steepening differential.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin: 0 0 8px 0; color: var(--accent-light);">Secondary / Hedge</h4>
+                    <ul style="margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5;">
+                        <li>Perp basis arb: Minimal edge (+0.025%); use only for liquidity overlay or funding hedge if CME basis weakens.</li>
+                        <li>Stop: Spot break below $117,800 (recent support) or front basis compression to Q3 would trigger 50% de-risk.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Cross-Node Transmission</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 0.95rem;">
+                <div style="border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Outbound (to other Lords)</strong><br>
+                    <span style="color: var(--text-secondary);">• Leviathan (Liquidity):</span> Perp basis near zero + healthy depth supports low slippage on size. Strong basis reduces forced liquidation risk.<br>
+                    <span style="color: var(--text-secondary);">• Cassius (Credit):</span> CME basis in Q1 implies low margin stress; supports higher leverage capacity on basis books.<br>
+                    <span style="color: var(--text-secondary);">• Ephraim (Breadth) / Hiram (High Beta):</span> Constructive basis regime historically coincides with risk-on breadth expansion.
+                </div>
+                <div style="border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Inbound Dependencies</strong><br>
+                    <span style="color: var(--text-secondary);">• Spot price (macro + ETF flows)</span> — primary driver. Break of key technicals would override basis signal.<br>
+                    <span style="color: var(--text-secondary);">• Funding rates (perp)</span> — if funding flips persistently negative, perp basis could decouple from CME.<br>
+                    <span style="color: var(--text-secondary);">• OI concentration (CME large specs)</span> — watch for crowded long basis unwinds.
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Dig Deeper</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">Barchart BTC Futures Curve</a>
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">Koyfin BTC Basis Monitor</a>
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">CME BTC OI &amp; Volume</a>
+                <a href="#" style="padding: 8px 14px; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 6px; color: var(--text-primary); text-decoration: none; font-size: 0.9rem;">Funding Rate Heatmap (perp)</a>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Regime &amp; Truth from Fact</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4 style="margin-top:0; color: var(--accent-light);">Current Regime</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">Contango with institutional sponsorship. Front-month basis resilient despite modest spot gains — classic "carry-friendly" regime. Persistence: 18 of last 22 sessions in Q1 or better.</p>
+                </div>
+                <div>
+                    <h4 style="margin-top:0; color: var(--accent-light);">Truth from Fact (Real vs Fleeting)</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;"><strong>Real:</strong> CME term structure slope and quartile dominance are durable signals backed by actual delivery-settled positions.<br>
+                    <strong>Fleeting:</strong> Perp basis can flip on funding shocks or whale liquidations; treat near-zero reading as equilibrium, not conviction edge. Always cross-validate with CME curve before sizing.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="data-as-of" style="position:fixed;bottom:4px;right:6px;font-size:9px;line-height:1;opacity:0.6;color:#888;background:rgba(0,0,0,0.2);padding:1px 4px;border-radius:2px;pointer-events:none;z-index:9999;font-family:monospace;">Data as of 2026-07-16 00:00</div>
+
+    <script>
+        let chartRegistry = {};
+
+        const numOr = (value, fallback) => {
+            const n = Number.parseFloat(value);
+            return Number.isFinite(n) ? n : fallback;
+        };
+
+        let btcBasisData = {
+            as_of: "2026-07-16",
+            cme_front: {
+                spot: 63425,
+                futures: 64450,
+                basis_dollars: 1025,
+                basis_pct: 1.62,
+                basis_annualized_simple: 19.71,
+                basis_annualized_industry: 19.44,
+                quartiles: { "30d": "Q1", "60d": "Q2", "90d": "Q1", "1y": "Q3", "3y": "Q2", "since_2020": "Q1" }
+            },
+            cme_second: {
+                spot: 63425,
+                futures: 62195,
+                basis_dollars: -1230,
+                basis_pct: -1.94,
+                basis_annualized_simple: -11.80,
+                basis_annualized_industry: -11.64,
+                quartiles: { "30d": "Q2", "60d": "Q2", "90d": "Q2", "1y": "Q3", "3y": "Q2", "since_2020": "Q2" }
+            },
+            perp: {
+                spot: 63425,
+                futures: 63425,
+                basis_dollars: 0,
+                basis_pct: 0,
+                basis_annualized_simple: 0,
+                basis_annualized_industry: null,
+                quartiles: { "30d": "Q1", "60d": "Q1", "90d": "Q1", "1y": "Q2", "3y": "Q1", "since_2020": "Q1" }
+            },
+            history: []
+        };
+
+        async function loadRealDataFromNodes() {
+            try {
+                const res = await fetch('data/nodes/btc_basis.json', { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+                const node = await res.json();
+                const curr = node.current || {};
+                const hist = Array.isArray(node.history) ? node.history : [];
+                const rawDate = curr.date || node.timestamp || '';
+                const asof = rawDate.split(/T| /)[0] || btcBasisData.as_of;
+
+                const spot = numOr(curr.spot, btcBasisData.cme_front.spot);
+                const futFront = numOr(curr.futures_front ?? curr.futures, btcBasisData.cme_front.futures);
+                const bpctFront = numOr(curr.basis_pct_front ?? curr.basis_pct, btcBasisData.cme_front.basis_pct);
+                const basisDolFront = numOr(curr.basis_dollar_front ?? curr.basis_dollar, futFront - spot);
+
+                const futSecond = numOr(curr.futures_second, btcBasisData.cme_second.futures);
+                const bpctSecond = numOr(curr.basis_pct_second, btcBasisData.cme_second.basis_pct);
+                const basisDolSecond = numOr(curr.basis_dollar_second, futSecond - spot);
+
+                const bpctPerp = numOr(curr.basis_pct_perp, btcBasisData.perp.basis_pct);
+
+                btcBasisData = {
+                    as_of: asof,
+                    cme_front: {
+                        spot,
+                        futures: futFront,
+                        basis_dollars: basisDolFront,
+                        basis_pct: bpctFront,
+                        basis_annualized_simple: bpctFront * (365 / 30),
+                        basis_annualized_industry: bpctFront * (360 / 30),
+                        quartiles: curr.quartiles_front || btcBasisData.cme_front.quartiles
+                    },
+                    cme_second: {
+                        spot,
+                        futures: futSecond,
+                        basis_dollars: basisDolSecond,
+                        basis_pct: bpctSecond,
+                        basis_annualized_simple: bpctSecond * (365 / 60),
+                        basis_annualized_industry: bpctSecond * (360 / 60),
+                        quartiles: curr.quartiles_second || btcBasisData.cme_second.quartiles
+                    },
+                    perp: {
+                        spot,
+                        futures: spot,
+                        basis_dollars: 0,
+                        basis_pct: bpctPerp,
+                        basis_annualized_simple: bpctPerp * 365,
+                        basis_annualized_industry: null,
+                        quartiles: curr.quartiles_perp || btcBasisData.perp.quartiles
+                    },
+                    history: hist.map(h => ({
+                        date: h.date,
+                        spot: numOr(h.spot, spot),
+                        futures: numOr(h.futures ?? h.futures_front, futFront),
+                        basis_pct: numOr(h.basis_pct, bpctFront)
+                    })).filter(h => h.date)
+                };
+
+                console.log(`[BTC Basis] Loaded ${btcBasisData.history.length} rows | Front basis: ${btcBasisData.cme_front.basis_pct.toFixed(2)}%`);
+            } catch (e) {
+                console.warn('[BTC Basis DIG] JSON unavailable — using embedded fallback', e);
+            }
+        }
+
+        function buildFallbackSeries(data) {
+            const labels = ['T-6', 'T-5', 'T-4', 'T-3', 'T-2', 'T-1', 'Now'];
+            return {
+                labels,
+                spotData: Array(labels.length).fill(data.spot),
+                futData: Array(labels.length).fill(data.futures),
+                bpData: Array(labels.length).fill(data.basis_pct)
+            };
+        }
+
+        function createBasisChart(canvasId, key, data, label, history = []) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            if (chartRegistry[key]) {
+                chartRegistry[key].destroy();
+            }
+
+            let labels, spotData, futData, bpData;
+
+            if (Array.isArray(history) && history.length > 0) {
+                const recent = history.slice(-30);
+                labels = recent.map(h => {
+                    const d = h.date || '';
+                    return d.length >= 10 ? d.slice(5, 10) : d;
+                });
+                spotData = recent.map(h => h.spot);
+                futData = recent.map(h => Number.isFinite(h.futures) ? h.futures : data.futures);
+                bpData = recent.map(h => Number.isFinite(h.basis_pct) ? h.basis_pct : data.basis_pct);
+            } else {
+                ({ labels, spotData, futData, bpData } = buildFallbackSeries(data));
+            }
+
+            chartRegistry[key] = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Spot Price',
+                            data: spotData,
+                            borderColor: '#4ade80',
+                            backgroundColor: 'rgba(74, 222, 128, 0.08)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 3,
+                            tension: 0.25,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label,
+                            data: futData,
+                            borderColor: '#0A4D2E',
+                            backgroundColor: 'rgba(10, 77, 46, 0.08)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 3,
+                            tension: 0.25,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Basis %',
+                            data: bpData,
+                            borderColor: '#ff9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.10)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 3,
+                            tension: 0.25,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            title: { display: true, text: 'Price (USD)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'Basis %' },
+                            grid: { drawOnChartArea: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label(context) {
+                                    if (context.dataset.label === 'Basis %') {
+                                        const ann = data.basis_annualized_industry ?? 'N/A (Perp)';
+                                        return `Basis: ${Number(context.raw).toFixed(2)}% | Ann. Simple: ${Number(data.basis_annualized_simple).toFixed(2)}% | Industry: ${ann}`;
+                                    }
+                                    return `${context.dataset.label}: $${Number(context.raw).toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function populateSnapshot(elementId, data) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            el.innerHTML = `
+                <div>Spot:</div><div class="value">$${Number(data.spot).toLocaleString()}</div>
+                <div>Futures:</div><div class="value">$${Number(data.futures).toLocaleString()}</div>
+                <div>Basis $:</div><div class="value">$${Number(data.basis_dollars).toLocaleString()}</div>
+                <div>Basis %:</div><div class="value">${Number(data.basis_pct).toFixed(2)}%</div>
+            `;
+        }
+
+        function populateQuartileTable(elementId, quartiles) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+
+            const order = ['30d', '60d', '90d', '1y', '3y', 'since_2020'];
+            let html = '<tr><th>Lookback</th><th>Quartile</th></tr>';
+            for (const period of order) {
+                const q = quartiles?.[period] ?? '—';
+                html += `<tr><td>${period}</td><td>${q}</td></tr>`;
+            }
+            el.innerHTML = html;
+        }
+
+        function downloadPNG(key) {
+            const chart = chartRegistry[key];
+            if (!chart) return;
+            const link = document.createElement('a');
+            link.href = chart.toBase64Image('image/png', 1);
+            link.download = `btc-${key}-chart.png`;
+            link.click();
+        }
+
+        function downloadCSV(key) {
+            const hist = btcBasisData.history || [];
+            let data;
+            if (key === 'cme-front') data = btcBasisData.cme_front;
+            else if (key === 'cme-second') data = btcBasisData.cme_second;
+            else data = btcBasisData.perp;
+
+            const rows = [['date', 'spot', 'futures', 'basis_pct']];
+            if (hist.length > 0) {
+                hist.forEach(h => {
+                    rows.push([
+                        h.date || '',
+                        Number.isFinite(h.spot) ? h.spot : data.spot,
+                        Number.isFinite(h.futures) ? h.futures : data.futures,
+                        Number.isFinite(h.basis_pct) ? h.basis_pct : data.basis_pct
+                    ]);
+                });
+            } else {
+                rows.push([btcBasisData.as_of, data.spot, data.futures, data.basis_pct]);
+            }
+
+            const csv = rows.map(r => r.join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `btc-${key}-data.csv`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+        }
+
+        function copyPrompt(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(() => {});
+            }
+        }
+
+        function askChart(key) {
+            let data, title, marketType;
+            if (key === 'cme-front') {
+                data = btcBasisData.cme_front;
+                title = 'CME Front Month';
+                marketType = 'CME futures (front)';
+            } else if (key === 'cme-second') {
+                data = btcBasisData.cme_second;
+                title = 'CME Second Month';
+                marketType = 'CME futures (second)';
+            } else {
+                data = btcBasisData.perp;
+                title = 'Perpetual';
+                marketType = 'perpetual futures';
+            }
+
+            const prompt = `BTC Basis DIG — ${title} Analysis (as of ${btcB

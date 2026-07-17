@@ -1,35 +1,38 @@
-# Large files and binaries
-*.dmg
-*.zip
-*.tar.gz
-*.7z
-*.exe
-*.msi
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/hydration/*.json
+*.log
 
-# Archives and temp folders
-archive/
-backup/
-BACKUP*/
-*.DS_Store
-Thumbs.db
-
-# Large data files (uncomment if needed)
-# *.parquet
-# *.csv
+# Secrets & API Keys
+*.env
+.env.*
+secrets/
+api_keys/
+config/secrets.json
+config/local.json
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
-.env
-.venv
+*.py[cod]
+*.so
 
-# Logs and temp
-*.log
-logs/
-tmp/
-temp/
-staged_raw/quarantine/
+# macOS
+.DS_Store
 
-# OS junk
+# Secrets & API Keys
+*.env
+.env.*
+secrets/
+api_keys/
+config/secrets.json
+config/local.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# macOS
 .DS_Store

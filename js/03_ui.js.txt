@@ -1,0 +1,90 @@
+/**
+ * js/03_ui.js
+ * ARK UI Layer - Risk Cards & Dashboard Integration
+ * Version: 1.0
+ * DEVGROK Trading Desk Pattern
+ */
+'use strict';
+
+// Main initialization
+async function initializeARKUI() {
+    console.log("[UI] Initializing ARK Risk Dashboard...");
+
+    // Show loading state
+    showGlobalLoading(true);
+
+    try {
+        // Initial load
+        const riskData = await ARK.refresh();   // or ARK.get('risk_curve')
+        renderAllRiskCards(riskData);
+
+        // Subscribe to real-time updates (recommended)
+        window.riskUnsubscribe = ARK.onRiskCurveUpdate((updatedData) => {
+            console.log("[UI] Risk curve updated via pub/sub");
+            renderAllRiskCards(updatedData);
+        });
+
+        console.log("[UI] ARK Dashboard initialized successfully");
+    } catch (err) {
+        console.error("[UI] Failed to initialize risk data", err);
+        // Fallback will be used automatically by ARK
+        const fallbackData = ARK._getFallbackRiskCurve ? ARK._getFallbackRiskCurve() : null;
+        if (fallbackData) renderAllRiskCards(fallbackData);
+    } finally {
+        showGlobalLoading(false);
+    }
+}
+
+// Render all risk cards
+function renderAllRiskCards(data) {
+    if (!data || !data.nodes) return;
+
+    Object.keys(data.nodes).forEach(key => {
+        const node = data.nodes[key];
+        const cardElement = document.getElementById(`risk-card-${key}`);
+        
+        if (cardElement) {
+            cardElement.innerHTML = `
+                <div class="risk-header">
+                    <h3>${key}</h3>
+                    <span class="score ${node.status.toLowerCase()}">${node.score}</span>
+                </div>
+                <div class="risk-body">
+                    <p class="status">${node.status} • ${node.quartile}</p>
+                    <p class="description">${node.description}</p>
+                    <p class="quant">${node.quantOutputs}</p>
+                    <p class="commentary">${node.commentary}</p>
+                </div>
+            `;
+        }
+    });
+}
+
+// Simple global loading indicator
+function showGlobalLoading(isLoading) {
+    let loader = document.getElementById('global-loader');
+    if (!loader) {
+        loader = document.createElement('div');
+        loader.id = 'global-loader';
+        loader.style.cssText = 'position:fixed;top:10px;right:10px;background:#333;color:white;padding:8px 12px;border-radius:4px;display:none;z-index:9999;';
+        loader.textContent = 'Loading Market Risk...';
+        document.body.appendChild(loader);
+    }
+    loader.style.display = isLoading ? 'block' : 'none';
+}
+
+// Auto-start when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeARKUI);
+} else {
+    initializeARKUI();
+}
+
+// Cleanup on page unload (good practice)
+window.addEventListener('beforeunload', () => {
+    if (window.riskUnsubscribe) {
+        window.riskUnsubscribe();
+    }
+});
+
+console.log("✅ ARK UI Layer v1.0 Loaded");

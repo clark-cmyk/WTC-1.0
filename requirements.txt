@@ -1,0 +1,14 @@
+# Web Framework
+Flask==2.3.3
+flask-cors==4.0.0
+
+# Data Processing
+pandas==2.0.3
+numpy==1.24.3
+
+# Optional: For real data fetching
+requests==2.31.0
+python-dotenv==1.0.0
+
+# Optional: For better JSON handling
+simplejson==3.19.2

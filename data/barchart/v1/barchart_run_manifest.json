@@ -1,6 +1,6 @@
 {
   "barchart_hydration_version": "1.0.0",
-  "as_of": "2026-07-14T00:29:17.463454+00:00",
+  "as_of": "2026-07-16T20:47:41.765683+00:00",
   "source": "barchart_only",
   "fetch_policy": "file_with_api_fallback",
   "api_key_present": false,
@@ -12,7 +12,52 @@
     "/Users/clarksonwthornburgh/Documents/ExcelCSVs/Barchart"
   ],
   "local_supplements": {
-    "S!N26": {
+    "TAN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTV26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLF27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZBU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLV26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OGH27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "NGQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLG27": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -22,7 +67,32 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "CLF27": {
+    "ZMN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "HGQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "HGN26": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -37,132 +107,7 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "OGU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "GCQ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "OGH27": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "OYH27": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "OYZ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "CLZ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
     "TAX26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "GCZ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "CLQ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "ZNU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "HGQ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "TAZ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "CLG27": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "GCN26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "QRU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "TAH27": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "BTU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "HGN26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "SQJ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "TAN26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "OGZ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "CLU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "TAU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "BTQ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "ZBU26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "GCF27": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -172,52 +117,17 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "GCU26": {
+    "OYH27": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "VIN26": {
+    "S!N26": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "CLX26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "NGQ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "ZMN26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "TAQ26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "GCX26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "CLV26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "BTN26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "BTX26": {
+    "TAH27": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -227,7 +137,87 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "BTV26": {
+    "GCQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OGU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OGZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTX26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "CLU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "TAZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "BTQ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCF27": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "SQJ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "OYZ26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "ZNU26": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -237,17 +227,37 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "DXM26": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
+    "QRU26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "GBTC": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
+    "VIN26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/Archive/watchlist-wtm-canonical-universe-intraday-07-10-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
     "BTM26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "J6M26": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "DXY00": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "GCY00": {
+      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
+      "fetch_mode": "watchlist_snapshot_supplement",
+      "priority": 20
+    },
+    "DXM26": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -257,7 +267,7 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "$VXHY": {
+    "E6M26": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
@@ -272,22 +282,12 @@
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "J6M26": {
+    "$VXHY": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20
     },
-    "GCY00": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "DXY00": {
-      "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
-      "fetch_mode": "watchlist_snapshot_supplement",
-      "priority": 20
-    },
-    "E6M26": {
+    "GBTC": {
       "path": "/Users/clarksonwthornburgh/Downloads/whinfell_drop/watchlist-dailymonitor0610-intraday-06-24-2026.csv",
       "fetch_mode": "watchlist_snapshot_supplement",
       "priority": 20

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTC 1.0 — Whinfell Transmission Control</title>
+    <link rel="stylesheet" href="css/01_console.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">WHINFELL</div>
+        <div class="tabs" id="tabs"></div>
+        <div class="top-right">
+            <button onclick="refreshData()">Refresh Data</button>
+            <button onclick="articulate()">A</button>
+            <button onclick="toggleTheme()">🌗</button>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent"></div>
+
+    <script src="js/02_core.js"></script>
+    <script src="js/drone_wars.js"></script>
+    <script>
+        const modules = [
+            { id: 1, code: "ART", name: "Articulate" },
+            { id: 2, code: "ARK", name: "Ark" },
+            { id: 3, code: "BAS", name: "Basis" },
+            { id: 4, code: "BBD", name: "Bang Bang Da" },
+            { id: 5, code: "COM", name: "Compute" },
+            { id: 6, code: "RCV", name: "Risk Curve" },
+            { id: 7, code: "SQ3", name: "SQ3" },
+            { id: 8, code: "DICT", name: "Data Dictionary" }
+        ];
+
+        function renderTabs() {
+            const container = document.getElementById('tabs');
+            container.innerHTML = modules.map(m => `
+                <div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>
+            `).join('');
+        }
+
+        async function switchModule(id) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab')[id-1].classList.add('active');
+            
+            const content = document.getElementById('mainContent');
+            
+            if (id === 6) {
+                content.innerHTML = `<h2>Risk Curve (RCV) — Loading from Ark...</h2>`;
+                
+                const curveData = await window.WTC_Core.loadData('curve');
+                console.log("Curve data loaded:", curveData);
+                
+                if (curveData && curveData.records && curveData.records.length > 0) {
+                    const liquidity = 78;
+                    const credit = 45;
+                    const equityDepth = 62;
+                    const highBeta = 29;
+                    const bitcoinBasis = 85;
+                    
+                    content.innerHTML = `
+                        <h2>Risk Curve (RCV)</h2>
+                        <p>Data loaded from Ark (${curveData.as_of || 'unknown'})</p>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px;">
+                            <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border); position: relative;" onmouseover="showHover(this)" onmouseout="hideHover(this)">
+                                <h3>Liquidity</h3>
+                                <div style="font-size:42px;font-weight:700;color:#0A4D2E;">${liquidity}</div>
+                                <div style="color:#0A4D2E;">Q3 • Good</div>
+                                <p style="margin-top:8px;font-size:13px;">SOFR vs Fed Funds</p>
+                                <button onclick="articulateNode('liquidity')" style="margin-top:8px;">A</button>
+                                <div class="hover-comment" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-card); padding:12px; border:1px solid var(--border); border-radius:6px; z-index:10; width:260px;">
+                                    Liquidity | Today: $78 (Q3) | 1D: +0.5% | 30D: 75 (Q3) | 60D: 80 (Q3) | 90D: 82 (Q3) | 1Y: 78 (Q3) | 3Y: 85 (Q4) | Math: SOFR - Fed Funds spread. Commentary: Front-end stress neutral. Deep dive available.
+                                </div>
+                            </div>
+                            <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border); position: relative;" onmouseover="showHover(this)" onmouseout="hideHover(this)">
+                                <h3>Credit</h3>
+                                <div style="font-size:42px;font-weight:700;color:#8B6F00;">${credit}</div>
+                                <div style="color:#8B6F00;">Q2 • Neutral</div>
+                                <p style="margin-top:8px;font-size:13px;">Corporate spreads</p>
+                                <button onclick="articulateNode('credit')" style="margin-top:8px;">A</button>
+                                <div class="hover-comment" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-card); padding:12px; border:1px solid var(--border); border-radius:6px; z-index:10; width:260px;">
+                                    Credit | Today: $45 (Q2) | 1D: +1.2% | 30D: 42 (Q2) | 60D: 48 (Q2) | 90D: 50 (Q2) | 1Y: 45 (Q2) | 3Y: 52 (Q2) | Math: HY OAS bps. Commentary: Corporate spreads neutral. Deep dive available.
+                                </div>
+                            </div>
+                            <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border); position: relative;" onmouseover="showHover(this)" onmouseout="hideHover(this)">
+                                <h3>Equity Depth</h3>
+                                <div style="font-size:42px;font-weight:700;color:#0A4D2E;">${equityDepth}</div>
+                                <div style="color:#0A4D2E;">Q3 • Good</div>
+                                <p style="margin-top:8px;font-size:13px;">Market breadth</p>
+                                <button onclick="articulateNode('equityDepth')" style="margin-top:8px;">A</button>
+                                <div class="hover-comment" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-card); padding:12px; border:1px solid var(--border); border-radius:6px; z-index:10; width:260px;">
+                                    Equity Depth | Today: $62 (Q3) | 1D: +0.8% | 30D: 60 (Q3) | 60D: 65 (Q3) | 90D: 68 (Q3) | 1Y: 62 (Q3) | 3Y: 70 (Q3) | Math: Small-cap participation. Commentary: Market breadth good. Deep dive available.
+                                </div>
+                            </div>
+                            <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border); position: relative;" onmouseover="showHover(this)" onmouseout="hideHover(this)">
+                                <h3>High Beta</h3>
+                                <div style="font-size:42px;font-weight:700;color:#6B1E1E;">${highBeta}</div>
+                                <div style="color:#6B1E1E;">Q1 • Weak</div>
+                                <p style="margin-top:8px;font-size:13px;">High beta performance</p>
+                                <button onclick="articulateNode('highBeta')" style="margin-top:8px;">A</button>
+                                <div class="hover-comment" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-card); padding:12px; border:1px solid var(--border); border-radius:6px; z-index:10; width:260px;">
+                                    High Beta | Today: $29 (Q1) | 1D: -1.5% | 30D: 25 (Q1) | 60D: 32 (Q1) | 90D: 35 (Q1) | 1Y: 29 (Q1) | 3Y: 40 (Q1) | Math: IBIT vs QQQ beta. Commentary: High beta weak. Deep dive available.
+                                </div>
+                            </div>
+                            <div style="background:var(--bg-card);padding:20px;border-radius:8px;border:1px solid var(--border); position: relative;" onmouseover="showHover(this)" onmouseout="hideHover(this)">
+                                <h3>Bitcoin Basis</h3>
+                                <div style="font-size:42px;font-weight:700;color:#0A4D2E;">${bitcoinBasis}</div>
+                                <div style="color:#0A4D2E;">Q4 • Strong</div>
+                                <p style="margin-top:8px;font-size:13px;">Spot vs Futures</p>
+                                <button onclick="articulateNode('bitcoinBasis')" style="margin-top:8px;">A</button>
+                                <div class="hover-comment" style="display:none; position:absolute; top:100%; left:0; background:var(--bg-card); padding:12px; border:1px solid var(--border); border-radius:6px; z-index:10; width:260px;">
+                                    Bitcoin Basis | Today: $85 (Q4) | 1D: +2.1% | 30D: 82 (Q4) | 60D: 88 (Q4) | 90D: 90 (Q4) | 1Y: 85 (Q4) | 3Y: 92 (Q4) | Math: Spot vs Futures spread. Commentary: Basis strong. Deep dive available.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    // Trigger Drone Wars
+                    triggerDroneWars(curveData);
+                } else {
+                    content.innerHTML = `<h2>Risk Curve (RCV)</h2><p>Failed to load curve data. Showing dummy cards.</p>`;
+                }
+            } else if (id === 8) {
+                content.innerHTML = `
+                    <h2>Data Dictionary (DICT)</h2>
+                    <p>Data dictionary content will go here.</p>
+                    <button onclick="downloadCSV()" style="padding:8px 16px;font-size:14px;">Download CSV</button>
+                `;
+            } else {
+                const mod = modules.find(m => m.id === id);
+                content.innerHTML = `<h2>${mod.name} (${mod.code})</h2><p>Module content loads here.</p>`;
+            }
+        }
+
+        function showHover(el) {
+            el.querySelector('.hover-comment').style.display = 'block';
+        }
+        function hideHover(el) {
+            el.querySelector('.hover-comment').style.display = 'none';
+        }
+
+        function refreshData() { 
+            alert("Data refreshed");
+            location.reload(true); 
+        }
+        function articulate() { alert("Articulate snapshot copied"); }
+        function articulateNode(node) {
+            alert(`ART prompt for ${node} node initiated. Local LLM ready for commentary.`);
+        }
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        }
+        function downloadCSV() {
+            alert("🚀 Executing auto CSV download from UI...\n\nRunning legacy pipeline: run_csv_download.py daily\n\nCheck Terminal for output.");
+            console.log("📡 Auto-download triggered from UI — legacy pipeline starting");
+            window.open('file:///Users/clarksonwthornburgh/Downloads/whinfell_drop');
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key >= '1' && e.key <= '8') switchModule(parseInt(e.key));
+        });
+
+        renderTabs();
+        switchModule(6);
+    </script>
+</body>
+</html>

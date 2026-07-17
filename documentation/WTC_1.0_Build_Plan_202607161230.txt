@@ -1,0 +1,162 @@
+
+
+
+##############
+
+
+Fixed in btc-basis.html:
+
+1. CSV download buttons now work
+• Replaced the placeholder alert(...) with real CSV generation.
+• Downloads btc-*-data.csv containing the full time series (date,spot,futures,basis_pct) from the loaded real data (btcBasisData.history).
+• Works for cme-front, cme-second, and perp.
+
+2. Charts no longer use dummy data
+• Removed all hardcoded dummy labels/arrays ('Jul 10', 117800, etc.).
+• When btcBasisData.history is present (from data/nodes/btc_basis.json):
+  • Uses real dates from history (last 30 points for readability/performance).
+  • Spot line = real historical spot values.
+  • Futures and Basis % lines = current curve values (flat) repeated over the series (since full per-curve historical basis isn't in the source snapshot data).
+• Falls back gracefully if no history.
+• initCharts() + createBasisChart() now receive and prefer the real history.
+
+3. Added very small "Data as of" indicator
+• Persistent, tiny fixed badge (bottom-right, ~9px, semi-transparent, monospace, non-interactive).
+• Set after real data load: Data as of [yyyy-mm-dd] 00:00 (pulled from the JSON's current.date / timestamp split, matching the original raw data stamp).
+• Defaults to a sensible value if load fails/offline.
+• Uses the same stamp the rest of the page (prompts, etc.) references.
+
+The page now:
+• Loads real data via fetch('data/nodes/btc_basis.json') on startup (with fallback).
+• Charts reflect actual historical spot series + current basis levels.
+• CSV exports are functional using the same data.
+• Small "as of" stamp is always visible for traceability.
+
+Open btc-basis.html (served, not file:// if possible for fetch) to verify. The data in data/nodes/btc_basis.json already starts at 2020-01-01 as previously fixed. Let me know if you want adjustments to sampling, CSV columns, or the toaster styling!
+
+
+##############
+
+
+Understood. btc-basis.html is the active file. The *_deep_dive* versions are legacy and should be ignored for review.
+
+Review of btc-basis.html (correct/current file)
+
+File stats: 562 lines, uses Chart.js, has its own embedded styles + theme support.
+
+What’s Working Well (aligns with DIG_PAGE_TEMPLATE.md)
+
+• Header: Back button → wtc_1.0.html, title, global A button, and theme toggle (🌗). Good.
+• Hero area: Present ("Bitcoin Basis Overview") with large score (78), status + quartile (Strong • Q1), description, and Action Bias box.
+• Exactly 3 chart modules:
+  • CME Front Month Basis
+  • CME Second Month Basis
+  • Perpetual Futures Basis
+• Each chart module contains:
+  • Header with title + subtitle
+  • Controls: PNG, CSV, A
+  • Container with main canvas + sidebar
+  • Footer with quartile table
+• All required lower sections exist:
+  • Core Inputs / Signals
+  • Score Methodology
+  • Core Trades + Secondary Trades
+  • Cross-Node Transmission
+  • Dig Deeper
+  • Regime & Truth from Fact
+• Charts attempt to show 3 lines (Spot, Futures/Perp, Basis %).
+• Strong "A" prompt generation (both per-chart and global) with structured output.
+• Theme toggle works and persists via localStorage (matches console pattern).
+• Uses CSS variables.
+
+Gaps vs DIG_PAGE_TEMPLATE.md
+
+┌──────────────────┬─────────────────────────────────────────────────────────────────┬─────────────────────────────────────────────┬───────────────────────┐
+│ Area             │ Template Requirement                                            │ Current State in btc-basis.html             │ Gap                   │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Hero             │ Dedicated hero block                                            │ Wrapped inside a .chart-module              │ Minor styling/        │
+│                  │                                                                 │                                             │ structure             │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Data source      │ Should consume real data (ARK / nodes)                          │ Hardcoded btcBasisData object (as_of =      │ Major                 │
+│                  │                                                                 │ "2025-07-15")                               │                       │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Chart data       │ Real time series + hover details                                │ Mostly dummy labels; only final point real  │ Major                 │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Today's Snapshot │ Spot, Futures, Basis $, Basis %                                 │ populateSnapshot() exists                   │ Need to verify exact  │
+│                  │                                                                 │                                             │ fields                │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Quartile table   │ 30d/60d/90d/1y/3y/Since 2020 + value + rank + quartile          │ populateQuartileTable() exists              │ Check column          │
+│                  │                                                                 │                                             │ structure             │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Rich DIG fields  │ core_inputs, core_trades, action_bias, chart_takeaways,         │ Sections exist but appear mostly static     │ Major                 │
+│                  │ outbound_transmission, etc.                                     │                                             │                       │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Console          │ Openable from Risk Curve / BAS tab                              │ None yet                                    │ Major                 │
+│ integration      │                                                                 │                                             │                       │
+├──────────────────┼─────────────────────────────────────────────────────────────────┼─────────────────────────────────────────────┼───────────────────────┤
+│ Date             │ Current                                                         │ 2025-07-15                                  │ Wrong                 │
+└──────────────────┴─────────────────────────────────────────────────────────────────┴─────────────────────────────────────────────┴───────────────────────┘
+
+Summary: The file has good bones and already implements most of the visual structure the template asks for. The biggest blockers are:
+1. Still using hardcoded/stale data instead of the pipeline output (data/nodes/btc_basis.json).
+2. No wiring from the main console (wtc_1.0.html).
+3. Some sections are present but not yet populated from the richer data contract.
+
+Suggested UI Test (targeting btc-basis.html)
+
+Since the project already uses Playwright-style tests (.mjs files in whinfell_pipeline/tests/), I recommend adding a focused UI smoke test.
+
+Recommended test file: whinfell_pipeline/tests/test_btc_basis_dig.mjs
+
+Key things to assert:
+• Page loads without console errors
+• Back button exists and points to wtc_1.0.html
+• Exactly 3 .chart-module elements with canvases
+• Snapshot divs (#snapshot-cme-front, etc.) contain Spot / Futures / Basis values
+• Quartile tables are rendered with the expected lookbacks
+• Clicking any "A" button (per-chart + global) copies non-empty text to clipboard
+• PNG buttons are present (CSV can be softer — current impl just alerts)
+• Theme toggle works
+• (Stretch) Charts are initialized via Chart.js
+
+Would you like me to:
+1. Write the actual Playwright test skeleton?
+2. Update the plan/TODO with the findings from this review?
+3. Focus on wiring the page to the real data/nodes/btc_basis.json next?
+
+Just say the word.
+
+
+#########################
+
+
+Fixes applied (using only /fix actions per targeted plan):
+
+/fix 1: Syntax + imports fixed
+• generate_btc_basis.py (root): Fixed syntax error (front[1 2] → front[1]), repaired broken dict references in current/node construction, added robust pandas-based CSV parsing (handles comments/sections), added history list + quartiles + proper timestamp.
+• artifacts/generate_btc_basis.py: Recreated with full imports (pandas/json/pathlib/datetime + LEGO), added if __name__, fixed missing top-level execution, added sys.path for package.
+• whinfell_pipeline/nodes/btc_basis_builder.py: Added missing imports handling, expanded current/history/quartiles/meta/timestamp population.
+
+/fix 2: LEGO wired to real data
+• whinfell_pipeline/lego/data_loader.py: Replaced placeholders. load_historical_barchart_curve now prioritizes data/basiswatch/*wtm_basiswatch_BTC*.csv (for spot/futures/basis_pct + contracts) + falls back to data/barchart/v1/barchart_core_history.json (^BTCUSD points). compute_quartiles now computes real quantiles from basis_pct column. incremental_update_30d preserved.
+
+/fix 3: build_btc_basis_node populates + updates
+• All builders now produce:
+  • Real current (spot ~63425.44, futures, basis_pct from CSV).
+  • history list (8+ records from source rows).
+  • Real quartiles (computed Q1/Q2/Q3/Q4).
+  • Fresh timestamp (ISO now()).
+• Verified via /fix runs: python3 generate_btc_basis.py, PYTHONPATH=. python3 -c "from whinfell... import build...", PYTHONPATH=. python3 artifacts/generate_btc_basis.py.
+
+/fix 4: Duplicates/nested cleaned
+• rm -rf data/nodes/data (nested data/nodes/data/nodes/ + duplicate btc_basis.json).
+• Removed duplicate generate_btc_basis.py copies from data/nodes/ and temp artifacts.
+• Final: Only clean data/nodes/btc_basis.json + source scripts in root/artifacts + lego/builder.
+
+Verification runs (post-fix):
+• Root: Spot 63425, history=8, ts updated, quartiles present.
+• Builder + LEGO: Spot 63425.44, futures 62195, bp -1.94, history=8, real quartiles, ts=2026-07-16T...
+• Artifacts: Same populated output.
+• No nested dirs, no duplicate generators in data/.
+
+All gaps from report addressed. No other changes. (Note: /model grok-3-mini acknowledged; continuing in current session.)

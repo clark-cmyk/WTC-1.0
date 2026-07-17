@@ -16,7 +16,7 @@ class RetainerConfig:
 @dataclass
 class DroneWarsConfig:
     sovereign_name: str = "Sovereign"
-    sovereign_model: str = "grok"
+    sovereign_model: str = "grok-build-0.1"
     
     lords: List = field(default_factory=lambda: [
         LordConfig(name="Abaddon", title="Destruction Analyst", description="Identifies weakness and risk in high-beta assets"),

@@ -1,0 +1,54 @@
+ark skill
+ 
+**STATUS:**
+**Project:** WTC-1.0 — BTC Basis DIG Layer Data Wiring
+**Date:** 2026-07-15 20:05 CDT
+**Phase:** Concise chunked mandate for ARK (≤10 lines per requirement)
+**Referenced Authority (single source of truth):**
+- `documentation/DIG_PAGE_TEMPLATE.md` + `documentation/BTC_Basis_DIG_Plan.md`
+- `wtc-config` (ARK owns full pipeline + per-node JSON + DIG templates)
+- `collection_manifest.yaml` (barchart_btc_basis + koyfin_crypto_price)
+- `data_dictionary.yaml` (btc_basis dataset + barchart_curve_history parser)
+**Concise Mandate for ARK (chunked — issue exactly as written):**
+**1. Integration Rule**
+btc-basis.html is a pure consumer page only.
+It must load its complete rich DIG payload exclusively from one JSON file produced by your central hydration pipeline.
+Zero CSV parsing, series calculation, or data logic is allowed inside btc-basis.html or its JS.
+Clicking the BTCBasis node in wtc_1.0.html must navigate cleanly to the page, which auto-renders from the latest hydrated JSON.
+**2. Primary Data Sources**
+Use exactly these sources for all BTC/spot/futures data:
+- `barchart_btc_basis` (collection_manifest.yaml): WTM-BTC-Basis screen → BTM26 front contract → Futures Spreads CSV → normalizes to `btc_basis_YYYYMMDD.csv`.
+- `koyfin_crypto_price` (WTM-Crypto-Price saved chart) → normalizes to `btc_price_chart_*.csv` for clean BTC spot history.
+- Supporting: `barchart_futures_daily` / `barchart_core_history` (^BTCUSD) where needed.
+Apply normalize_rules + field_mappings from the two YAML files.
+**3. Initial Full-History Hydration (i)**
+Backfill complete history from 2020-01-01 through 2026-07-15.
+Stage full collection for barchart_btc_basis + koyfin_crypto_price + supporting spot/futures sources.
+Normalize every file to canonical names using the exact rules in collection_manifest.yaml + data_dictionary.yaml.
+Build full historical arrays (date, spot_price, futures_price BTM26, basis_pct) via barchart_curve_history parser logic + consistent derivation.
+Write the complete rich DIG payload into `data/hydration/latest.json` (enriched BTCBasis block) or dedicated `data/btc_basis.json`.
+**4. Ongoing Daily Hydration (ii)**
+After every daily collection run (required_batch_ids + barchart_btc_basis):
+Normalize only the new files to canonical names.
+Perform incremental update only: append/replace the trailing 30 calendar days in the historical arrays.
+Never re-process full history on daily runs.
+Update `hydration_timestamp` to current run time (YYYY-MM-DD HH:MM:SS 24-hour format).
+**5. Timestamp Requirement (add to btc-basis.html)**
+In the Header (top-right, next to global “A” button) or immediately below the page title, display:
+**Data as of: YYYY-MM-DD HH:MM:SS** (exact 24-hour format, no AM/PM).
+Dynamically pull the value from the `hydration_timestamp` field in the loaded JSON payload.
+Must update automatically on every page load and display correctly in both dark and light mode.
+**6. Target Payload & Chart Requirements**
+Populate the full DIG contract per DIG_PAGE_TEMPLATE.md: score/status/quartile/description/action_bias, core_inputs, chart_takeaways, core_trades + secondary_trades, outbound/inbound transmission, regime, truth_real/fleeting.
+Wire exactly three chart modules with real series: Spot Price, Futures/Perp Price (BTM26), Basis (%).
+Each module must include working hover bullseye, Today’s Snapshot sidebar (Spot, Futures, Basis $, Basis %), Legend, and Quartile Ranking table (30d/60d/90d/1y/3y/Since 2020 with percentile + Q1–Q4).
+Use clear placeholder text for any still-missing intelligence fields — never hide sections.
+**7. Ownership, Success & Reporting**
+You (ARK) own the entire central pipeline + btc-basis.html creation + hydration extension end-to-end.
+Benaiah validates intelligence content (signals meaning, trades, regime, Truth from Fact) only after you deliver working real-data render.
+Success = btc-basis.html renders its three chart modules, snapshot boxes, and quartile tables with live values from the btc_basis and spot CSVs (no placeholders in chart areas).
+Report milestone status to Abraham when hydration plan is complete and again when first real-data render is live in the page.
+---
+**Assignment:**
+The text above is the precise, concise, chunked mandate (each requirement ≤10 lines). It enforces strict integration, exact (i)(ii) hydration processes, and the mandatory timestamp.
+Understood. Should I issue this updated mandate to ARK now?

@@ -1,0 +1,9 @@
+Module,Function,File Directory/Path,Upstream,Downstream,In-Node,Production Ready?
+Barchart Hydration,CSV/API → history JSONs,whinfell_pipeline/barchart_hydration.py,Staged CSVs / Barchart API,barchart/v1/*_history.json,Core/Curve/Spread,Yes
+BTC Basis Generator,CSV → btc_basis.json,artifacts/generate_btc_basis.py,BasisWatch CSV / barchart curves,DIG Layer (Benaiah),Basis node,Partial
+Adapters,Source normalization,whinfell_pipeline/adapters/*.py,Raw CSVs/JSON,Canonical + node_cockpits,Multi,Yes
+Data Dictionary,"Symbols, maps, schemas",whinfell_pipeline/data_dictionary.py,Config,All parsers/hydrators,Global,Yes
+Node Cockpits,"RV, composites, signals",whinfell_pipeline/node_cockpits.py,Hydrated nodes,latest.json / UI,All nodes,Yes
+Flows Parser,Funds flows sidecar,whinfell_pipeline/flows_parser.py,WTM-Flows CSV,Node flows_status,Liquidity/Credit/etc.,Yes
+Hydration/Audit,Bundle validation + manifest,whinfell_pipeline/hydration_audit.py + hydrate.py,Manifests/staged,Desk sessions / latest,Global,Yes
+Risk Curve / DIG,Synthesis + templates,data/risk_curve.json + js/modules,Node JSONs,Frontend / Benaiah prompts,Macro / DIG,Partial

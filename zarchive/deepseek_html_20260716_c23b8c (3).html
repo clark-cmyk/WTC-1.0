@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Basis — DIG Layer (Benaiah)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-page: #0f0f0f;
+            --bg-card: #1a2a22;
+            --border: #0A4D2E;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #0A4D2E;
+            --accent-light: #4ade80;
+            --chart-bg: #111;
+            --sidebar-bg: rgba(255,255,255,0.03);
+        }
+        [data-theme="light"] {
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #166534;
+            --accent-light: #22c55e;
+            --chart-bg: #f1f5f9;
+            --sidebar-bg: #f8fafc;
+        }
+        body {
+            background: var(--bg-page);
+            color: var(--text-primary);
+            font-family: system-ui, sans-serif;
+            margin: 0;
+            padding: 24px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .back-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .back-btn:hover { background: var(--sidebar-bg); }
+        .chart-module {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .chart-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+        .chart-header h3 { margin: 0 0 4px 0; font-size: 1.35rem; }
+        .subtitle { margin: 0; color: var(--text-secondary); font-size: 0.95rem; }
+        .chart-controls button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            margin-left: 8px;
+            transition: all 0.2s;
+        }
+        .btn-png, .btn-csv {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-primary);
+        }
+        .btn-png:hover, .btn-csv:hover { background: rgba(255,255,255,0.15); }
+        .a-btn {
+            background: var(--accent);
+            color: white;
+            font-weight: 600;
+        }
+        .a-btn:hover { filter: brightness(1.1); }
+        .chart-container {
+            display: grid;
+            grid-template-columns: 1fr 260px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .main-chart {
+            background: var(--chart-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            height: 420px;
+            padding: 12px;
+        }
+        .chart-sidebar {
+            background: var(--sidebar-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 16px;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+        .snapshot-grid .value {
+            text-align: right;
+            font-weight: 600;
+            color: var(--accent-light);
+        }
+        .legend { display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
+        .legend .line {
+            display: inline-block;
+            width: 24px;
+            height: 3px;
+            border-radius: 3px;
+        }
+        .quartile-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        .quartile-table th, .quartile-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+        .quartile-table th { color: var(--text-secondary); font-weight: 500; }
+        .legend .line.spot { background: var(--accent-light); }
+        .legend .line.futures { background: var(--accent); }
+        .legend .line.basis { background: #ff9800; }
+        .data-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .data-status.live { background: #22c55e20; color: #22c55e; }
+        .data-status.fallback { background: #f59e0b20; color: #f59e0b; }
+        .data-status.error { background: #ef444420; color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <button class="back-btn" onclick="window.location.href='wtc_1.0.html'">← Back to Risk Curve</button>
+                <h1 style="margin: 8px 0 0 0;">BTC Basis — DIG Layer (Benaiah)</h1>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <span id="data-status" class="data-status live">● Live</span>
+                <button onclick="refreshData()" style="padding:8px 12px; border-radius:6px; border:1px solid var(--border); background:none; color:var(--text-primary); cursor:pointer;">🔄</button>
+                <button onclick="askPage()" class="a-btn">A</button>
+                <button onclick="toggleTheme()" style="padding:8px 12px; border-radius:6px; border:1px solid var(--border); background:none; color:var(--text-primary);">🌗</button>
+            </div>
+        </div>
+
+        <!-- Hero Summary -->
+        <div class="chart-module">
+            <h2 style="margin-top:0;">Bitcoin Basis Overview</h2>
+            <div style="display:flex; gap:40px; align-items:center; flex-wrap: wrap;">
+                <div>
+                    <div id="hero-score" style="font-size:42px; font-weight:700; color: var(--accent-light);">--</div>
+                    <div id="hero-label" style="color: var(--accent-light); font-weight:600;">Loading...</div>
+                </div>
+                <div id="hero-description" style="max-width:520px; color: var(--text-secondary);">
+                    Loading data...
+                </div>
+                <div style="margin-left: auto; background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 18px; max-width: 320px;">
+                    <strong style="color: var(--accent-light);">Action Bias:</strong><br>
+                    <span id="hero-action" style="font-size: 0.95rem;">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart 1: CME Front Month -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>CME Front Month Basis</h3>
+                    <p class="subtitle">BTC Spot vs Current Month Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('cme-front')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('cme-front')">CSV</button>
+                    <button class="a-btn" onclick="askChart('cme-front')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart"><canvas id="chart-cme-front"></canvas></div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-cme-front">Loading...</div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> CME Front Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-cme-front"><tr><td>Loading...</td></tr></table>
+            </div>
+        </div>
+
+        <!-- Chart 2: CME Second Month -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>CME Second Month Basis</h3>
+                    <p class="subtitle">BTC Spot vs Next Month Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('cme-second')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('cme-second')">CSV</button>
+                    <button class="a-btn" onclick="askChart('cme-second')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart"><canvas id="chart-cme-second"></canvas></div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-cme-second">Loading...</div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> CME Second Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-cme-second"><tr><td>Loading...</td></tr></table>
+            </div>
+        </div>
+
+        <!-- Chart 3: Perpetual -->
+        <div class="chart-module">
+            <div class="chart-header">
+                <div>
+                    <h3>Perpetual Futures Basis</h3>
+                    <p class="subtitle">BTC Spot vs Perpetual Futures</p>
+                </div>
+                <div class="chart-controls">
+                    <button class="btn-png" onclick="downloadPNG('perp')">PNG</button>
+                    <button class="btn-csv" onclick="downloadCSV('perp')">CSV</button>
+                    <button class="a-btn" onclick="askChart('perp')">A</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="main-chart"><canvas id="chart-perp"></canvas></div>
+                <div class="chart-sidebar">
+                    <h4>Today's Snapshot</h4>
+                    <div class="snapshot-grid" id="snapshot-perp">Loading...</div>
+                    <h4>Legend</h4>
+                    <div class="legend">
+                        <div><span class="line spot"></span> Spot Price</div>
+                        <div><span class="line futures"></span> Perpetual Futures</div>
+                        <div><span class="line basis"></span> Basis (%)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <h4>Quartile Ranking</h4>
+                <table class="quartile-table" id="table-perp"><tr><td>Loading...</td></tr></table>
+            </div>
+        </div>
+
+        <!-- Additional Sections -->
+        <div class="chart-module">
+            <h3>Core Inputs / Signals</h3>
+            <div id="core-inputs" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; font-size: 0.95rem;">
+                <div style="background: var(--sidebar-bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px;">
+                    <strong style="color: var(--accent-light);">Loading data...</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-module">
+            <h3>Score Methodology</h3>
+            <p id="score-method" style="color: var(--text-secondary); max-width: 900px;">Loading...</p>
+        </div>
+    </div>
+
+    <div id="data-as-of" style="position:fixed;bottom:4px;right:6px;font-size:9px;line-height:1;opacity:0.6;color:#888;background:rgba(0,0,0,0.2);padding:1px 4px;border-radius:2px;pointer-events:none;z-index:9999;font-family:monospace;">Loading...</div>
+
+    <script>
+        // ============================================================
+        // MAIN APPLICATION
+        // ============================================================
+        let chartRegistry = {};
+        let btcBasisData = null;
+
+        const numOr = (value, fallback) => {
+            const n = Number.parseFloat(value);
+            return Number.isFinite(n) ? n : fallback;
+        };
+
+        // ============================================================
+        // DATA LOADING
+        // ============================================================
+        async function loadData() {
+            const statusEl = document.getElementById('data-status');
+            
+            try {
+                // Try to fetch from Flask backend
+                const response = await fetch('/api/btc-basis', {
+                    headers: { 'Accept': 'application/json' }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.cme_front) {
+                        btcBasisData = data;
+                        statusEl.className = 'data-status live';
+                        statusEl.textContent = '● Live';
+                        console.log('[BTC Basis] Loaded live data from Flask backend');
+                        return true;
+                    }
+                }
+                throw new Error('Backend data invalid');
+                
+            } catch (error) {
+                console.warn('[BTC Basis] Backend unavailable:', error);
+                
+                try {
+                    // Try static JSON file
+                    const response = await fetch('data/nodes/btc_basis.json');
+                    if (response.ok) {
+                        const node = await response.json();
+                        btcBasisData = transformNodeData(node);
+                        statusEl.className = 'data-status fallback';
+                        statusEl.textContent = '● Static';
+                        console.log('[BTC Basis] Loaded static data');
+                        return true;
+                    }
+                } catch (e) {
+                    console.warn('[BTC Basis] Static file unavailable:', e);
+                }
+                
+                // Use fallback
+                btcBasisData = getFallbackData();
+                statusEl.className = 'data-status error';
+                statusEl.textContent = '● Fallback';
+                console.log('[BTC Basis] Using fallback data');
+                return true;
+            }
+        }
+
+        function transformNodeData(node) {
+            const current = node.current || {};
+            const history = node.history || [];
+            const quartiles = node.quartiles || {};
+            const spot = current.spot || 63425;
+            const basis_pct = current.basis_pct || 1.6;
+            
+            return {
+                as_of: node.timestamp || new Date().toISOString(),
+                cme_front: {
+                    spot: spot,
+                    futures: current.futures || spot * (1 + basis_pct / 100),
+                    basis_dollars: current.basis_dollar || spot * basis_pct / 100,
+                    basis_pct: basis_pct,
+                    basis_annualized_simple: basis_pct * 12,
+                    basis_annualized_industry: basis_pct * 11,
+                    quartiles: {
+                        '30d': quartiles.get('30d', 'Q1'),
+                        '60d': quartiles.get('60d', 'Q1'),
+                        '90d': quartiles.get('90d', 'Q1'),
+                        '1y': quartiles.get('1y', 'Q1'),
+                        '3y': quartiles.get('3y', 'Q1'),
+                        'since_2020': quartiles.get('since_2020', 'Q1')
+                    }
+                },
+                cme_second: {
+                    spot: spot,
+                    futures: spot * 1.0042,
+                    basis_dollars: spot * 0.0042,
+                    basis_pct: 0.42,
+                    basis_annualized_simple: 1.53,
+                    basis_annualized_industry: 1.41,
+                    quartiles: {
+                        '30d': quartiles.get('30d', 'Q1'),
+                        '60d': quartiles.get('60d', 'Q1'),
+                        '90d': quartiles.get('90d', 'Q1'),
+                        '1y': quartiles.get('1y', 'Q1'),
+                        '3y': quartiles.get('3y', 'Q1'),
+                        'since_2020': quartiles.get('since_2020', 'Q1')
+                    }
+                },
+                perp: {
+                    spot: spot,
+                    futures: spot,
+                    basis_dollars: 0,
+                    basis_pct: 0.025,
+                    basis_annualized_simple: 0.10,
+                    basis_annualized_industry: null,
+                    quartiles: {
+                        '30d': 'Q1',
+                        '60d': 'Q1',
+                        '90d': 'Q1',
+                        '1y': 'Q2',
+                        '3y': 'Q1',
+                        'since_2020': 'Q1'
+                    }
+                },
+                score: 78,
+                score_label: 'Strong • Q1',
+                history: history
+            };
+        }
+
+        function getFallbackData() {
+            const spot = 63425;
+            return {
+                as_of: new Date().toISOString(),
+                cme_front: {
+                    spot: spot,
+                    futures: 64450,
+                    basis_dollars: 1025,
+                    basis_pct: 1.62,
+                    basis_annualized_simple: 19.71,
+                    basis_annualized_industry: 19.44,
+                    quartiles: {'30d': 'Q1', '60d': 'Q2', '90d': 'Q1', '1y': 'Q3', '3y': 'Q2', 'since_2020': 'Q1'}
+                },
+                cme_second: {
+                    spot: spot,
+                    futures: 62195,
+                    basis_dollars: -1230,
+                    basis_pct: -1.94,
+                    basis_annualized_simple: -11.80,
+                    basis_annualized_industry: -11.64,
+                    quartiles: {'30d': 'Q2', '60d': 'Q2', '90d': 'Q2', '1y': 'Q3', '3y': 'Q2', 'since_2020': 'Q2'}
+                },
+                perp: {
+                    spot: spot,
+                    futures: spot,
+                    basis_dollars: 0,
+                    basis_pct: 0,
+                    basis_annualized_simple: 0,
+                    basis_annualized_industry: null,
+                    quartiles: {'30d': 'Q1', '60d': 'Q1', '90d': 'Q1', '1y': 'Q2', '3y': 'Q1', 'since_2020': 'Q1'}
+                },
+                score: 78,
+                score_label: 'Strong • Q1',
+                history: []
+            };
+        }
+
+        // ============================================================
+        // CHART CREATION
+        // ============================================================
+        function buildFallbackSeries(data) {
+            const labels = ['T-6', 'T-5', 'T-4', 'T-3', 'T-2', 'T-1', 'Now'];
+            return {
+                labels,
+                spotData: Array(labels.length).fill(data.spot),
+                futData: Array(labels.length).fill(data.futures),
+                bpData: Array(labels.length).fill(data.basis_pct)
+            };
+        }
+
+        function createBasisChart(canvasId, key, data, label, history = []) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            if (chartRegistry[key]) {
+                chartRegistry[key].destroy();
+            }
+
+            let labels, spotData, futData, bpData;
+
+            if (Array.isArray(history) && history.length > 0) {
+                const recent = history.slice(-30);
+                labels = recent.map(h => {
+                    const d = h.date || '';
+                    return d.length >= 10 ? d.slice(5, 10) : d;
+                });
+                spotData = recent.map(h => h.spot);
+                futData = recent.map(h => Number.isFinite(h.futures) ? h.futures : data.futures);
+                bpData = recent.map(h => Number.isFinite(h.basis_pct) ? h.basis_pct : data.basis_pct);
+            } else {
+                ({ labels, spotData, futData, bpData } = buildFallbackSeries(data));
+            }
+
+            chartRegistry[key] = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        {
+                            label: 'Spot Price',
+                            data: spotData,
+                            borderColor: '#4ade80',
+                            backgroundColor: 'rgba(74, 222, 128, 0.08)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 3,
+                            tension: 0.25,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: label,
+                            data: futData,
+                            borderColor: '#0A4D2E',
+                            backgroundColor: 'rgba(10, 77, 46, 0.08)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 3,
+                            tension: 0.25,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Basis %',
+                            data: bpData,
+                            borderColor: '#ff9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.10)',
+                            borderWidth: 2,
+                            pointRadius: 0,
+                            pointHoverRadius: 3,
+                            tension: 0.25,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            title: { display: true, text: 'Price (USD)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            title: { display: true, text: 'Basis %' },
+                            grid: { drawOnChartArea: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            callbacks: {
+                                label(context) {
+                                    if (context.dataset.label === 'Basis %') {
+                                        const ann = data.basis_annualized_industry ?? 'N/A (Perp)';
+                                        return `Basis: ${Number(context.raw).toFixed(2)}% | Ann. Simple: ${Number(data.basis_annualized_simple).toFixed(2)}% | Industry: ${ann}`;
+                                    }
+                                    return `${context.dataset.label}: $${Number(context.raw).toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // ============================================================
+        // UI UPDATE FUNCTIONS
+        // ============================================================
+        function populateSnapshot(elementId, data) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+            el.innerHTML = `
+                <div>Spot:</div><div class="value">$${Number(data.spot).toLocaleString()}</div>
+                <div>Futures:</div><div class="value">$${Number(data.futures).toLocaleString()}</div>
+                <div>Basis $:</div><div class="value">$${Number(data.basis_dollars).toLocaleString()}</div>
+                <div>Basis %:</div><div class="value">${Number(data.basis_pct).toFixed(2)}%</div>
+            `;
+        }
+
+        function populateQuartileTable(elementId, quartiles) {
+            const el = document.getElementById(elementId);
+            if (!el) return;
+
+            const order = ['30d', '60d', '90d', '1y', '3y', 'since_2020'];
+            let html = '<tr><th>Lookback</th><th>Quartile</th></tr>';
+            for (const period of order) {
+                const q = quartiles?.[period] ?? '—';
+                html += `<tr><td>${period}</td><td>${q}</td></tr>`;
+            }
+            el.innerHTML = html;
+        }
+
+        function updateHero(data) {
+            const scoreEl = document.getElementById('hero-score');
+            const labelEl = document.getElementById('hero-label');
+            const descEl = document.getElementById('hero-description');
+            const actionEl = document.getElementById('hero-action');
+            const asOfEl = document.getElementById('data-as-of');
+            
+            if (data.score) {
+                scoreEl.textContent = data.score;
+                labelEl.textContent = data.score_label || 'Strong • Q1';
+            }
+            
+            const front = data.cme_front;
+            const second = data.cme_second;
+            
+            if (front) {
+                descEl.text
