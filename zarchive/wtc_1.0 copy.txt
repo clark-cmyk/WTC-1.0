@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTC 1.0 — Whinfell Transmission Control</title>
+    <link rel="stylesheet" href="css/01_console.css">
+    <style>
+        .tab { cursor: pointer; padding: 10px 16px; border-bottom: 3px solid transparent; }
+        .tab.active { border-bottom: 3px solid #0A4D2E; background: rgba(10, 77, 46, 0.2); font-weight: bold; }
+        .toast { position:fixed; bottom:20px; right:20px; background:#0A4D2E; color:white; padding:12px 20px; border-radius:6px; z-index:9999; }
+        
+        .panel {
+            position: relative;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            background: var(--bg-card, #1a2a22);
+            border: 1px solid var(--border, #0A4D2E);
+            padding: 20px;
+            border-radius: 8px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .panel:hover, .hover-active {
+            transform: scale(1.04);
+            box-shadow: 0 0 25px rgba(10, 77, 46, 0.85);
+            border: 3px solid #0A4D2E !important;
+            background: rgba(10, 77, 46, 0.3) !important;
+        }
+        .scan-layer, .dig-layer {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(10, 77, 46, 0.97);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            z-index: 25;
+            overflow-y: auto;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .risk-elevated { border-color: #ff4444 !important; background: rgba(255, 68, 68, 0.1) !important; }
+        .a-btn { margin-top: 8px; padding: 4px 10px; font-size: 0.85em; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">WHINFELL <span style="font-size:0.7em;">WTC 1.0</span></div>
+        <div class="tabs" id="tabs"></div>
+        <div class="top-right">
+            <button onclick="globalArticulate()">A</button>
+            <button onclick="refreshAllData()">🔄 Refresh</button>
+            <button onclick="downloadCSV()">📊 CSV</button>
+            <button onclick="toggleTheme()">🌗</button>
+        </div>
+    </div>
+    <div class="main-content" id="mainContent"></div>
+
+    <script src="js/02_core.js"></script>
+    <script>
+        let currentTabId = 6;
+
+        const modules = [
+            { id: 1, code: "ART", name: "Articulate" },
+            { id: 2, code: "ARK", name: "Ark" },
+            { id: 3, code: "BAS", name: "Basis" },
+            { id: 4, code: "BBD", name: "Bang Bang Da" },
+            { id: 5, code: "COM", name: "Compute" },
+            { id: 6, code: "RCV", name: "Risk Curve" },
+            { id: 7, code: "SQ3", name: "SQ3" },
+            { id: 8, code: "DICT", name: "Data Dictionary" },
+            { id: 9, code: "DRONE", name: "Drone Wars" }
+        ];
+
+        function renderTabs() {
+            document.getElementById('tabs').innerHTML = modules.map(m =>
+                `<div class="tab" onclick="switchModule(${m.id})">${m.id}. ${m.code}</div>`
+            ).join('');
+        }
+
+        function switchModule(id) {
+            currentTabId = id;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            const tabs = document.querySelectorAll('.tab');
+            if (tabs[id-1]) tabs[id-1].classList.add('active');
+
+            const content = document.getElementById('mainContent');
+            if (id === 6) renderRiskCurve(content);
+            else if (id === 8) content.innerHTML = `<h2>Data Dictionary (DICT)</h2><button onclick="downloadCSV()">Export CSV</button>`;
+            else if (id === 9) content.innerHTML = `<h2>Drone Wars</h2><button onclick="triggerDroneWars()">Launch</button>`;
+            else content.innerHTML = `<h2>Module ${id}</h2>`;
+        }
+
+        function renderRiskCurve(content) {
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            if (!curveData || !curveData.nodes) {
+                content.innerHTML = `<h2>Risk Curve (RCV)</h2><p style="color:red;">ARK data not loaded. Click Refresh.</p>`;
+                return;
+            }
+
+            let html = `<h2>Risk Curve (RCV) • ${curveData.as_of}</h2>
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:20px;">`;
+            
+            Object.entries(curveData.nodes).forEach(([key, node]) => {
+                const isElevated = key === "Credit";
+                const cleanKey = key.replace(/\s+/g, '-');
+                html += `<div class="panel ${isElevated ? 'risk-elevated' : ''}" onclick="copyPrompt('${key}')"
+                            onmouseover="showScan(this, '${key}')" onmouseout="hideScan(this)">
+                    <h3>${key}</h3>
+                    <div style="font-size:48px;font-weight:700;color:#0A4D2E;">${node.score}</div>
+                    <div>${node.status} ${node.quartile}</div>
+                    <p>${node.description}</p>
+                    ${isElevated ? '<div style="color:#ff4444;font-weight:bold;margin-top:8px;">⚠ ELEVATED RISK — Monitor Credit</div>' : ''}
+                    <button class="a-btn" onclick="event.stopImmediatePropagation(); articulateNode('${key}');">A</button>
+                    <div class="scan-layer" id="scan-${cleanKey}"></div>
+                </div>`;
+            });
+            html += `</div>`;
+            content.innerHTML = html;
+        }
+
+        function showScan(el, key) {
+            if (!el) return;
+            el.classList.add('hover-active');
+            const scanLayer = document.getElementById(`scan-${key.replace(/\s+/g, '-')}`);
+            const node = getNode(key);
+            if (!scanLayer || !node) return;
+
+            let html = `<strong>SCAN: ${key.toUpperCase()}</strong><br>`;
+            html += `<strong>Metric:</strong> ${node.metricDefinition || 'Core risk indicator'}: ${node.metricInsight || 'Market condition gauge.'}<br><br>`;
+            html += `<strong>Role:</strong> ${node.role || 'N/A'}<br>`;
+            html += `<strong>Adjacent:</strong> ${node.adjacent || 'N/A'}<br><br>`;
+            html += `<strong>Score:</strong> ${node.score} (${node.quartile})<br><br>`;
+            html += `<strong>Regime:</strong> ${node.regime || 'N/A'}<br><br>`;
+            html += `<strong>Why:</strong> ${node.scoreReason || 'N/A'}<br><br>`;
+            html += `<strong>Inputs:</strong> ${node.inputs || 'N/A'}<br><br>`;
+            html += `<strong>Outputs:</strong> ${node.quantOutputs || 'N/A'}<br><br>`;
+            html += `<strong>Lookback:</strong> ${node.lookback || 'N/A'}`;
+
+            scanLayer.innerHTML = html;
+            scanLayer.style.display = 'block';
+        }
+
+        function hideScan(el) {
+            if (el) {
+                el.classList.remove('hover-active');
+                const layers = el.querySelectorAll('.scan-layer');
+                layers.forEach(l => l.style.display = 'none');
+            }
+        }
+
+        function getNode(key) {
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            return (curveData && curveData.nodes && curveData.nodes[key]) || {};
+        }
+
+        function copyPrompt(key) {
+            const node = getNode(key);
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            const prompt = `Goldman Prop Desk Chief Analysis - ${key} as of ${curveData ? curveData.as_of : 'today'}\n\nScore: ${node.score} (${node.quartile})\nRegime: ${node.regime || 'N/A'}\nWhy: ${node.scoreReason || 'N/A'}\nInputs: ${node.inputs || 'N/A'}\nOutputs: ${node.quantOutputs || 'N/A'}\nLookback: ${node.lookback || 'N/A'}`;
+
+            navigator.clipboard.writeText(prompt).then(() => showToast(`Prompt copied: ${key}`))
+                       .catch(() => { alert(prompt); showToast("Shown in alert"); });
+        }
+
+        function articulateNode(key) { copyPrompt(key); }
+
+        function globalArticulate() {
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            let breakdown = "";
+            if (curveData && curveData.nodes) {
+                Object.keys(curveData.nodes).forEach(k => {
+                    const n = curveData.nodes[k];
+                    breakdown += `\n${k}: Score ${n.score} (${n.quartile}) | ${n.scoreReason || ''}\n`;
+                });
+            }
+            const prompt = `WHINFELL GLOBAL SNAPSHOT as of ${curveData ? curveData.as_of : 'today'}\n\nDetailed Node Breakdown:${breakdown}\nCross asset themes and trade recommendations.`;
+            navigator.clipboard.writeText(prompt).then(() => showToast("Global Snapshot copied")).catch(() => alert(prompt));
+        }
+
+        function showToast(msg) {
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2500);
+        }
+
+        function refreshAllData() {
+            if (window.ARK && typeof window.ARK.refresh === 'function') {
+                window.ARK.refresh();
+                showToast("Data Refreshed");
+            } else {
+                showToast("ARK not loaded - check js/02_core.js");
+            }
+            switchModule(currentTabId);
+        }
+
+        function downloadCSV() {
+            const curveData = window.ARK ? window.ARK.get('risk_curve') : null;
+            if (!curveData) return showToast("No data");
+            let csv = "Node,Score,Status,Quartile,Description\n";
+            Object.entries(curveData.nodes).forEach(([key, node]) => {
+                csv += `"${key}",${node.score},"${node.status}","${node.quartile}","${(node.description || '').replace(/"/g, '""')}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `risk_curve_${curveData.as_of || 'export'}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("CSV downloaded");
+        }
+
+        function toggleTheme() {
+            const body = document.documentElement;
+            body.setAttribute('data-theme', body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        }
+
+        function triggerDroneWars() { showToast("Drone Wars launched"); }
+
+        document.addEventListener('keydown', e => {
+            if (e.key >= '1' && e.key <= '9') {
+                const num = parseInt(e.key);
+                if (num <= modules.length) switchModule(num);
+            }
+        });
+
+        renderTabs();
+        switchModule(6);
+    </script>
+</body>
+</html>
